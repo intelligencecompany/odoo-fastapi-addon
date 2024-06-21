@@ -1,7 +1,17 @@
 from fastapi import FastAPI
 import uvicorn
 import xmlrpc.client
+from odoo import http, route
+import requests
 
+
+class FastApiController(http.Controller):
+    @route('/api/partners', auth='public')
+    def handler(self):
+        url = 'http://localhost:8000/partners'
+        response = requests.get(url)
+        return response.json()
+    
 app = FastAPI()
 
 ODOO_URL = 'https://dataruba.com'
@@ -28,6 +38,6 @@ async def get_partners():
         return partners
     else:
         return {'status': 'Connection failed'}
-
+    
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
