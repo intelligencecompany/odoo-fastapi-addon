@@ -23,9 +23,9 @@ async def test_connection():
     api_key = 'AdminOdoo2024!'
     uid, models = get_connection(api_key)
     if uid:
-        return {'status': 'Connection successful', 'uid': uid}
+        return {'status': 'Connection successful', 'uid': uid, 'models': models }
     else:
-        return {'status': 'Connection failed'}
+        return {'status': 'Connection failed', 'uid': uid, 'models': models }
 
 @app.get("/partners")
 async def get_partners():

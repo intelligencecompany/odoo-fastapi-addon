@@ -9,7 +9,7 @@ class FastApiController(http.Controller):
         response = requests.get(url)
         return response.content
     
-    @http.route('/api/test', auth='public')
+    @http.route('/api/test', type='json', auth='public')
     def test(self):
         url = 'http://127.0.0.1:8000/test'
         response = requests.get(url)
@@ -19,4 +19,4 @@ class FastApiController(http.Controller):
     def parnters(self):
         url = 'http://127.0.0.1:8000/partners'
         response = requests.get(url)
-        return response.json()
+        return response.text
