@@ -19,16 +19,13 @@ class FastApiController(http.Controller):
     
     @http.route('/api/test', methods=['GET'], auth='public')
     def test(self):
-        logging.info('test')
         try:            
             x_key_header = http.request.httprequest.headers.get('x-key')
-            logging.info(f'x-key: {x_key_header}')
-            url = 'http://127.0.0.1:8000/api/test'
-
             headers = {
                 'x-key': x_key_header
             }
 
+            url = 'http://127.0.0.1:8000/api/test'
             response = requests.get(url=url, headers=headers)
             response.raise_for_status()
             # Parse the response content as JSON
@@ -41,9 +38,13 @@ class FastApiController(http.Controller):
             return json.dumps(response_data)
         
     @http.route('/api/models', methods=['GET'], auth='public')
-    def models(self):
+    def models(self):       
+        x_key_header = http.request.httprequest.headers.get('x-key')
+        headers = {
+            'x-key': x_key_header
+        }
         url = 'http://127.0.0.1:8000/api/models'
-        response = requests.get(url)
+        response = requests.get(url=url, headers=headers)
         # Parse the response content as JSON
         response_json = response.json()
         # Return the JSON response
@@ -60,8 +61,13 @@ class FastApiController(http.Controller):
     
     @http.route('/api/<string:model>', methods=['GET'], auth='public')
     def model(self, model=None):
+        x_key_header = http.request.httprequest.headers.get('x-key')
+        headers = {
+            'x-key': x_key_header
+        }
+
         url = f'http://127.0.0.1:8000/api/{model}'
-        response = requests.get(url)
+        response = requests.get(url=url, headers=headers)
         # Parse the response content as JSON
         response_json = response.json()
         # Return the JSON response
