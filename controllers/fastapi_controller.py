@@ -25,7 +25,7 @@ class FastApiController(http.Controller):
             url = 'http://127.0.0.1:8000/api/test'
 
             headers = {
-                'x-key': x_key_header  # Pass X-Key header to the external API
+                'x-key': x_key_header
             }
 
             response = requests.get(url=url, headers=headers)
@@ -35,8 +35,9 @@ class FastApiController(http.Controller):
             # Return the JSON response
             return response_json
         except requests.exceptions.RequestException as e:
+            logging.error(e)
             response_data = {'error': str(e)}
-            return response_data
+            return json.dumps(response_data)
         
     @http.route('/api/models', methods=['GET'], auth='public')
     def test(self):
