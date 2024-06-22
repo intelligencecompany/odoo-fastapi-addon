@@ -33,22 +33,23 @@ async def create_dynamic_endpoint(model: str, method: str):
     elif method == 'POST':
         setattr(app, 'post_' + model, lambda: get_model(model))
 
-def add_api_routes():
-    api_key = 'admin'
-    uid, models = get_connection(api_key)
-    model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
-    model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
-
-    for n in model_names[:2]:
-        logging.info(n)
-        app.add_api_route(f'/api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
-
 # XML-RPC connection
 def get_connection(api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
     uid = common.authenticate(ODOO_DB, ODOO_USERNAME, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
+
+def add_api_routes():
+    api_key = 'admin'
+    uid, models = get_connection(api_key)
+    model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
+    model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
+
+    for n in [{ 'model': 'a', 'model': 'b' }]:
+        logging.info(n)
+        app.add_api_route(f'/api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
+
 
 add_api_routes()
 
