@@ -9,7 +9,11 @@
     'author': 'Your Name',
     'depends': ['base'],
     'external_dependencies': {
-        'python' : ['fastapi','requests','uvicorn'],
+        'python' : [
+            'fastapi',
+            'requests',
+            'uvicorn'
+        ],
     },
     'data': [
         'views/res_users_view.xml',
