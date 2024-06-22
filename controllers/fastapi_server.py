@@ -16,12 +16,12 @@ app = FastAPI()
 
 api_key_header = APIKeyHeader(name='x-key')
 
-async def create_dynamic_endpoint(path: str, model: str, method: str):
+async def create_dynamic_endpoint(model: str, method: str):
     method = method.upper()
     if method == 'GET':
-        setattr(app, 'get_' + path, lambda: get_model(model))
+        setattr(app, 'get_' + model, lambda: get_model(model))
     elif method == 'POST':
-        setattr(app, 'post_' + path, lambda: get_model(model))
+        setattr(app, 'post_' + model, lambda: get_model(model))
 
 def get_models():
     api_key = 'admin'
@@ -30,7 +30,7 @@ def get_models():
     model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
 
     for n in model_names:
-        app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(f'api/{n.model}', n.model, 'GET'), methods=['GET'])
+        app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
 
 # XML-RPC connection
 def get_connection(api_key: str):
