@@ -68,4 +68,4 @@ async def get_model(model: str, api_key:str = Depends(api_key_header)):
     else:
         return json.dumps({'status': 'Connection failed'})
 
-add_api_routes()
+# add_api_routes()
