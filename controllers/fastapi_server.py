@@ -31,7 +31,6 @@ def add_api_routes():
 
     for n in model_names:
         app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
-add_api_routes()
 
 # XML-RPC connection
 def get_connection(api_key: str):
@@ -68,3 +67,5 @@ async def get_model(model: str, api_key:str = Depends(api_key_header)):
         return json.dumps(partners)
     else:
         return json.dumps({'status': 'Connection failed'})
+
+add_api_routes()
