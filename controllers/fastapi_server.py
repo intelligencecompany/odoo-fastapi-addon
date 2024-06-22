@@ -41,10 +41,10 @@ def get_connection(api_key: str):
     return uid, models
 
 def add_api_routes():
-    api_key = 'admin'
-    uid, models = get_connection(api_key)
-    model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
-    model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
+    # api_key = 'admin'
+    # uid, models = get_connection(api_key)
+    # model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
+    # model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
 
     for n in [{ 'model': 'a', 'model': 'b' }]:
         logging.info(n)
