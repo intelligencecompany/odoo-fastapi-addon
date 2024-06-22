@@ -12,14 +12,9 @@ app = FastAPI()
 
 # XML-RPC connection
 def get_connection(api_key: str):
-    logging.info(f'{ODOO_URL}/xmlrpc/2/common')
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
-    logging.info(common)
-    logging.info(api_key)
     uid = common.authenticate(ODOO_DB, ODOO_USERNAME, api_key, {})
-    logging.info(uid)
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
-    logging.info(models)
     return uid, models
 
 @app.get("/api/test")
