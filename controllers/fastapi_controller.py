@@ -17,6 +17,6 @@ class FastApiController(http.Controller):
     
     @http.route('/api/partners', auth='public')
     def handler(self):
-        # url = 'http://localhost:8000/partners'
-        # response = requests.get(url)
-        return 'ok'
+        url = 'http://127.0.0.1:8000/partners'
+        response = requests.get(url)
+        return { 'url': url, 'status_code': response.status_code }
