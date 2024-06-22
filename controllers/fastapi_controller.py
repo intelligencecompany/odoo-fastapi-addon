@@ -26,14 +26,14 @@ class FastApiController(http.Controller):
         # Return the JSON response
         return response_json
     
-    @http.route('/api/partners', methods=['GET'], auth='public')
-    def parnters(self):
-        url = 'http://127.0.0.1:8000/api/partners'
-        response = requests.get(url)
-        # Parse the response content as JSON
-        response_json = response.json()
-        # Return the JSON response
-        return response_json
+    # @http.route('/api/partners', methods=['GET'], auth='public')
+    # def parnters(self):
+    #     url = 'http://127.0.0.1:8000/api/partners'
+    #     response = requests.get(url)
+    #     # Parse the response content as JSON
+    #     response_json = response.json()
+    #     # Return the JSON response
+    #     return response_json
     
     @http.route('/api/<string:model>', methods=['GET'], auth='public')
     def model(self, model=None):
