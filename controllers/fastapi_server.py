@@ -12,7 +12,25 @@ ODOO_USERNAME = 'admin'
 
 app = FastAPI()
 
+
+
 api_key_header = APIKeyHeader(name='x-key')
+
+async def create_dynamic_endpoint(path: str, model: str, method: str):
+    method = method.upper()
+    if method == 'GET':
+        setattr(app, 'get_' + path, lambda: get_model(model))
+    elif method == 'POST':
+        setattr(app, 'post_' + path, lambda: get_model(model))
+
+def get_models():
+    api_key = 'admin'
+    uid, models = get_connection(api_key)
+    model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
+    model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
+
+    for n in model_names:
+        app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(f'api/{n.model}', n.model, 'GET'), methods=['GET'])
 
 # XML-RPC connection
 def get_connection(api_key: str):
@@ -24,7 +42,6 @@ def get_connection(api_key: str):
 @app.get("/api/test")
 async def test_connection(api_key:str = Depends(api_key_header)):
     # api_key = 'admin'
-    logging.info(f'APIKEY: {api_key}')
     uid, models = get_connection(api_key)
     if uid:
         return json.dumps({'status': 'Connection successful', 'uid': uid })
@@ -43,13 +60,10 @@ async def get_models(api_key:str = Depends(api_key_header)):
         return json.dumps({'status': 'Connection failed'})
 
 @app.get("/api/{model}")
-async def get_partners(model: str, api_key:str = Depends(api_key_header)):
+async def get_model(model: str, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     if uid:
         partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
         return json.dumps(partners)
     else:
         return json.dumps({'status': 'Connection failed'})
-# subprocess.check_call([sys.executable, '-m', 'fastapi', 'dev', '-r', requirements_file])
-# if __name__ == "__main__":
-# uvicorn.run(app, host="0.0.0.0", port=8000)

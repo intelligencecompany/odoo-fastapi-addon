@@ -37,7 +37,7 @@ class FastApiController(http.Controller):
             response_data = {'error': str(e)}
             return json.dumps(response_data)
         
-    @http.route('/api/models', methods=['GET'], type='json', auth='public')
+    @http.route('/api/models', methods=['GET'], auth='public')
     def models(self):       
         x_key_header = http.request.httprequest.headers.get('x-key')
         headers = {
@@ -49,15 +49,6 @@ class FastApiController(http.Controller):
         response_json = response.json()
         # Return the JSON response
         return response_json
-
-    # @http.route('/api/partners', methods=['GET'], auth='public')
-    # def parnters(self):
-    #     url = 'http://127.0.0.1:8000/api/partners'
-    #     response = requests.get(url)
-    #     # Parse the response content as JSON
-    #     response_json = response.json()
-    #     # Return the JSON response
-    #     return response_json
     
     @http.route('/api/<string:model>', methods=['GET'], auth='public')
     def model(self, model=None):
