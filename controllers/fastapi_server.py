@@ -33,9 +33,9 @@ async def get_partners():
     uid, models = get_connection(api_key)
     if uid:
         partners = models.execute_kw(ODOO_DB, uid, api_key, 'res.partner', 'search_read', [[]])
-        return partners
+        return json.dumps(partners)
     else:
-        return {'status': 'Connection failed'}
+        return json.dumps({'status': 'Connection failed'})
 
 @app.get("/api/{model}")
 async def get_partners(model: str):
@@ -43,9 +43,9 @@ async def get_partners(model: str):
     uid, models = get_connection(api_key)
     if uid:
         partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
-        return partners
+        return json.dumps(partners)
     else:
-        return {'status': 'Connection failed'}
+        return json.dumps({'status': 'Connection failed'})
 # subprocess.check_call([sys.executable, '-m', 'fastapi', 'dev', '-r', requirements_file])
 # if __name__ == "__main__":
 # uvicorn.run(app, host="0.0.0.0", port=8000)
