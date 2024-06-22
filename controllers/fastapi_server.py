@@ -23,7 +23,7 @@ async def create_dynamic_endpoint(model: str, method: str):
     elif method == 'POST':
         setattr(app, 'post_' + model, lambda: get_model(model))
 
-def get_models():
+def add_api_routes():
     api_key = 'admin'
     uid, models = get_connection(api_key)
     model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
@@ -31,6 +31,7 @@ def get_models():
 
     for n in model_names:
         app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
+add_api_routes()
 
 # XML-RPC connection
 def get_connection(api_key: str):
