@@ -8,8 +8,9 @@ from . import controllers
 # from . import res_users
 
 # controllers/__init__.py
-from . import fastapi_server
-from . import fastapi_controller
+# from odoo.addons import fastapi
+# from controllers import fastapi_server
+# from controllers import fastapi_controller
 
 # Import and run the install script
 # from . import install_dependencies
@@ -17,7 +18,7 @@ from . import fastapi_controller
 
 
 def start_fastapi():
-    uvicorn.run(fastapi_server.app, host="0.0.0.0", port=8000)
+    uvicorn.run(controllers.fastapi_server.app, host="0.0.0.0", port=8000)
 
 def start_fastapi_in_thread():
     fastapi_thread = threading.Thread(target=start_fastapi, daemon=True)
