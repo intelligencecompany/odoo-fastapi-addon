@@ -29,15 +29,16 @@ async def test_connection(api_key:str = Depends(key)):
     else:
         return json.dumps({'status': 'Connection failed' })
 
-# @app.get("/api/partners")
-# async def get_partners():
-#     api_key = 'admin'
-#     uid, models = get_connection(api_key)
-#     if uid:
-#         partners = models.execute_kw(ODOO_DB, uid, api_key, 'res.partner', 'search_read', [[]])
-#         return json.dumps(partners)
-#     else:
-#         return json.dumps({'status': 'Connection failed'})
+@app.get("/api/models")
+async def get_models(api_key:str = Depends(key)):
+    uid, models = get_connection(api_key)
+    if uid:
+        model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
+        model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
+
+        return json.dumps(model_names)
+    else:
+        return json.dumps({'status': 'Connection failed'})
 
 @app.get("/api/{model}")
 async def get_partners(model: str, api_key:str = Depends(key)):
