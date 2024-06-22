@@ -2,6 +2,7 @@
 from odoo import http
 import requests
 import json
+import logging
 
 class FastApiController(http.Controller):
     @http.route('/openapi.json', auth='public')
@@ -20,8 +21,11 @@ class FastApiController(http.Controller):
     def test(self):
         url = 'http://127.0.0.1:8000/api/test'
         response = requests.get(url)
+        logging.info(response.text)
+        logging.info(response.content)
         # Parse the response content as JSON
         response_json = response.json()
+        logging.info(response_json)
         # Return the JSON response
         return http.Response(
             json.dumps(response_json),
