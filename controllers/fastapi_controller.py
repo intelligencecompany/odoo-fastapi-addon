@@ -19,13 +19,18 @@ class FastApiController(http.Controller):
     
     @http.route('/api/test', methods=['GET'], auth='public')
     def test(self):
-        url = 'http://127.0.0.1:8000/api/test'
-        response = requests.get(url)
-        # Parse the response content as JSON
-        response_json = response.json()
-        # Return the JSON response
-        return response_json
-    
+        try:
+            url = 'http://127.0.0.1:8000/api/test'
+            response = requests.get(url)
+            response.raise_for_status()
+            # Parse the response content as JSON
+            response_json = response.json()
+            # Return the JSON response
+            return response_json
+        except requests.exceptions.RequestException as e:
+            response_data = {'error': str(e)}
+            return response_data
+        
     @http.route('/api/models', methods=['GET'], auth='public')
     def test(self):
         url = 'http://127.0.0.1:8000/api/models'
