@@ -30,6 +30,7 @@ def add_api_routes():
     model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
 
     for n in model_names[:2]:
+        logging.info(n)
         app.add_api_route(f'api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
 
 # XML-RPC connection
@@ -68,4 +69,4 @@ async def get_model(model: str, api_key:str = Depends(api_key_header)):
     else:
         return json.dumps({'status': 'Connection failed'})
 
-add_api_routes()
+# add_api_routes()
