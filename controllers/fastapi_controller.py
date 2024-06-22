@@ -19,7 +19,8 @@ class FastApiController(http.Controller):
     
     @http.route('/api/test', methods=['GET'], auth='public')
     def test(self):
-        try:
+        logging.info('test')
+        try:            
             x_key_header = http.request.httprequest.headers.get('x-key')
             logging.info(f'x-key: {x_key_header}')
             url = 'http://127.0.0.1:8000/api/test'
@@ -40,7 +41,7 @@ class FastApiController(http.Controller):
             return json.dumps(response_data)
         
     @http.route('/api/models', methods=['GET'], auth='public')
-    def test(self):
+    def models(self):
         url = 'http://127.0.0.1:8000/api/models'
         response = requests.get(url)
         # Parse the response content as JSON
