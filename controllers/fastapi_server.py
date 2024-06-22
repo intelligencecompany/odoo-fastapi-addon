@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 import uvicorn
 import xmlrpc.client
+import logging
 
 ODOO_URL = 'http://127.0.0.1:8069'
 ODOO_DB = 'azureuser'
@@ -11,7 +12,11 @@ app = FastAPI()
 
 # XML-RPC connection
 def get_connection(api_key: str)-> str:
+    print(f'{ODOO_URL}/xmlrpc/2/common')
+    logging.info(f'{ODOO_URL}/xmlrpc/2/common')
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
+    print(common)
+    logging.info(common)
     uid = common.authenticate(ODOO_DB, ODOO_USERNAME, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
