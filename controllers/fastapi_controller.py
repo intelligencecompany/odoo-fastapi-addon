@@ -16,14 +16,20 @@ class FastApiController(http.Controller):
         response = requests.get(url)
         return response.content
     
-    @http.route('/api/test', auth='public')
+    @http.route('/api/test', type='json', auth='public')
     def test(self):
         url = 'http://127.0.0.1:8000/api/test'
         response = requests.get(url)
-        return json.dumps(response.text)
+        # Parse the response content as JSON
+        response_json = response.json()
+        # Return the JSON response
+        return response_json
     
-    @http.route('/api/partners', auth='public')
+    @http.route('/api/partners', type='json', auth='public')
     def parnters(self):
         url = 'http://127.0.0.1:8000/api/partners'
         response = requests.get(url)
-        return json.dumps(response.text)
+        # Parse the response content as JSON
+        response_json = response.json()
+        # Return the JSON response
+        return response_json
