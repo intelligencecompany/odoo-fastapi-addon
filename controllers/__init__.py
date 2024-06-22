@@ -50,9 +50,9 @@ def add_api_routes():
     # model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
     # model_names = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'read', [model_ids, ['model', 'name']])
 
-    for n in [{ 'model': 'a' }, { 'model': 'b' }]:
+    for n in ['a', 'b']:
         logging.info(n)
-        app.add_api_route(f'/api/{n.get("model")}', create_dynamic_endpoint(n.get("model"), 'GET'), methods=['GET'])
+        app.add_api_route(f'/api/{n}', create_dynamic_endpoint(n, 'GET'), methods=['GET'])
 
 
 add_api_routes()
