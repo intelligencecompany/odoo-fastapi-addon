@@ -22,7 +22,7 @@ def get_connection(api_key: str):
     logging.info(models)
     return uid, models
 
-@app.get("/test")
+@app.get("/api/test")
 async def test_connection():
     api_key = 'AdminOdoo2024!'
     uid, models = get_connection(api_key)
@@ -31,7 +31,7 @@ async def test_connection():
     else:
         return {'status': 'Connection failed', 'uid': uid }
 
-@app.get("/partners")
+@app.get("/api/partners")
 async def get_partners():
     api_key = 'AdminOdoo2024!'
     uid, models = get_connection(api_key)

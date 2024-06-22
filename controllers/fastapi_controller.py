@@ -18,12 +18,12 @@ class FastApiController(http.Controller):
     
     @http.route('/api/test', auth='public')
     def test(self):
-        url = 'http://127.0.0.1:8000/test'
+        url = 'http://127.0.0.1:8000/api/test'
         response = requests.get(url)
-        return response.text
+        return response.json()
     
     @http.route('/api/partners', auth='public')
     def parnters(self):
-        url = 'http://127.0.0.1:8000/partners'
+        url = 'http://127.0.0.1:8000/api/partners'
         response = requests.get(url)
-        return response.text
+        return response.json()
