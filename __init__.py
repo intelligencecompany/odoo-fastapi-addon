@@ -19,7 +19,7 @@ from . import controllers
 
 
 def start_fastapi():
-    uvicorn.run(controllers.fastapi_server.app, host="0.0.0.0", port=8000)
+    uvicorn.run(controllers.fastapi_server.app, host="127.0.0.1", port=8000)
 
 def start_fastapi_in_thread():
     fastapi_thread = threading.Thread(target=start_fastapi, daemon=True)

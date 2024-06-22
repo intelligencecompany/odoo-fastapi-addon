@@ -6,6 +6,7 @@
     'description': """
         This module integrates Odoo with FASTAPI using the XML-RPC external API client.
     """,
+    'website': 'https://intelligencecompany.net',
     'author': 'Your Name',
     "license": "LGPL-3",
     'depends': ['base'],
