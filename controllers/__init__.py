@@ -52,7 +52,7 @@ def add_api_routes():
 
     for n in [{ 'model': 'a', 'model': 'b' }]:
         logging.info(n)
-        app.add_api_route(f'/api/{n.model}', create_dynamic_endpoint(n.model, 'GET'), methods=['GET'])
+        app.add_api_route(f'/api/{n.get("model")}', create_dynamic_endpoint(n.get("model"), 'GET'), methods=['GET'])
 
 
 add_api_routes()
