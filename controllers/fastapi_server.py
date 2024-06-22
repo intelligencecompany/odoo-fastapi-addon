@@ -18,7 +18,11 @@ def get_connection(api_key: str)-> str:
     print(common)
     logging.info(common)
     uid = common.authenticate(ODOO_DB, ODOO_USERNAME, api_key, {})
+    print(uid)
+    logging.info(uid)
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
+    print(models)
+    logging.info(models)
     return uid, models
 
 @app.get("/test")
