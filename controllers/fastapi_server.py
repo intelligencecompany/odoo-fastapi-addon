@@ -3,6 +3,7 @@ from fastapi.responses import RedirectResponse
 import uvicorn
 import xmlrpc.client
 import logging
+import json
 
 ODOO_URL = 'http://127.0.0.1:8069'
 ODOO_DB = 'azureuser'
@@ -22,9 +23,9 @@ async def test_connection():
     api_key = 'admin'
     uid, models = get_connection(api_key)
     if uid:
-        return {'status': 'Connection successful', 'uid': uid }
+        return json.dumps({'status': 'Connection successful', 'uid': uid })
     else:
-        return {'status': 'Connection failed' }
+        return json.dumps({'status': 'Connection failed' })
 
 @app.get("/api/partners")
 async def get_partners():

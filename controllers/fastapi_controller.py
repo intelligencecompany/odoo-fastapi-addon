@@ -27,11 +27,7 @@ class FastApiController(http.Controller):
         response_json = response.json()
         logging.info(response_json)
         # Return the JSON response
-        return http.Response(
-            json.dumps(response_json),
-            status=200,
-            mimetype='application/json'
-        )
+        return response_json
     
     @http.route('/api/partners', type='json', auth='public')
     def parnters(self):
