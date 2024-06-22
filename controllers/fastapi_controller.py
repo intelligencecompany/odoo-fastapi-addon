@@ -20,8 +20,15 @@ class FastApiController(http.Controller):
     @http.route('/api/test', methods=['GET'], auth='public')
     def test(self):
         try:
+            x_key_header = http.request.httprequest.headers.get('x-key')
+            logging.info(f'x-key: {x_key_header}')
             url = 'http://127.0.0.1:8000/api/test'
-            response = requests.get(url)
+
+            headers = {
+                'x-key': x_key_header  # Pass X-Key header to the external API
+            }
+
+            response = requests.get(url=url, headers=headers)
             response.raise_for_status()
             # Parse the response content as JSON
             response_json = response.json()
