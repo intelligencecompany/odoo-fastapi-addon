@@ -64,7 +64,7 @@ class FastApiController(http.Controller):
         # Return the JSON response
         # return response_json
         return http.Response(
-            response_json,
+            json.dumps(response_json),
             status=200,
             mimetype='application/json'
         )
