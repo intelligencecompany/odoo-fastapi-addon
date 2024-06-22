@@ -23,7 +23,11 @@ class FastApiController(http.Controller):
         # Parse the response content as JSON
         response_json = response.json()
         # Return the JSON response
-        return response_json
+        return http.Response(
+            json.dumps(response_json),
+            status=200,
+            mimetype='application/json'
+        )
     
     @http.route('/api/partners', type='json', auth='public')
     def parnters(self):
@@ -32,4 +36,8 @@ class FastApiController(http.Controller):
         # Parse the response content as JSON
         response_json = response.json()
         # Return the JSON response
-        return response_json
+        return http.Response(
+            json.dumps(response_json),
+            status=200,
+            mimetype='application/json'
+        )
