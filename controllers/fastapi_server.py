@@ -22,9 +22,9 @@ async def test_connection():
     api_key = 'admin'
     uid, models = get_connection(api_key)
     if uid:
-        return {'status': 'Connection successful', 'uid': uid, 'models': models }
+        return {'status': 'Connection successful', 'uid': uid }
     else:
-        return {'status': 'Connection failed', 'uid': uid }
+        return {'status': 'Connection failed' }
 
 @app.get("/api/partners")
 async def get_partners():
