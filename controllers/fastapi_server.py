@@ -37,6 +37,15 @@ async def get_partners():
     else:
         return {'status': 'Connection failed'}
 
+@app.get("/api/{model}")
+async def get_partners(model: str):
+    api_key = 'admin'
+    uid, models = get_connection(api_key)
+    if uid:
+        partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
+        return partners
+    else:
+        return {'status': 'Connection failed'}
 # subprocess.check_call([sys.executable, '-m', 'fastapi', 'dev', '-r', requirements_file])
 # if __name__ == "__main__":
 # uvicorn.run(app, host="0.0.0.0", port=8000)
