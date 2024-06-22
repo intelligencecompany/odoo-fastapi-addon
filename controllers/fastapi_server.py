@@ -24,7 +24,7 @@ def get_connection(api_key: str):
 
 @app.get("/api/test")
 async def test_connection():
-    api_key = 'AdminOdoo2024!'
+    api_key = 'admin'
     uid, models = get_connection(api_key)
     if uid:
         return {'status': 'Connection successful', 'uid': uid, 'models': models }
@@ -33,7 +33,7 @@ async def test_connection():
 
 @app.get("/api/partners")
 async def get_partners():
-    api_key = 'AdminOdoo2024!'
+    api_key = 'admin'
     uid, models = get_connection(api_key)
     if uid:
         partners = models.execute_kw(ODOO_DB, uid, api_key, 'res.partner', 'search_read', [[]])
