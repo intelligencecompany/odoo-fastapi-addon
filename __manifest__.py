@@ -7,6 +7,7 @@
         This module integrates Odoo with FASTAPI using the XML-RPC external API client.
     """,
     'author': 'Your Name',
+    "license": "LGPL-3",
     'depends': ['base'],
     'external_dependencies': {
         'python' : [
