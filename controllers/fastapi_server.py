@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 import uvicorn
 import xmlrpc.client
+# import subprocess
+# import sys
 
 ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
@@ -34,6 +36,7 @@ async def get_partners():
         return partners
     else:
         return {'status': 'Connection failed'}
-    
+
+# subprocess.check_call([sys.executable, '-m', 'fastapi', 'dev', '-r', requirements_file])
 # if __name__ == "__main__":
-uvicorn.run(app, host="0.0.0.0", port=8000)
+# uvicorn.run(app, host="0.0.0.0", port=8000)
