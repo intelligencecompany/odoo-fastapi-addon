@@ -12,7 +12,8 @@ ODOO_USERNAME = 'admin'
 
 app = FastAPI()
 
-key = APIKeyHeader(name='x-key')
+api_key_header = APIKeyHeader(name='x-key')
+
 # XML-RPC connection
 def get_connection(api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
@@ -21,8 +22,9 @@ def get_connection(api_key: str):
     return uid, models
 
 @app.get("/api/test")
-async def test_connection(api_key:str = Depends(key)):
+async def test_connection(api_key:str = Depends(api_key_header)):
     # api_key = 'admin'
+    logging.info(f'APIKEY: {api_key}')
     uid, models = get_connection(api_key)
     if uid:
         return json.dumps({'status': 'Connection successful', 'uid': uid })
@@ -30,7 +32,7 @@ async def test_connection(api_key:str = Depends(key)):
         return json.dumps({'status': 'Connection failed' })
 
 @app.get("/api/models")
-async def get_models(api_key:str = Depends(key)):
+async def get_models(api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     if uid:
         model_ids = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model', 'search', [[]])
@@ -41,7 +43,7 @@ async def get_models(api_key:str = Depends(key)):
         return json.dumps({'status': 'Connection failed'})
 
 @app.get("/api/{model}")
-async def get_partners(model: str, api_key:str = Depends(key)):
+async def get_partners(model: str, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     if uid:
         partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
