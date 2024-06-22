@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends
+from fastapi import FastAPI, Depends, HTTPException
 from fastapi.security import APIKeyHeader
 from fastapi.responses import RedirectResponse
 import uvicorn
