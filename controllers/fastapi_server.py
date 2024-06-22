@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 import uvicorn
 import xmlrpc.client
 
-ODOO_URL = 'https://dataruba.com'
+ODOO_URL = 'http://127.0.0.1:8069'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
@@ -23,7 +23,7 @@ async def test_connection():
     if uid:
         return {'status': 'Connection successful', 'uid': uid, 'models': models }
     else:
-        return {'status': 'Connection failed', 'uid': uid, 'models': models }
+        return {'status': 'Connection failed', 'uid': uid }
 
 @app.get("/partners")
 async def get_partners():

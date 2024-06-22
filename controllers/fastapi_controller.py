@@ -26,4 +26,4 @@ class FastApiController(http.Controller):
     def parnters(self):
         url = 'http://127.0.0.1:8000/partners'
         response = requests.get(url)
-        return json.dumps(response.text)
+        return response.text
