@@ -21,7 +21,7 @@ app = FastAPI()
 api_key_header = APIKeyHeader(name='x-key')
 
 
-async def get_model(model: str):
+def get_model(model: str):
     api_key = 'admin'
     uid, models = get_connection(api_key)
     if uid:
@@ -30,7 +30,7 @@ async def get_model(model: str):
     else:
         return json.dumps({'status': 'Connection failed'})
     
-async def create_dynamic_endpoint(model: str, method: str):
+def create_dynamic_endpoint(model: str, method: str):
     method = method.upper()
     if method == 'GET':
         setattr(app, 'get_' + model, lambda: get_model(model))
