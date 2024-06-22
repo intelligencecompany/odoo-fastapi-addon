@@ -23,12 +23,13 @@ api_key_header = APIKeyHeader(name='x-key')
 
 def get_model(model: str):
     api_key = 'admin'
-    uid, models = get_connection(api_key)
-    if uid:
-        partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
-        return json.dumps(partners)
-    else:
-        return json.dumps({'status': 'Connection failed'})
+    return json.dumps({'status': 'Connection failed'})
+    # uid, models = get_connection(api_key)
+    # if uid:
+    #     partners = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
+    #     return json.dumps(partners)
+    # else:
+    #     return json.dumps({'status': 'Connection failed'})
     
 def create_dynamic_endpoint(model: str, method: str):
     method = method.upper()
