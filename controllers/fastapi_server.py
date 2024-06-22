@@ -2,8 +2,6 @@ from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 import uvicorn
 import xmlrpc.client
-# import subprocess
-# import sys
 
 ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
