@@ -1,0 +1,36 @@
+
+from pydantic import BaseModel, Field
+from typing import Optional, List, Any
+
+class WebsiteVisitorModel(BaseModel):
+    id: Optional[int] = Field(None, title="ID", description="")
+    access_token: str = Field("", title="Access Token", description="")
+    website_id: Optional[int] = Field(None, title="Website", description="")
+    partner_id: Optional[int] = Field(None, title="Contact", description="Partner of the last logged in user.")
+    country_id: Optional[int] = Field(None, title="Country", description="")
+    lang_id: Optional[int] = Field(None, title="Language", description="Language from the website when visitor has been created")
+    last_visited_page_id: Optional[int] = Field(None, title="Last Visited Page", description="")
+    livechat_operator_id: Optional[int] = Field(None, title="Speaking with", description="")
+    website_track_ids: Optional[List[int]] = Field(None, title="Visited Pages History", description="")
+    page_ids: Optional[List[int]] = Field(None, title="Visited Pages", description="")
+    discuss_channel_ids: Optional[List[int]] = Field(None, title="Visitor's livechat channels", description="")
+    name: Optional[str] = Field(None, title="Name", description="")
+    partner_image: Optional[Any] = Field(None, title="Image", description="")
+    country_flag: Optional[str] = Field(None, title="Country Flag", description="Url of static flag image")
+    timezone: Optional[Any] = Field(None, title="Timezone", description="")
+    email: Optional[str] = Field(None, title="Email", description="")
+    mobile: Optional[str] = Field(None, title="Mobile", description="")
+    visit_count: Optional[int] = Field(None, title="# Visits", description="A new visit is considered if last connection was more than 8 hours ago.")
+    visitor_page_count: Optional[int] = Field(None, title="Page Views", description="Total number of visits on tracked pages")
+    page_count: Optional[int] = Field(None, title="# Visited Pages", description="Total number of tracked page visited")
+    create_date: Optional[str] = Field(None, title="First Connection", description="")
+    last_connection_datetime: Optional[str] = Field(None, title="Last Connection", description="Last page view date")
+    time_since_last_action: Optional[str] = Field(None, title="Last action", description="Time since last page view. E.g.: 2 minutes ago")
+    is_connected: Optional[bool] = Field(None, title="Is connected?", description="A visitor is considered as connected if his last page view was within the last 5 minutes.")
+    display_name: Optional[str] = Field(None, title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, title="Created by", description="")
+    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    livechat_operator_name: Optional[str] = Field(None, title="Operator Name", description="")
+    session_count: Optional[int] = Field(None, title="# Sessions", description="")
+

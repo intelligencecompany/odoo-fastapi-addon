@@ -1,13 +1,13 @@
 {
-    'name': 'My Odoo FASTAPI Integration',
+    'name': 'Odoo REST API',
     'version': '1.0',
     'category': 'Tools',
-    'summary': 'Integration with FASTAPI using XML-RPC',
+    'summary': 'Converting XML-RPC to a OpenAPI REST API',
     'description': """
         This module integrates Odoo with FASTAPI using the XML-RPC external API client.
     """,
     'website': 'https://intelligencecompany.net',
-    'author': 'Your Name',
+    'author': 'Gijs Segerink',
     "license": "LGPL-3",
     'depends': ['base'],
     'external_dependencies': {

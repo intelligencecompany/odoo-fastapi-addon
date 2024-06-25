@@ -1,0 +1,36 @@
+
+from pydantic import BaseModel, Field
+from typing import Optional, List, Any
+
+class ActivityModel(BaseModel):
+    id: Optional[int] = Field(None, title="ID", description="")
+    date_deadline: str = Field("", title="Due Date", description="")
+    res_model_id: int = Field(0, title="Document Model", description="")
+    res_id: Optional[Any] = Field(None, title="Related Document ID", description="")
+    activity_type_id: Optional[int] = Field(None, title="Activity Type", description="")
+    user_id: int = Field(0, title="Assigned to", description="")
+    request_partner_id: Optional[int] = Field(None, title="Requesting Partner", description="")
+    recommended_activity_type_id: Optional[int] = Field(None, title="Recommended Activity Type", description="")
+    previous_activity_type_id: Optional[int] = Field(None, title="Previous Activity Type", description="")
+    attachment_ids: Optional[List[int]] = Field(None, title="Attachments", description="")
+    mail_template_ids: Optional[List[int]] = Field(None, title="Email templates", description="")
+    res_model: Optional[str] = Field(None, title="Related Document Model", description="")
+    res_name: Optional[str] = Field(None, title="Document Name", description="")
+    activity_category: Optional[Any] = Field(None, title="Action", description="Actions may trigger specific behavior like opening calendar view or automatically mark as done when a document is uploaded")
+    activity_decoration: Optional[Any] = Field(None, title="Decoration Type", description="Change the background color of the related activities of this type.")
+    icon: Optional[str] = Field(None, title="Icon", description="Font awesome icon e.g. fa-tasks")
+    summary: Optional[str] = Field(None, title="Summary", description="")
+    note: Optional[Any] = Field(None, title="Note", description="")
+    date_done: Optional[str] = Field(None, title="Done Date", description="")
+    automated: Optional[bool] = Field(None, title="Automated activity", description="Indicates this activity has been created automatically and not by any user.")
+    state: Optional[Any] = Field(None, title="State", description="")
+    has_recommended_activities: Optional[bool] = Field(None, title="Next activities available", description="")
+    chaining_type: Optional[Any] = Field(None, title="Chaining Type", description="")
+    can_write: Optional[bool] = Field(None, title="Can Write", description="")
+    active: Optional[bool] = Field(None, title="Active", description="")
+    display_name: Optional[str] = Field(None, title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, title="Created by", description="")
+    create_date: Optional[str] = Field(None, title="Created on", description="")
+    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+

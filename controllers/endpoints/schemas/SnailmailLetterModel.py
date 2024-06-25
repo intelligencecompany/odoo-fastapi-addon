@@ -1,0 +1,36 @@
+
+from pydantic import BaseModel, Field
+from typing import Optional, List, Any
+
+class SnailmailLetterModel(BaseModel):
+    id: Optional[int] = Field(None, title="ID", description="")
+    model: str = Field("", title="Model", description="")
+    state: Any = Field(None, title="Status", description="When a letter is created, the status is 'Pending'.\nIf the letter is correctly sent, the status goes in 'Sent',\nIf not, it will got in state 'Error' and the error message will be displayed in the field 'Error Message'.")
+    user_id: Optional[int] = Field(None, title="Sent by", description="")
+    res_id: int = Field(0, title="Document ID", description="")
+    partner_id: int = Field(0, title="Recipient", description="")
+    company_id: int = Field(0, title="Company", description="")
+    attachment_id: Optional[int] = Field(None, title="Attachment", description="")
+    message_id: Optional[int] = Field(None, title="Snailmail Status Message", description="")
+    state_id: Optional[int] = Field(None, title="State", description="")
+    country_id: Optional[int] = Field(None, title="Country", description="")
+    notification_ids: Optional[List[int]] = Field(None, title="Notifications", description="")
+    report_template: Optional[int] = Field(None, title="Optional report to print and attach", description="")
+    attachment_datas: Optional[Any] = Field(None, title="Document", description="")
+    attachment_fname: Optional[str] = Field(None, title="Attachment Filename", description="")
+    color: Optional[bool] = Field(None, title="Color", description="")
+    cover: Optional[bool] = Field(None, title="Cover Page", description="")
+    duplex: Optional[bool] = Field(None, title="Both side", description="")
+    error_code: Optional[Any] = Field(None, title="Error", description="")
+    info_msg: Optional[str] = Field(None, title="Information", description="")
+    reference: Optional[str] = Field(None, title="Related Record", description="")
+    street: Optional[str] = Field(None, title="Street", description="")
+    street2: Optional[str] = Field(None, title="Street2", description="")
+    zip: Optional[str] = Field(None, title="Zip", description="")
+    city: Optional[str] = Field(None, title="City", description="")
+    display_name: Optional[str] = Field(None, title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, title="Created by", description="")
+    create_date: Optional[str] = Field(None, title="Created on", description="")
+    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+

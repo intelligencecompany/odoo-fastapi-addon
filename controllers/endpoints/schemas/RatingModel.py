@@ -1,0 +1,37 @@
+
+from pydantic import BaseModel, Field
+from typing import Optional, List, Any
+
+class RatingModel(BaseModel):
+    id: Optional[int] = Field(None, title="ID", description="")
+    res_model_id: Optional[int] = Field(None, title="Related Document Model", description="")
+    res_id: Any = Field(None, title="Document", description="")
+    parent_res_model_id: Optional[int] = Field(None, title="Parent Related Document Model", description="")
+    parent_res_id: Optional[int] = Field(None, title="Parent Document", description="")
+    rated_partner_id: Optional[int] = Field(None, title="Rated Operator", description="")
+    partner_id: Optional[int] = Field(None, title="Customer", description="")
+    message_id: Optional[int] = Field(None, title="Message", description="")
+    publisher_id: Optional[int] = Field(None, title="Commented by", description="")
+    create_date: Optional[str] = Field(None, title="Submitted on", description="")
+    res_name: Optional[str] = Field(None, title="Resource name", description="")
+    res_model: Optional[str] = Field(None, title="Document Model", description="")
+    resource_ref: Optional[Any] = Field(None, title="Resource Ref", description="")
+    parent_res_name: Optional[str] = Field(None, title="Parent Document Name", description="")
+    parent_res_model: Optional[str] = Field(None, title="Parent Document Model", description="")
+    parent_ref: Optional[Any] = Field(None, title="Parent Ref", description="")
+    rated_partner_name: Optional[str] = Field(None, title="Name", description="")
+    rating: Optional[Any] = Field(None, title="Rating Value", description="")
+    rating_image: Optional[Any] = Field(None, title="Image", description="")
+    rating_image_url: Optional[str] = Field(None, title="Image URL", description="")
+    rating_text: Optional[Any] = Field(None, title="Rating", description="")
+    feedback: Optional[Any] = Field(None, title="Comment", description="")
+    is_internal: Optional[bool] = Field(None, title="Visible Internally Only", description="Hide to public / portal users, independently from subtype configuration.")
+    access_token: Optional[str] = Field(None, title="Security Token", description="")
+    consumed: Optional[bool] = Field(None, title="Filled Rating", description="")
+    display_name: Optional[str] = Field(None, title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, title="Created by", description="")
+    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    publisher_comment: Optional[Any] = Field(None, title="Publisher comment", description="")
+    publisher_datetime: Optional[str] = Field(None, title="Commented on", description="")
+
