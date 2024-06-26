@@ -2,8 +2,8 @@
 from odoo import models, fields, api
 
 class FastApiModel(models.Model):
-     _name = 'api.model'
-    _description = 'Api Model'
+     _name = 'openapi.model'
+    _description = 'OpenAPI Model'
     
     name = fields.Char(string='Name')
     fastapi_url = fields.Char(string="FASTAPI URL")
