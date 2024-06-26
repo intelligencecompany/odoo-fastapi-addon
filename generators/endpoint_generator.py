@@ -46,7 +46,7 @@ from .schemas import {model_name}Model as Model
 
 router = APIRouter()
 
-ODOO_URL = 'http://localhost:8069'
+ODOO_URL = 'http://127.0.0.1:8069'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
