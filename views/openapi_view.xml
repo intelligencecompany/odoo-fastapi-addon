@@ -1,5 +1,5 @@
 <odoo>
-    <record id="view_my_model_form" model="ir.ui.view">
+    <record id="view_openapi_model_form" model="ir.ui.view">
         <field name="name">openapi.model.form</field>
         <field name="model">openapi.model</field>
         <field name="arch" type="xml">
@@ -18,13 +18,13 @@
         </field>
     </record>
 
-    <!-- <record id="action_my_model" model="ir.actions.act_window">
+    <record id="action_openapi_model" model="ir.actions.act_window">
         <field name="name">OpenAPI Model</field>
         <field name="res_model">openapi.model</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-    </record> -->
+    </record>
 
-    <menuitem id="menu_my_model_main" name="OpenAPI Model" sequence="10"/>
-    <!-- <menuitem id="menu_my_model" name="OpenAPI Model" parent="menu_my_model_main" action="action_my_model"/> -->
+    <menuitem id="menu_openapi_model_main" name="OpenAPI Model" sequence="10"/>
+    <menuitem id="menu_my_model" name="OpenAPI Model" parent="menu_openapi_model_main" action="action_openapi_model"/>
 </odoo>
