@@ -31,6 +31,6 @@ async def get_guest(fields:str = '', offset:int = 0, limit:int = 1000, api_key:s
             return json.dumps([])
         
         results = Model.GuestModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

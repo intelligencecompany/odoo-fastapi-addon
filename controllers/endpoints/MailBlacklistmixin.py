@@ -31,6 +31,6 @@ async def get_mailblacklistmixin(fields:str = '', offset:int = 0, limit:int = 10
             return json.dumps([])
         
         results = Model.MailBlacklistmixinModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

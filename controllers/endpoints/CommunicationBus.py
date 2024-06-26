@@ -31,6 +31,6 @@ async def get_communicationbus(fields:str = '', offset:int = 0, limit:int = 1000
             return json.dumps([])
         
         results = Model.CommunicationBusModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -31,6 +31,6 @@ async def get_utmmedium(fields:str = '', offset:int = 0, limit:int = 1000, api_k
             return json.dumps([])
         
         results = Model.UTMMediumModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -31,6 +31,6 @@ async def get_activityscheduleplanwizard(fields:str = '', offset:int = 0, limit:
             return json.dumps([])
         
         results = Model.ActivityscheduleplanWizardModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

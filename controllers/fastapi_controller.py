@@ -50,9 +50,13 @@ class FastApiController(http.Controller):
     #     # Return the JSON response
     #     return response_json
     
-    @http.route('/api/<string:action>', methods=['GET'], auth='public')
+    @http.route('/api/<string:action>', type='http', methods=['GET'], auth='public')
     def model(self, action=None):
+        params = http.request.params
+
+        print(params)
         x_key_header = http.request.httprequest.headers.get('x-key')
+
         headers = {
             'x-key': x_key_header
         }
@@ -61,8 +65,13 @@ class FastApiController(http.Controller):
         response = requests.get(url=url, headers=headers)
         # Parse the response content as JSON
         response_json = response.json()
+        logging.info(response_json)
         # Return the JSON response
-        return response_json
+        # return response_json
+        return http.request.make_response(
+            json.dumps(response_json),
+            headers={'Content-Type': 'application/json'}
+        )
         # return http.Response(
         #     json.dumps(response_json),
         #     status=200,

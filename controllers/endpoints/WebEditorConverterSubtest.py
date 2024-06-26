@@ -31,6 +31,6 @@ async def get_webeditorconvertersubtest(fields:str = '', offset:int = 0, limit:i
             return json.dumps([])
         
         results = Model.WebEditorConverterSubtestModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

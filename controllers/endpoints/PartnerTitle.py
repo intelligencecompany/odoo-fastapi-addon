@@ -31,6 +31,6 @@ async def get_partnertitle(fields:str = '', offset:int = 0, limit:int = 1000, ap
             return json.dumps([])
         
         results = Model.PartnerTitleModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

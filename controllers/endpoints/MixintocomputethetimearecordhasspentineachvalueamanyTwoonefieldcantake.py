@@ -31,6 +31,6 @@ async def get_mixintocomputethetimearecordhasspentineachvalueamanytwoonefieldcan
             return json.dumps([])
         
         results = Model.MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

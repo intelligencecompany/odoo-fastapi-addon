@@ -31,6 +31,6 @@ async def get_fields(fields:str = '', offset:int = 0, limit:int = 1000, api_key:
             return json.dumps([])
         
         results = Model.FieldsModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

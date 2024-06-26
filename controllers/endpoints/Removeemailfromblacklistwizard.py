@@ -31,6 +31,6 @@ async def get_removeemailfromblacklistwizard(fields:str = '', offset:int = 0, li
             return json.dumps([])
         
         results = Model.RemoveemailfromblacklistwizardModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

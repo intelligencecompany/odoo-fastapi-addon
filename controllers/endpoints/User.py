@@ -31,6 +31,6 @@ async def get_user(fields:str = '', offset:int = 0, limit:int = 1000, api_key:st
             return json.dumps([])
         
         results = Model.UserModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

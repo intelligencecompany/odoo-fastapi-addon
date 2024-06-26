@@ -31,6 +31,6 @@ async def get_demofailure(fields:str = '', offset:int = 0, limit:int = 1000, api
             return json.dumps([])
         
         results = Model.DemofailureModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

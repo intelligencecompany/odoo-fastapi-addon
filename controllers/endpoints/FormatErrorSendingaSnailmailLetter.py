@@ -31,6 +31,6 @@ async def get_formaterrorsendingasnailmailletter(fields:str = '', offset:int = 0
             return json.dumps([])
         
         results = Model.FormatErrorSendingaSnailmailLetterModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

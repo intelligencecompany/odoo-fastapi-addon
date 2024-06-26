@@ -31,6 +31,6 @@ async def get_onboardingprogresstracker(fields:str = '', offset:int = 0, limit:i
             return json.dumps([])
         
         results = Model.OnboardingProgressTrackerModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -31,6 +31,6 @@ async def get_productunitofmeasure(fields:str = '', offset:int = 0, limit:int = 
             return json.dumps([])
         
         results = Model.ProductUnitofMeasureModel.from_execute_kw(results, field_list)
-        return results
+        return json.dumps(results)
     else:
         return json.dumps({'status': 'Connection failed'})
