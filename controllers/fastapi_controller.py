@@ -1,6 +1,7 @@
 
 from odoo import http
 import requests
+from urllib.parse import urlencode
 import json
 import logging
 
@@ -53,22 +54,21 @@ class FastApiController(http.Controller):
     @http.route('/api/<string:action>', type='http', methods=['GET'], auth='public')
     def model(self, action=None):
         params = http.request.params
+        del params[action]
+
+        query_string = urlencode(params)
 
         print(params)
+        print(query_string)
         x_key_header = http.request.httprequest.headers.get('x-key')
 
         headers = {
             'x-key': x_key_header
         }
 
-        url = f'http://127.0.0.1:8000/api/{action}'
+        url = f'http://127.0.0.1:8000/api/{action}?{query_string}'
         response = requests.get(url=url, headers=headers)
-        # Parse the response content as JSON
-        # response_json = response.json()
-        logging.info(response.text)
-        logging.info(response.content)
-        # Return the JSON response
-        # return response_json
+        
         return http.request.make_response(
             response.content,
             headers={'Content-Type': 'application/json'}
