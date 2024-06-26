@@ -26,5 +26,5 @@
     </record> -->
 
     <menuitem id="menu_my_model_main" name="OpenAPI Model" sequence="10"/>
-    <menuitem id="menu_my_model" name="OpenAPI Model" parent="menu_my_model_main" action="action_my_model"/>
+    <!-- <menuitem id="menu_my_model" name="OpenAPI Model" parent="menu_my_model_main" action="action_my_model"/> -->
 </odoo>
