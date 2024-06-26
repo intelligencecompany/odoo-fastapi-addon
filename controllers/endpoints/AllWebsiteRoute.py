@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/website.route", response_model=List[Model.AllWebsiteRouteModel], tags=["website"])
+@router.get("/api/website.route", response_model=List[Model.AllWebsiteRouteModel], tags=['website', 'route'])
 async def get_allwebsiteroute(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_allwebsiteroute(fields:str = '', offset:int = 0, limit:int = 1000,
     return JSONResponse(content=results)
 
     
-@router.post("/api/website.route", response_model=Model.AllWebsiteRouteModel, tags=["website"])
+@router.post("/api/website.route", response_model=Model.AllWebsiteRouteModel, tags=['website', 'route'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/website.route/{post_id}", response_model=Dict[str, str], tags=["website"])
+@router.put("/api/website.route/{post_id}", response_model=Dict[str, str], tags=['website', 'route'])
 async def put_allwebsiteroute(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

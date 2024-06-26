@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/auth_totp.device", response_model=List[Model.AuthenticationDeviceModel], tags=["auth_totp"])
+@router.get("/api/auth_totp.device", response_model=List[Model.AuthenticationDeviceModel], tags=['auth_totp', 'device'])
 async def get_authenticationdevice(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_authenticationdevice(fields:str = '', offset:int = 0, limit:int = 
     return JSONResponse(content=results)
 
     
-@router.post("/api/auth_totp.device", response_model=Model.AuthenticationDeviceModel, tags=["auth_totp"])
+@router.post("/api/auth_totp.device", response_model=Model.AuthenticationDeviceModel, tags=['auth_totp', 'device'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/auth_totp.device/{post_id}", response_model=Dict[str, str], tags=["auth_totp"])
+@router.put("/api/auth_totp.device/{post_id}", response_model=Dict[str, str], tags=['auth_totp', 'device'])
 async def put_authenticationdevice(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

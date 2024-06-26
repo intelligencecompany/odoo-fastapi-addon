@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.exports.line", response_model=List[Model.ExportsLineModel], tags=["ir"])
+@router.get("/api/ir.exports.line", response_model=List[Model.ExportsLineModel], tags=['ir', 'exports', 'line'])
 async def get_exportsline(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_exportsline(fields:str = '', offset:int = 0, limit:int = 1000, api
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.exports.line", response_model=Model.ExportsLineModel, tags=["ir"])
+@router.post("/api/ir.exports.line", response_model=Model.ExportsLineModel, tags=['ir', 'exports', 'line'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.exports.line/{post_id}", response_model=Dict[str, str], tags=["ir"])
+@router.put("/api/ir.exports.line/{post_id}", response_model=Dict[str, str], tags=['ir', 'exports', 'line'])
 async def put_exportsline(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/payment.transaction", response_model=List[Model.PaymentTransactionModel], tags=["payment"])
+@router.get("/api/payment.transaction", response_model=List[Model.PaymentTransactionModel], tags=['payment', 'transaction'])
 async def get_paymenttransaction(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_paymenttransaction(fields:str = '', offset:int = 0, limit:int = 10
     return JSONResponse(content=results)
 
     
-@router.post("/api/payment.transaction", response_model=Model.PaymentTransactionModel, tags=["payment"])
+@router.post("/api/payment.transaction", response_model=Model.PaymentTransactionModel, tags=['payment', 'transaction'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/payment.transaction/{post_id}", response_model=Dict[str, str], tags=["payment"])
+@router.put("/api/payment.transaction/{post_id}", response_model=Dict[str, str], tags=['payment', 'transaction'])
 async def put_paymenttransaction(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

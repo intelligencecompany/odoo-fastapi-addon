@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/sms.resend", response_model=List[Model.SMSResendModel], tags=["sms"])
+@router.get("/api/sms.resend", response_model=List[Model.SMSResendModel], tags=['sms', 'resend'])
 async def get_smsresend(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_smsresend(fields:str = '', offset:int = 0, limit:int = 1000, api_k
     return JSONResponse(content=results)
 
     
-@router.post("/api/sms.resend", response_model=Model.SMSResendModel, tags=["sms"])
+@router.post("/api/sms.resend", response_model=Model.SMSResendModel, tags=['sms', 'resend'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/sms.resend/{post_id}", response_model=Dict[str, str], tags=["sms"])
+@router.put("/api/sms.resend/{post_id}", response_model=Dict[str, str], tags=['sms', 'resend'])
 async def put_smsresend(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/chatbot.script.answer", response_model=List[Model.ChatbotScriptAnswerModel], tags=["chatbot"])
+@router.get("/api/chatbot.script.answer", response_model=List[Model.ChatbotScriptAnswerModel], tags=['chatbot', 'script', 'answer'])
 async def get_chatbotscriptanswer(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_chatbotscriptanswer(fields:str = '', offset:int = 0, limit:int = 1
     return JSONResponse(content=results)
 
     
-@router.post("/api/chatbot.script.answer", response_model=Model.ChatbotScriptAnswerModel, tags=["chatbot"])
+@router.post("/api/chatbot.script.answer", response_model=Model.ChatbotScriptAnswerModel, tags=['chatbot', 'script', 'answer'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/chatbot.script.answer/{post_id}", response_model=Dict[str, str], tags=["chatbot"])
+@router.put("/api/chatbot.script.answer/{post_id}", response_model=Dict[str, str], tags=['chatbot', 'script', 'answer'])
 async def put_chatbotscriptanswer(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

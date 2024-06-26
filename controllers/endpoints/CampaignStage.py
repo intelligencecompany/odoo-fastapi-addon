@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/utm.stage", response_model=List[Model.CampaignStageModel], tags=["utm"])
+@router.get("/api/utm.stage", response_model=List[Model.CampaignStageModel], tags=['utm', 'stage'])
 async def get_campaignstage(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_campaignstage(fields:str = '', offset:int = 0, limit:int = 1000, a
     return JSONResponse(content=results)
 
     
-@router.post("/api/utm.stage", response_model=Model.CampaignStageModel, tags=["utm"])
+@router.post("/api/utm.stage", response_model=Model.CampaignStageModel, tags=['utm', 'stage'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/utm.stage/{post_id}", response_model=Dict[str, str], tags=["utm"])
+@router.put("/api/utm.stage/{post_id}", response_model=Dict[str, str], tags=['utm', 'stage'])
 async def put_campaignstage(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

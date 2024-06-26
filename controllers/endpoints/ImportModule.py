@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/base.import.module", response_model=List[Model.ImportModuleModel], tags=["base"])
+@router.get("/api/base.import.module", response_model=List[Model.ImportModuleModel], tags=['base', 'import', 'module'])
 async def get_importmodule(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_importmodule(fields:str = '', offset:int = 0, limit:int = 1000, ap
     return JSONResponse(content=results)
 
     
-@router.post("/api/base.import.module", response_model=Model.ImportModuleModel, tags=["base"])
+@router.post("/api/base.import.module", response_model=Model.ImportModuleModel, tags=['base', 'import', 'module'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/base.import.module/{post_id}", response_model=Dict[str, str], tags=["base"])
+@router.put("/api/base.import.module/{post_id}", response_model=Dict[str, str], tags=['base', 'import', 'module'])
 async def put_importmodule(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

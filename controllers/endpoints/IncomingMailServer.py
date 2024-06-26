@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/fetchmail.server", response_model=List[Model.IncomingMailServerModel], tags=["fetchmail"])
+@router.get("/api/fetchmail.server", response_model=List[Model.IncomingMailServerModel], tags=['fetchmail', 'server'])
 async def get_incomingmailserver(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_incomingmailserver(fields:str = '', offset:int = 0, limit:int = 10
     return JSONResponse(content=results)
 
     
-@router.post("/api/fetchmail.server", response_model=Model.IncomingMailServerModel, tags=["fetchmail"])
+@router.post("/api/fetchmail.server", response_model=Model.IncomingMailServerModel, tags=['fetchmail', 'server'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/fetchmail.server/{post_id}", response_model=Dict[str, str], tags=["fetchmail"])
+@router.put("/api/fetchmail.server/{post_id}", response_model=Dict[str, str], tags=['fetchmail', 'server'])
 async def put_incomingmailserver(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

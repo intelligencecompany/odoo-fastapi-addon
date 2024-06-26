@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/product.attribute.value", response_model=List[Model.AttributeValueModel], tags=["product"])
+@router.get("/api/product.attribute.value", response_model=List[Model.AttributeValueModel], tags=['product', 'attribute', 'value'])
 async def get_attributevalue(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_attributevalue(fields:str = '', offset:int = 0, limit:int = 1000, 
     return JSONResponse(content=results)
 
     
-@router.post("/api/product.attribute.value", response_model=Model.AttributeValueModel, tags=["product"])
+@router.post("/api/product.attribute.value", response_model=Model.AttributeValueModel, tags=['product', 'attribute', 'value'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/product.attribute.value/{post_id}", response_model=Dict[str, str], tags=["product"])
+@router.put("/api/product.attribute.value/{post_id}", response_model=Dict[str, str], tags=['product', 'attribute', 'value'])
 async def put_attributevalue(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

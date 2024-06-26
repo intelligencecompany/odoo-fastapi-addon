@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/res.config.settings", response_model=List[Model.ConfigSettingsModel], tags=["res"])
+@router.get("/api/res.config.settings", response_model=List[Model.ConfigSettingsModel], tags=['res', 'config', 'settings'])
 async def get_configsettings(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_configsettings(fields:str = '', offset:int = 0, limit:int = 1000, 
     return JSONResponse(content=results)
 
     
-@router.post("/api/res.config.settings", response_model=Model.ConfigSettingsModel, tags=["res"])
+@router.post("/api/res.config.settings", response_model=Model.ConfigSettingsModel, tags=['res', 'config', 'settings'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/res.config.settings/{post_id}", response_model=Dict[str, str], tags=["res"])
+@router.put("/api/res.config.settings/{post_id}", response_model=Dict[str, str], tags=['res', 'config', 'settings'])
 async def put_configsettings(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

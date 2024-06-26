@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/mail.alias.domain", response_model=List[Model.EmailDomainModel], tags=["mail"])
+@router.get("/api/mail.alias.domain", response_model=List[Model.EmailDomainModel], tags=['mail', 'alias', 'domain'])
 async def get_emaildomain(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_emaildomain(fields:str = '', offset:int = 0, limit:int = 1000, api
     return JSONResponse(content=results)
 
     
-@router.post("/api/mail.alias.domain", response_model=Model.EmailDomainModel, tags=["mail"])
+@router.post("/api/mail.alias.domain", response_model=Model.EmailDomainModel, tags=['mail', 'alias', 'domain'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/mail.alias.domain/{post_id}", response_model=Dict[str, str], tags=["mail"])
+@router.put("/api/mail.alias.domain/{post_id}", response_model=Dict[str, str], tags=['mail', 'alias', 'domain'])
 async def put_emaildomain(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -21,7 +21,7 @@ def get_connection(api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/web_editor.converter.test.sub", response_model=List[Model.WebEditorConverterSubtestModel], tags=["web_editor"])
+@router.get("/api/web_editor.converter.test.sub", response_model=List[Model.WebEditorConverterSubtestModel], tags=['web_editor', 'converter', 'test', 'sub'])
 async def get_webeditorconvertersubtest(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
@@ -38,7 +38,7 @@ async def get_webeditorconvertersubtest(fields:str = '', offset:int = 0, limit:i
     return JSONResponse(content=results)
 
     
-@router.post("/api/web_editor.converter.test.sub", response_model=Model.WebEditorConverterSubtestModel, tags=["web_editor"])
+@router.post("/api/web_editor.converter.test.sub", response_model=Model.WebEditorConverterSubtestModel, tags=['web_editor', 'converter', 'test', 'sub'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -56,7 +56,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/web_editor.converter.test.sub/{post_id}", response_model=Dict[str, str], tags=["web_editor"])
+@router.put("/api/web_editor.converter.test.sub/{post_id}", response_model=Dict[str, str], tags=['web_editor', 'converter', 'test', 'sub'])
 async def put_webeditorconvertersubtest(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
