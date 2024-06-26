@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <record id="base.menu_openapi" model="ir.ui.menu">
+        <record id="base.menu_custom" model="ir.ui.menu">
             <field name="name">OpenAPI (REST)</field>
             <field name="sequence" eval="100"/>
         </record>
