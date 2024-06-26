@@ -73,8 +73,3 @@ class FastApiController(http.Controller):
             response.content,
             headers={'Content-Type': 'application/json'}
         )
-        # return http.Response(
-        #     json.dumps(response_json),
-        #     status=200,
-        #     mimetype='application/json'
-        # )
