@@ -70,7 +70,7 @@ class FastApiController(http.Controller):
         }
 
         url = f'http://127.0.0.1:8000/api/{action}/{id}'
-        response = requests.put(url=url, headers=headers, params=params, data=data)
+        response = requests.put(url=url, headers=headers, params=params, data=json.dumps(data))
         
         if response.status_code == 200:
             return http.request.make_response(
