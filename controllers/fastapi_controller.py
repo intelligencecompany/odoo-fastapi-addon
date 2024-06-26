@@ -53,7 +53,7 @@ class FastApiController(http.Controller):
     
     @http.route('/api/<string:action>', type='http', methods=['GET'], auth='public')
     def model(self, action=None):
-        params = {k: v for k, v in http.request.params.items() if k != action}
+        params = {k: v for k, v in http.request.params.items() if k != 'action'}
 
         query_string = urlencode(params)
 
