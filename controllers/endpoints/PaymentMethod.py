@@ -32,7 +32,7 @@ async def get_paymentmethod(
         api_key:str = Depends(api_key_header),
         uid: Annotated[Union[int, None], Header()] = None
     ):
-    print(user_id)
+    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
