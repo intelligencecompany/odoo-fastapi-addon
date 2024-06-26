@@ -4,6 +4,18 @@ import requests
 from urllib.parse import urlencode
 import json
 import logging
+from odoo import http
+from odoo.http import request
+
+def get_user_id(api_key: str):
+    user_id = request.env["res.users.apikeys"]._check_credentials(
+        scope="rpc", key=api_key
+    )
+
+    if not user_id:
+            raise http.BadRequest("API key invalid")
+    
+    return user_id
 
 class FastApiController(http.Controller):
     @http.route('/openapi.json', methods=['GET'], auth='public')
@@ -24,6 +36,10 @@ class FastApiController(http.Controller):
 
         x_key_header = http.request.httprequest.headers.get('x-key')
 
+        user_id = get_user_id(x_key_header)
+        print(user_id)
+        logging.info(user_id)
+        
         headers = {
             'x-key': x_key_header
         }

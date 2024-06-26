@@ -1,19 +1,16 @@
-from fastapi import FastAPI, Depends, HTTPException, Query
-from typing import List, Optional, Dict, Any
+from fastapi import Depends
+from typing import List, Dict, Any
 from fastapi.security import APIKeyHeader
-from fastapi.responses import RedirectResponse
-import uvicorn
 import xmlrpc.client
 import logging
 import json 
 from odoo import http
+from odoo.http import request
 from .endpoints import *
 
 ODOO_URL = 'http://127.0.0.1:8069'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
-
-# app = FastAPI()
 
 api_key_header = APIKeyHeader(name='x-key')
 
@@ -21,7 +18,7 @@ api_key_header = APIKeyHeader(name='x-key')
 def get_connection(api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
 
-    user_id = http.request.env["res.users.apikeys"]._check_credentials(
+    user_id = request.env["res.users.apikeys"]._check_credentials(
         scope="rpc", key=api_key
     )
 
