@@ -22,15 +22,18 @@ def get_connection(api_key: str):
     return uid, models
 
 @router.get("/api/website.route", response_model=List[Model.AllWebsiteRouteModel], tags=['website', 'route'])
-async def get_allwebsiteroute(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
+async def get_allwebsiteroute(fields:str = '', offset:int = 0, limit:int = 10, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
     if not uid:
         return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
         
+    try:
+        results = models.execute_kw(ODOO_DB, uid, api_key, 'website.route', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
+    except Exception as e:
+        return JSONResponse(content={'error': e }, status_code=400)
 
-    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.route', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
     if results is None:
         return JSONResponse(content=[])
     
