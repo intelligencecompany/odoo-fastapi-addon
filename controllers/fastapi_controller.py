@@ -8,6 +8,9 @@ from odoo import http
 from odoo.http import request
 
 def get_user_id(api_key: str):
+    if not api_key:
+            raise http.make_response("API key invalid", status=400)
+
     user_id = request.env["res.users.apikeys"]._check_credentials(
         scope="rpc", key=api_key
     )
