@@ -3,6 +3,7 @@ import json
 import xmlrpc.client
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import APIKeyHeader
+from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from .schemas import ImageMixinModel as Model
 
@@ -25,27 +26,28 @@ async def get_imagemixin(fields:str = '', offset:int = 0, limit:int = 1000, api_
     uid, models = get_connection(api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
-    if uid:
-        results = models.execute_kw(ODOO_DB, uid, api_key, 'image.mixin', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
-        if results is None:
-            return json.dumps([])
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
         
-        results = Model.ImageMixinModel.from_execute_kw(results, field_list)
-        return results
-    else:
-        return json.dumps({'status': 'Connection failed'})
+
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'image.mixin', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
+    if results is None:
+        return JSONResponse(content=[])
+    
+    results = Model.ImageMixinModel.from_execute_kw(results, field_list)
+    return JSONResponse(content=results)
 
 @router.put("/api/image.mixin/{post_id}", response_model=Dict[str, str], tags=["image"])
-async def put_imagemixin(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+async def put_imagemixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
     print(post_id)
-    print(fields)
+    print(data)
 
-    if uid:
-        result = models.execute_kw(ODOO_DB, uid, api_key, 'image.mixin', 'write', [[post_id], fields])
-        print(result)
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
 
-        return json.dumps({'success': 'Post updated successfully.'})
-    else:
-        return json.dumps({'status': 'Connection failed'})
+    result = models.execute_kw(ODOO_DB, uid, api_key, 'image.mixin', 'write', [[post_id], data])
+    print(result)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
