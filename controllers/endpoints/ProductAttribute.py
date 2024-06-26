@@ -2,8 +2,9 @@
 import json
 import logging
 import xmlrpc.client
-from fastapi import APIRouter, Depends, HTTPException, Query, Header
 from typing import Annotated, Union
+from fastapi import APIRouter, Depends, HTTPException, Query, Header
+from typing import Annotated, Union, Header
 from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
@@ -17,9 +18,9 @@ ODOO_USERNAME = 'admin'
 
 api_key_header = APIKeyHeader(name='x-key')
 
-def get_connection(user_id: int, api_key: str):
+def get_connection(uid: int, api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
-    uid = common.authenticate(ODOO_DB, user_id, api_key, {})
+    uid = common.authenticate(ODOO_DB, uid, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
@@ -29,10 +30,10 @@ async def get_productattribute(
         offset:int = 0, 
         limit:int = 10, 
         api_key:str = Depends(api_key_header),
-        user_id: Annotated[Union[int, None], Header()] = None
+        uid: Annotated[Union[int, None], Header()] = None
     ):
     print(user_id)
-    uid, models = get_connection(user_id, api_key)
+    uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
     if not uid:

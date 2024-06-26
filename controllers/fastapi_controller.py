@@ -13,10 +13,15 @@ def get_user_id(api_key: str):
     )
 
     if not user_id:
-            raise http.BadRequest("API key invalid")
+            raise http.make_response("API key invalid", status=400)
     
-    logging.info(f'Request for user: {user_id}')
-    return user_id
+    user = request.env['res.users'].browse(user_id)
+
+    if not user.exists():
+        return request.make_response("User not found", status=400)
+    
+    logging.info(f'Request for user: {user_id} {user.login}')
+    return user.login
 
 class FastApiController(http.Controller):
     @http.route('/openapi.json', methods=['GET'], auth='public')
