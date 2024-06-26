@@ -15,6 +15,7 @@ def get_user_id(api_key: str):
     if not user_id:
             raise http.BadRequest("API key invalid")
     
+    logging.info(f'Request for user: {user_id}')
     return user_id
 
 class FastApiController(http.Controller):
@@ -35,13 +36,11 @@ class FastApiController(http.Controller):
         params = {k: v for k, v in http.request.params.items() if k != 'action'}
 
         x_key_header = http.request.httprequest.headers.get('x-key')
+        user_id = get_user_id(x_key_header)            
 
-        user_id = get_user_id(x_key_header)
-        print(user_id)
-        logging.info(user_id)
-        
         headers = {
-            'x-key': x_key_header
+            'x-key': x_key_header,
+            'user_id': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}'
@@ -78,9 +77,13 @@ class FastApiController(http.Controller):
                 headers={'Content-Type': 'application/json'}, 
                 status=400
             )
-                                
+        
+        x_key_header = http.request.httprequest.headers.get('x-key')              
+        user_id = get_user_id(x_key_header)            
+
         headers = {
-            'x-key': http.request.httprequest.headers.get('x-key')
+            'x-key': x_key_header,
+            'user_id': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}'
@@ -126,8 +129,13 @@ class FastApiController(http.Controller):
             )
                                 
         params = {k: v for k, v in http.request.params.items() if k != 'action' and k != 'id'}
+        
+        x_key_header = http.request.httprequest.headers.get('x-key')              
+        user_id = get_user_id(x_key_header)            
+
         headers = {
-            'x-key': http.request.httprequest.headers.get('x-key')
+            'x-key': x_key_header,
+            'user_id': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}/{id}'

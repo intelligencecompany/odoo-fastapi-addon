@@ -7,8 +7,6 @@ from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from .schemas import ActionURLModel as Model
-from odoo import http
-from odoo.http import request
 
 router = APIRouter()
 
@@ -18,28 +16,22 @@ ODOO_USERNAME = 'admin'
 
 api_key_header = APIKeyHeader(name='x-key')
 
-def get_connection(api_key: str):
+def get_connection(user_id: int, api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
-
-    if not api_key:
-        return request.make_response("API key missing", status=400)
-
-    user_id = request.env["res.users.apikeys"]._check_credentials(
-        scope="rpc", key=api_key
-    )
-
-    if not user_id:
-        return request.make_response("API key invalid", status=400)
-    
-    print(user_id)
-
     uid = common.authenticate(ODOO_DB, user_id, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
 @router.get("/api/ir.actions.act_url", response_model=List[Model.ActionURLModel], tags=['ir', 'actions', 'act_url'])
-async def get_actionurl(fields:str = '', offset:int = 0, limit:int = 10, api_key:str = Depends(api_key_header)):
-    uid, models = get_connection(api_key)
+async def get_actionurl(
+        fields:str = '', 
+        offset:int = 0, 
+        limit:int = 10, 
+        api_key:str = Depends(api_key_header),
+        user_id: Annotated[Union[int, None], Header()] = None
+    ):
+    print(user_id)
+    uid, models = get_connection(user_id, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
     if not uid:
