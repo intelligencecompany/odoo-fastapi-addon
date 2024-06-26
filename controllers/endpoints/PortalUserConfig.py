@@ -31,13 +31,15 @@ async def get_portaluserconfig(fields:str = '', offset:int = 0, limit:int = 10, 
         
     try:
         results = models.execute_kw(ODOO_DB, uid, api_key, 'portal.wizard.user', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
-    except Exception as e:
-        return JSONResponse(content={'error': e }, status_code=400)
 
-    if results is None:
-        return JSONResponse(content=[])
+        if results is None:
+            return JSONResponse(content=[], status_code=204)
     
-    results = Model.PortalUserConfigModel.list_from_execute_kw(results, field_list)
+        results = Model.PortalUserConfigModel.list_from_execute_kw(results, field_list)
+        
+    except Exception as e:
+        return JSONResponse(content={'error': json.dumps(e) }, status_code=400)
+
     return JSONResponse(content=results)
 
     

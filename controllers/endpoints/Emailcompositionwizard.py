@@ -31,13 +31,15 @@ async def get_emailcompositionwizard(fields:str = '', offset:int = 0, limit:int 
         
     try:
         results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.compose.message', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
-    except Exception as e:
-        return JSONResponse(content={'error': e }, status_code=400)
 
-    if results is None:
-        return JSONResponse(content=[])
+        if results is None:
+            return JSONResponse(content=[], status_code=204)
     
-    results = Model.EmailcompositionwizardModel.list_from_execute_kw(results, field_list)
+        results = Model.EmailcompositionwizardModel.list_from_execute_kw(results, field_list)
+        
+    except Exception as e:
+        return JSONResponse(content={'error': json.dumps(e) }, status_code=400)
+
     return JSONResponse(content=results)
 
     

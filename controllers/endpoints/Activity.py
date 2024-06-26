@@ -31,13 +31,15 @@ async def get_activity(fields:str = '', offset:int = 0, limit:int = 10, api_key:
         
     try:
         results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.activity', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
-    except Exception as e:
-        return JSONResponse(content={'error': e }, status_code=400)
 
-    if results is None:
-        return JSONResponse(content=[])
+        if results is None:
+            return JSONResponse(content=[], status_code=204)
     
-    results = Model.ActivityModel.list_from_execute_kw(results, field_list)
+        results = Model.ActivityModel.list_from_execute_kw(results, field_list)
+        
+    except Exception as e:
+        return JSONResponse(content={'error': json.dumps(e) }, status_code=400)
+
     return JSONResponse(content=results)
 
     
