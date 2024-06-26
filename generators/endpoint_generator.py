@@ -40,7 +40,9 @@ def generate_endpoint(model: str = "", model_name: str = "DynamicModel") -> str:
 import json
 import logging
 import xmlrpc.client
-from fastapi import APIRouter, Depends, HTTPException, Query
+from typing import Annotated, Union
+from fastapi import APIRouter, Depends, HTTPException, Query, Header
+from typing import Annotated, Union, Header
 from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any

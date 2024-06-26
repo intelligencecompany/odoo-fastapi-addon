@@ -2,7 +2,8 @@
 import json
 import logging
 import xmlrpc.client
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, Header
+from typing import Annotated, Union
 from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
