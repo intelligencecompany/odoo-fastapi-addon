@@ -19,12 +19,11 @@ class SequenceDateRangeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'SequenceDateRangeModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'SequenceDateRangeModel':
         filtered_item = {}
         schema = SequenceDateRangeModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

@@ -29,12 +29,11 @@ class PhoneBlacklistModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'PhoneBlacklistModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'PhoneBlacklistModel':
         filtered_item = {}
         schema = PhoneBlacklistModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

@@ -125,12 +125,11 @@ class {model_name}Model(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> '{model_name}Model':
+    def from_execute_kw(cls, item:dict[str, any]) -> '{model_name}Model':
         filtered_item = {{}}
         schema = {model_name}Model.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

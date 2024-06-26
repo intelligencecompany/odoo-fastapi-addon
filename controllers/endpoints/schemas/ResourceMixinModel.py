@@ -13,12 +13,11 @@ class ResourceMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'ResourceMixinModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'ResourceMixinModel':
         filtered_item = {}
         schema = ResourceMixinModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

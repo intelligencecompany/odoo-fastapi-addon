@@ -16,12 +16,11 @@ class UTMMediumModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'UTMMediumModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'UTMMediumModel':
         filtered_item = {}
         schema = UTMMediumModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

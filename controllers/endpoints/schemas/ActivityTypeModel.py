@@ -36,12 +36,11 @@ class ActivityTypeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'ActivityTypeModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'ActivityTypeModel':
         filtered_item = {}
         schema = ActivityTypeModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

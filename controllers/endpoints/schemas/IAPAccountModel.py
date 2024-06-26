@@ -26,12 +26,11 @@ class IAPAccountModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'IAPAccountModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'IAPAccountModel':
         filtered_item = {}
         schema = IAPAccountModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

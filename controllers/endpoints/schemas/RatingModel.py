@@ -39,12 +39,11 @@ class RatingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'RatingModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'RatingModel':
         filtered_item = {}
         schema = RatingModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:

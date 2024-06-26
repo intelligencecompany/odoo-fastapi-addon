@@ -18,12 +18,11 @@ class UserSettingsVolumesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict) -> 'UserSettingsVolumesModel':
+    def from_execute_kw(cls, item:dict[str, any]) -> 'UserSettingsVolumesModel':
         filtered_item = {}
         schema = UserSettingsVolumesModel.model_json_schema()
 
-        for key in item.keys():
-            value = item[key]
+        for key, value in item.items():
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
