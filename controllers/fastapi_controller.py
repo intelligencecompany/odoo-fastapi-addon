@@ -75,7 +75,7 @@ class FastApiController(http.Controller):
             return http.request.make_response(
                 response.content,
                 headers={'Content-Type': 'application/json'}, 
-                status=200
+                status=response.status_code
             )
         else: 
             return http.request.make_response(

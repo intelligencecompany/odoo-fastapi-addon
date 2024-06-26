@@ -77,7 +77,17 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
         results = Model.{model_name}Model.list_from_execute_kw(results, field_list)
 
     except Exception as e:
-        return JSONResponse(content={{'error': json.dumps(e) }}, status_code=400)
+        match = re.match(r"<Fault (\d+): \"(.*)\">", str(e), re.DOTALL)
+        if match:
+            error_code = int(match.group(1))
+            error_message = match.group(2)
+
+            error_info = {{
+                "error_code": error_code,
+                "error_message": error_message
+            }}
+            return JSONResponse(content=error_info, status_code=400)
+        return JSONResponse(content={{ "error": "An unknown error occurred."}}, status_code=400)
 
     return JSONResponse(content=results)
 

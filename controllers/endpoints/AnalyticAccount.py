@@ -1,12 +1,12 @@
 
 import json
+import re
 import xmlrpc.client
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from .schemas import AnalyticAccountModel as Model
-import re
 
 router = APIRouter()
 
@@ -37,9 +37,9 @@ async def get_analyticaccount(fields:str = '', offset:int = 0, limit:int = 10, a
             return JSONResponse(content=[], status_code=204)
     
         results = Model.AnalyticAccountModel.list_from_execute_kw(results, field_list)
-        
+
     except Exception as e:
-        match = re.match(r"<Fault (\d+): \"(.*)\">", str(e), re.DOTALL)
+        match = re.match(r"<Fault (\d+): "(.*)">", str(e), re.DOTALL)
         if match:
             error_code = int(match.group(1))
             error_message = match.group(2)
