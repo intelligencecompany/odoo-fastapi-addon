@@ -8,6 +8,7 @@ from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from .schemas import SequenceDateRangeModel as Model
 from odoo import http
+from odoo.http import request
 
 router = APIRouter()
 
@@ -20,12 +21,15 @@ api_key_header = APIKeyHeader(name='x-key')
 def get_connection(api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
 
-    user_id = http.request.env["res.users.apikeys"]._check_credentials(
+    if not api_key:
+        return request.make_response("API key missing", status=400)
+
+    user_id = request.env["res.users.apikeys"]._check_credentials(
         scope="rpc", key=api_key
     )
 
     if not user_id:
-            raise http.BadRequest("API key invalid")
+        return request.make_response("API key invalid", status=400)
     
     print(user_id)
 
