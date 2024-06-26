@@ -38,7 +38,7 @@ class FastApiController(http.Controller):
             headers={'Content-Type': 'application/json'}
         )
     
-    @http.route('/api/<string:action>/<int:id>', type='http', methods=['PUT'], auth='public')
+    @http.route('/api/<string:action>/<int:id>', type='http', methods=['PUT'], auth='public', csrf=False)
     def update_record(self, action=None):
         if http.request.httprequest.content_type != 'application/json':
             return http.request.make_response(
