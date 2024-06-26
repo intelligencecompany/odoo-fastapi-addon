@@ -7,6 +7,7 @@ from fastapi.security import APIKeyHeader
 from fastapi.responses import JSONResponse
 from typing import List, Optional, Dict, Any
 from .schemas import AnalyticDistributionModelModel as Model
+from odoo import http
 
 router = APIRouter()
 
@@ -18,7 +19,17 @@ api_key_header = APIKeyHeader(name='x-key')
 
 def get_connection(api_key: str):
     common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
-    uid = common.authenticate(ODOO_DB, ODOO_USERNAME, api_key, {})
+
+    user_id = http.request.env["res.users.apikeys"]._check_credentials(
+        scope="rpc", key=api_key
+    )
+
+    if not user_id:
+            raise http.BadRequest("API key invalid")
+    
+    print(user_id)
+
+    uid = common.authenticate(ODOO_DB, user_id, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
