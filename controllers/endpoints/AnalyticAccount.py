@@ -38,6 +38,8 @@ async def get_analyticaccount(fields:str = '', offset:int = 0, limit:int = 10, a
         results = Model.AnalyticAccountModel.list_from_execute_kw(results, field_list)
         
     except Exception as e:
+        print(e)
+        json.dumps(e)
         return JSONResponse(content={'error': json.dumps(e) }, status_code=400)
 
     return JSONResponse(content=results)
