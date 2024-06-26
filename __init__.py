@@ -2,7 +2,7 @@
 # from . import models
 import threading
 import uvicorn
-# from . import models
+from . import models
 from . import controllers
 
 # models/__init__.py
