@@ -37,12 +37,12 @@ class BlogModel(BaseModel):
     write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
     write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
     def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['BlogModel']:
-        transformed = []
+        transformed:List['BlogModel'] = []
         schema = BlogModel.model_json_schema()
         
         for item in data:
@@ -70,5 +70,5 @@ class BlogModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

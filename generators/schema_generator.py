@@ -121,7 +121,7 @@ from typing import Optional, List, Any
 class {model_name}Model(BaseModel):
 {model_body}
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -154,7 +154,7 @@ class {model_name}Model(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed
 """
     return model_definition
