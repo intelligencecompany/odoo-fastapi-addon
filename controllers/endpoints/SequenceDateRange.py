@@ -8,7 +8,7 @@ from .schemas import SequenceDateRangeModel as Model
 
 router = APIRouter()
 
-ODOO_URL = 'http://127.0.0.1:8069'
+ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
@@ -32,5 +32,20 @@ async def get_sequencedaterange(fields:str = '', offset:int = 0, limit:int = 100
         
         results = Model.SequenceDateRangeModel.from_execute_kw(results, field_list)
         return results
+    else:
+        return json.dumps({'status': 'Connection failed'})
+
+@router.put("/api/ir.sequence.date_range/{post_id}", response_model=Dict[str, str], tags=["ir"])
+async def put_sequencedaterange(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    print(post_id)
+    print(fields)
+
+    if uid:
+        result = models.execute_kw(ODOO_DB, uid, api_key, 'ir.sequence.date_range', 'write', [[post_id], fields])
+        print(result)
+
+        return json.dumps({'success': 'Post updated successfully.'})
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -43,21 +43,21 @@ async def get_models(api_key:str = Depends(api_key_header)):
     else:
         return json.dumps({'status': 'Connection failed'})
 
-@app.get("/api/{model}", response_model=List[Dict[str, Any]])
-async def get_model(
-    model: str, 
-    api_key:str = Depends(api_key_header),
-    fields: Optional[List[str]] = Query(None)
-):
-    uid, models = get_connection(api_key)
-    if uid:
-        results = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
-        if results == None:
-            return json.dumps([])
+# @app.get("/api/{model}", response_model=List[Dict[str, Any]])
+# async def get_model(
+#     model: str, 
+#     api_key:str = Depends(api_key_header),
+#     fields: Optional[List[str]] = Query(None)
+# ):
+#     uid, models = get_connection(api_key)
+#     if uid:
+#         results = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
+#         if results == None:
+#             return json.dumps([])
         
-        return json.dumps(results)
-    else:
-        return json.dumps({'status': 'Connection failed'})
+#         return json.dumps(results)
+#     else:
+#         return json.dumps({'status': 'Connection failed'})
     
 # Endpoint defined in a separate file
 # from .endpoints import AnalyticAccount  # Adjust the import path based on your project structure

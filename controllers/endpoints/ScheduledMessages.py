@@ -8,7 +8,7 @@ from .schemas import ScheduledMessagesModel as Model
 
 router = APIRouter()
 
-ODOO_URL = 'http://127.0.0.1:8069'
+ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
@@ -32,5 +32,20 @@ async def get_scheduledmessages(fields:str = '', offset:int = 0, limit:int = 100
         
         results = Model.ScheduledMessagesModel.from_execute_kw(results, field_list)
         return results
+    else:
+        return json.dumps({'status': 'Connection failed'})
+
+@router.put("/api/mail.message.schedule/{post_id}", response_model=Dict[str, str], tags=["mail"])
+async def put_scheduledmessages(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    print(post_id)
+    print(fields)
+
+    if uid:
+        result = models.execute_kw(ODOO_DB, uid, api_key, 'mail.message.schedule', 'write', [[post_id], fields])
+        print(result)
+
+        return json.dumps({'success': 'Post updated successfully.'})
     else:
         return json.dumps({'status': 'Connection failed'})

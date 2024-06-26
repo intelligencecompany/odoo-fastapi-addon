@@ -8,7 +8,7 @@ from .schemas import CurrencyRateModel as Model
 
 router = APIRouter()
 
-ODOO_URL = 'http://127.0.0.1:8069'
+ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
@@ -32,5 +32,20 @@ async def get_currencyrate(fields:str = '', offset:int = 0, limit:int = 1000, ap
         
         results = Model.CurrencyRateModel.from_execute_kw(results, field_list)
         return results
+    else:
+        return json.dumps({'status': 'Connection failed'})
+
+@router.put("/api/res.currency.rate/{post_id}", response_model=Dict[str, str], tags=["res"])
+async def put_currencyrate(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    print(post_id)
+    print(fields)
+
+    if uid:
+        result = models.execute_kw(ODOO_DB, uid, api_key, 'res.currency.rate', 'write', [[post_id], fields])
+        print(result)
+
+        return json.dumps({'success': 'Post updated successfully.'})
     else:
         return json.dumps({'status': 'Connection failed'})

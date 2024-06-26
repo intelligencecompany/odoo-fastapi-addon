@@ -46,7 +46,7 @@ from .schemas import {model_name}Model as Model
 
 router = APIRouter()
 
-ODOO_URL = 'http://127.0.0.1:8069'
+ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
 
@@ -70,6 +70,21 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
         
         results = Model.{model_name}Model.from_execute_kw(results, field_list)
         return results
+    else:
+        return json.dumps({{'status': 'Connection failed'}})
+
+@router.put("/api/{model}/{{post_id}}", response_model=Dict[str, str], tags=["{model.split('.')[0]}"])
+async def put_{model_name_lower}(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    print(post_id)
+    print(fields)
+
+    if uid:
+        result = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'write', [[post_id], fields])
+        print(result)
+
+        return json.dumps({{'success': 'Post updated successfully.'}})
     else:
         return json.dumps({{'status': 'Connection failed'}})
 """

@@ -17,58 +17,78 @@ class FastApiController(http.Controller):
         url = 'http://127.0.0.1:8000/docs'
         response = requests.get(url)
         return response.content
-    
-    # @http.route('/api/test', methods=['GET'], auth='public')
-    # def test(self):
-    #     try:            
-    #         x_key_header = http.request.httprequest.headers.get('x-key')
-    #         headers = {
-    #             'x-key': x_key_header
-    #         }
-
-    #         url = 'http://127.0.0.1:8000/api/test'
-    #         response = requests.get(url=url, headers=headers)
-    #         response.raise_for_status()
-    #         # Parse the response content as JSON
-    #         response_json = response.json()
-    #         # Return the JSON response
-    #         return response_json
-    #     except requests.exceptions.RequestException as e:
-    #         logging.error(e)
-    #         response_data = {'error': str(e)}
-    #         return json.dumps(response_data)
         
-    # @http.route('/api/models', methods=['GET'], auth='public')
-    # def models(self):       
-    #     x_key_header = http.request.httprequest.headers.get('x-key')
-    #     headers = {
-    #         'x-key': x_key_header
-    #     }
-    #     url = 'http://127.0.0.1:8000/api/models'
-    #     response = requests.get(url=url, headers=headers)
-    #     # Parse the response content as JSON
-    #     response_json = response.json()
-    #     # Return the JSON response
-    #     return response_json
-    
     @http.route('/api/<string:action>', type='http', methods=['GET'], auth='public')
-    def model(self, action=None):
+    def get_records(self, action=None):
         params = {k: v for k, v in http.request.params.items() if k != 'action'}
 
-        query_string = urlencode(params)
+        # query_string = urlencode(params)
 
-        print(params)
-        print(query_string)
         x_key_header = http.request.httprequest.headers.get('x-key')
 
         headers = {
             'x-key': x_key_header
         }
 
-        url = f'http://127.0.0.1:8000/api/{action}?{query_string}'
-        response = requests.get(url=url, headers=headers)
+        url = f'http://127.0.0.1:8000/api/{action}'
+        response = requests.get(url=url, headers=headers, params=params)
         
         return http.request.make_response(
             response.content,
             headers={'Content-Type': 'application/json'}
         )
+    
+    @http.route('/api/<string:action>/<integer:id>', type='http', methods=['PUT'], auth='public')
+    def update_record(self, action=None):
+        if http.request.httprequest.content_type != 'application/json':
+            return http.request.make_response(
+                json.dumps({'error': 'Invalid Content-Type'}),
+                headers={'Content-Type': 'application/json'}, 
+                status=400
+            )
+
+        try:
+            data = json.loads(http.request.httprequest.data)
+        except json.JSONDecodeError:
+            return http.request.make_response(
+                json.dumps({'error': 'Invalid JSON data'}),
+                headers={'Content-Type': 'application/json'}, 
+                status=400
+            )
+
+        post_id = data.get('id')
+        updated_fields = data.get('fields') 
+        print(id)
+        print(updated_fields)
+
+        if not post_id or not updated_fields:
+            return http.request.make_response(
+                json.dumps({'error': 'Missing id or fields'}),
+                headers={'Content-Type': 'application/json'}, 
+                status=400
+            )
+                                
+        params = {k: v for k, v in http.request.params.items() if k != 'action' and k != 'id'}
+
+        x_key_header = http.request.httprequest.headers.get('x-key')
+
+        headers = {
+            'x-key': x_key_header
+        }
+
+        url = f'http://127.0.0.1:8000/api/{action}/{post_id}'
+        response = requests.put(url=url, headers=headers, params=params, data=updated_fields)
+        
+        if response.status_code == 200:
+            return http.request.make_response(
+                json.dumps({'success': True}),
+                headers={'Content-Type': 'application/json'}, 
+                status=200
+            )
+        else: 
+            return http.request.make_response(
+                json.dumps({'error': 'Whoops, something failed'}),
+                headers={'Content-Type': 'application/json'}, 
+                status=response.status_code
+            )
+
