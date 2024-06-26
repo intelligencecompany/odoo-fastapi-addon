@@ -34,9 +34,24 @@ async def get_emailaliasesmixinlight(fields:str = '', offset:int = 0, limit:int 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.EmailAliasesMixinlightModel.from_execute_kw(results, field_list)
+    results = Model.EmailAliasesMixinlightModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.alias.mixin.optional", response_model=Model.EmailAliasesMixinlightModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.alias.mixin.optional', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.alias.mixin.optional', 'read', [id])
+    results = Model.EmailAliasesMixinlightModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.alias.mixin.optional/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_emailaliasesmixinlight(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

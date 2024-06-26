@@ -34,9 +34,24 @@ async def get_sequencedaterange(fields:str = '', offset:int = 0, limit:int = 100
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.SequenceDateRangeModel.from_execute_kw(results, field_list)
+    results = Model.SequenceDateRangeModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.sequence.date_range", response_model=Model.SequenceDateRangeModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.sequence.date_range', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.sequence.date_range', 'read', [id])
+    results = Model.SequenceDateRangeModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.sequence.date_range/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_sequencedaterange(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

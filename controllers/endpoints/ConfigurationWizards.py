@@ -34,9 +34,24 @@ async def get_configurationwizards(fields:str = '', offset:int = 0, limit:int = 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ConfigurationWizardsModel.from_execute_kw(results, field_list)
+    results = Model.ConfigurationWizardsModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.actions.todo", response_model=Model.ConfigurationWizardsModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.todo', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.todo', 'read', [id])
+    results = Model.ConfigurationWizardsModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.actions.todo/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_configurationwizards(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

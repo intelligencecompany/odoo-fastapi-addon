@@ -34,9 +34,24 @@ async def get_twofactorsetupwizard(fields:str = '', offset:int = 0, limit:int = 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.TwoFactorSetupWizardModel.from_execute_kw(results, field_list)
+    results = Model.TwoFactorSetupWizardModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/auth_totp.wizard", response_model=Model.TwoFactorSetupWizardModel, tags=["auth_totp"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'auth_totp.wizard', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'auth_totp.wizard', 'read', [id])
+    results = Model.TwoFactorSetupWizardModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/auth_totp.wizard/{post_id}", response_model=Dict[str, str], tags=["auth_totp"])
 async def put_twofactorsetupwizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

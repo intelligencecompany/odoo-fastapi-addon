@@ -34,9 +34,24 @@ async def get_importmodule(fields:str = '', offset:int = 0, limit:int = 1000, ap
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ImportModuleModel.from_execute_kw(results, field_list)
+    results = Model.ImportModuleModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/base.import.module", response_model=Model.ImportModuleModel, tags=["base"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'base.import.module', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'base.import.module', 'read', [id])
+    results = Model.ImportModuleModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/base.import.module/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_importmodule(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

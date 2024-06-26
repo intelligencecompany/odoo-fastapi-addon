@@ -34,9 +34,24 @@ async def get_crondatausedforwebpushnotification(fields:str = '', offset:int = 0
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.CrondatausedforwebpushnotificationModel.from_execute_kw(results, field_list)
+    results = Model.CrondatausedforwebpushnotificationModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.notification.web.push", response_model=Model.CrondatausedforwebpushnotificationModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.notification.web.push', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.notification.web.push', 'read', [id])
+    results = Model.CrondatausedforwebpushnotificationModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.notification.web.push/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_crondatausedforwebpushnotification(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

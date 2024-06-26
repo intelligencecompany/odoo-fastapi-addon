@@ -34,9 +34,24 @@ async def get_invitewizard(fields:str = '', offset:int = 0, limit:int = 1000, ap
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.InvitewizardModel.from_execute_kw(results, field_list)
+    results = Model.InvitewizardModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.wizard.invite", response_model=Model.InvitewizardModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.wizard.invite', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.wizard.invite', 'read', [id])
+    results = Model.InvitewizardModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.wizard.invite/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_invitewizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

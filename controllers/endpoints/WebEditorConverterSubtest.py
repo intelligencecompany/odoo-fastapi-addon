@@ -34,9 +34,24 @@ async def get_webeditorconvertersubtest(fields:str = '', offset:int = 0, limit:i
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.WebEditorConverterSubtestModel.from_execute_kw(results, field_list)
+    results = Model.WebEditorConverterSubtestModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/web_editor.converter.test.sub", response_model=Model.WebEditorConverterSubtestModel, tags=["web_editor"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'web_editor.converter.test.sub', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'web_editor.converter.test.sub', 'read', [id])
+    results = Model.WebEditorConverterSubtestModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/web_editor.converter.test.sub/{post_id}", response_model=Dict[str, str], tags=["web_editor"])
 async def put_webeditorconvertersubtest(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

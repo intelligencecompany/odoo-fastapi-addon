@@ -34,9 +34,24 @@ async def get_config(fields:str = '', offset:int = 0, limit:int = 1000, api_key:
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ConfigModel.from_execute_kw(results, field_list)
+    results = Model.ConfigModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/res.config", response_model=Model.ConfigModel, tags=["res"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'res.config', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'res.config', 'read', [id])
+    results = Model.ConfigModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/res.config/{post_id}", response_model=Dict[str, str], tags=["res"])
 async def put_config(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

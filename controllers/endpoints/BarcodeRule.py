@@ -34,9 +34,24 @@ async def get_barcoderule(fields:str = '', offset:int = 0, limit:int = 1000, api
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.BarcodeRuleModel.from_execute_kw(results, field_list)
+    results = Model.BarcodeRuleModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/barcode.rule", response_model=Model.BarcodeRuleModel, tags=["barcode"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'barcode.rule', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'barcode.rule', 'read', [id])
+    results = Model.BarcodeRuleModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/barcode.rule/{post_id}", response_model=Dict[str, str], tags=["barcode"])
 async def put_barcoderule(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

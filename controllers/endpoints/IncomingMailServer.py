@@ -34,9 +34,24 @@ async def get_incomingmailserver(fields:str = '', offset:int = 0, limit:int = 10
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.IncomingMailServerModel.from_execute_kw(results, field_list)
+    results = Model.IncomingMailServerModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/fetchmail.server", response_model=Model.IncomingMailServerModel, tags=["fetchmail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'fetchmail.server', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'fetchmail.server', 'read', [id])
+    results = Model.IncomingMailServerModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/fetchmail.server/{post_id}", response_model=Dict[str, str], tags=["fetchmail"])
 async def put_incomingmailserver(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_reportaction(fields:str = '', offset:int = 0, limit:int = 1000, ap
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ReportActionModel.from_execute_kw(results, field_list)
+    results = Model.ReportActionModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.actions.report", response_model=Model.ReportActionModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.report', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.report', 'read', [id])
+    results = Model.ReportActionModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.actions.report/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_reportaction(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

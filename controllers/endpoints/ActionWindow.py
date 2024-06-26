@@ -34,9 +34,24 @@ async def get_actionwindow(fields:str = '', offset:int = 0, limit:int = 1000, ap
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ActionWindowModel.from_execute_kw(results, field_list)
+    results = Model.ActionWindowModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.actions.act_window", response_model=Model.ActionWindowModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.act_window', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.actions.act_window', 'read', [id])
+    results = Model.ActionWindowModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.actions.act_window/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_actionwindow(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

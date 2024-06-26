@@ -34,9 +34,24 @@ async def get_modelpage(fields:str = '', offset:int = 0, limit:int = 1000, api_k
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ModelPageModel.from_execute_kw(results, field_list)
+    results = Model.ModelPageModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.controller.page", response_model=Model.ModelPageModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.controller.page', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.controller.page', 'read', [id])
+    results = Model.ModelPageModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.controller.page/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_modelpage(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

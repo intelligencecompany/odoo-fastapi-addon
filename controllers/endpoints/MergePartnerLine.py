@@ -34,9 +34,24 @@ async def get_mergepartnerline(fields:str = '', offset:int = 0, limit:int = 1000
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.MergePartnerLineModel.from_execute_kw(results, field_list)
+    results = Model.MergePartnerLineModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/base.partner.merge.line", response_model=Model.MergePartnerLineModel, tags=["base"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'base.partner.merge.line', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'base.partner.merge.line', 'read', [id])
+    results = Model.MergePartnerLineModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/base.partner.merge.line/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_mergepartnerline(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

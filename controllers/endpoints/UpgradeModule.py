@@ -34,9 +34,24 @@ async def get_upgrademodule(fields:str = '', offset:int = 0, limit:int = 1000, a
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.UpgradeModuleModel.from_execute_kw(results, field_list)
+    results = Model.UpgradeModuleModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/base.module.upgrade", response_model=Model.UpgradeModuleModel, tags=["base"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'base.module.upgrade', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'base.module.upgrade', 'read', [id])
+    results = Model.UpgradeModuleModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/base.module.upgrade/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_upgrademodule(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_smstemplatereset(fields:str = '', offset:int = 0, limit:int = 1000
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.SMSTemplateResetModel.from_execute_kw(results, field_list)
+    results = Model.SMSTemplateResetModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/sms.template.reset", response_model=Model.SMSTemplateResetModel, tags=["sms"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'sms.template.reset', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'sms.template.reset', 'read', [id])
+    results = Model.SMSTemplateResetModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/sms.template.reset/{post_id}", response_model=Dict[str, str], tags=["sms"])
 async def put_smstemplatereset(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_partnerautocompletesync(fields:str = '', offset:int = 0, limit:int
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.PartnerAutocompleteSyncModel.from_execute_kw(results, field_list)
+    results = Model.PartnerAutocompleteSyncModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/res.partner.autocomplete.sync", response_model=Model.PartnerAutocompleteSyncModel, tags=["res"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'res.partner.autocomplete.sync', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'res.partner.autocomplete.sync', 'read', [id])
+    results = Model.PartnerAutocompleteSyncModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/res.partner.autocomplete.sync/{post_id}", response_model=Dict[str, str], tags=["res"])
 async def put_partnerautocompletesync(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

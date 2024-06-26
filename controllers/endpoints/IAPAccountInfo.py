@@ -34,9 +34,24 @@ async def get_iapaccountinfo(fields:str = '', offset:int = 0, limit:int = 1000, 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.IAPAccountInfoModel.from_execute_kw(results, field_list)
+    results = Model.IAPAccountInfoModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/iap.account.info", response_model=Model.IAPAccountInfoModel, tags=["iap"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'iap.account.info', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'iap.account.info', 'read', [id])
+    results = Model.IAPAccountInfoModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/iap.account.info/{post_id}", response_model=Dict[str, str], tags=["iap"])
 async def put_iapaccountinfo(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

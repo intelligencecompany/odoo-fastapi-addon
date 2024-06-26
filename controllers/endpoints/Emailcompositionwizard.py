@@ -34,9 +34,24 @@ async def get_emailcompositionwizard(fields:str = '', offset:int = 0, limit:int 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.EmailcompositionwizardModel.from_execute_kw(results, field_list)
+    results = Model.EmailcompositionwizardModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.compose.message", response_model=Model.EmailcompositionwizardModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.compose.message', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.compose.message', 'read', [id])
+    results = Model.EmailcompositionwizardModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.compose.message/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_emailcompositionwizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

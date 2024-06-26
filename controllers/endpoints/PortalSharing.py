@@ -34,9 +34,24 @@ async def get_portalsharing(fields:str = '', offset:int = 0, limit:int = 1000, a
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.PortalSharingModel.from_execute_kw(results, field_list)
+    results = Model.PortalSharingModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/portal.share", response_model=Model.PortalSharingModel, tags=["portal"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'portal.share', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'portal.share', 'read', [id])
+    results = Model.PortalSharingModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/portal.share/{post_id}", response_model=Dict[str, str], tags=["portal"])
 async def put_portalsharing(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_productcategory(fields:str = '', offset:int = 0, limit:int = 1000,
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ProductCategoryModel.from_execute_kw(results, field_list)
+    results = Model.ProductCategoryModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/product.category", response_model=Model.ProductCategoryModel, tags=["product"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'product.category', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'product.category', 'read', [id])
+    results = Model.ProductCategoryModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/product.category/{post_id}", response_model=Dict[str, str], tags=["product"])
 async def put_productcategory(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

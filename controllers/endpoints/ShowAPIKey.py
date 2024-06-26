@@ -34,9 +34,24 @@ async def get_showapikey(fields:str = '', offset:int = 0, limit:int = 1000, api_
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ShowAPIKeyModel.from_execute_kw(results, field_list)
+    results = Model.ShowAPIKeyModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/res.users.apikeys.show", response_model=Model.ShowAPIKeyModel, tags=["res"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'res.users.apikeys.show', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'res.users.apikeys.show', 'read', [id])
+    results = Model.ShowAPIKeyModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/res.users.apikeys.show/{post_id}", response_model=Dict[str, str], tags=["res"])
 async def put_showapikey(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_tours(fields:str = '', offset:int = 0, limit:int = 1000, api_key:s
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ToursModel.from_execute_kw(results, field_list)
+    results = Model.ToursModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/web_tour.tour", response_model=Model.ToursModel, tags=["web_tour"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'web_tour.tour', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'web_tour.tour', 'read', [id])
+    results = Model.ToursModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/web_tour.tour/{post_id}", response_model=Dict[str, str], tags=["web_tour"])
 async def put_tours(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

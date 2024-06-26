@@ -34,9 +34,24 @@ async def get_multiwebsitemixin(fields:str = '', offset:int = 0, limit:int = 100
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.MultiWebsiteMixinModel.from_execute_kw(results, field_list)
+    results = Model.MultiWebsiteMixinModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.multi.mixin", response_model=Model.MultiWebsiteMixinModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.multi.mixin', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.multi.mixin', 'read', [id])
+    results = Model.MultiWebsiteMixinModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.multi.mixin/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_multiwebsitemixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

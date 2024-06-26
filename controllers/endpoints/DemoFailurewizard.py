@@ -34,9 +34,24 @@ async def get_demofailurewizard(fields:str = '', offset:int = 0, limit:int = 100
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.DemoFailurewizardModel.from_execute_kw(results, field_list)
+    results = Model.DemoFailurewizardModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.demo_failure.wizard", response_model=Model.DemoFailurewizardModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.demo_failure.wizard', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.demo_failure.wizard', 'read', [id])
+    results = Model.DemoFailurewizardModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.demo_failure.wizard/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_demofailurewizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

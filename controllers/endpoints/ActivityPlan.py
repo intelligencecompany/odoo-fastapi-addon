@@ -34,9 +34,24 @@ async def get_activityplan(fields:str = '', offset:int = 0, limit:int = 1000, ap
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ActivityPlanModel.from_execute_kw(results, field_list)
+    results = Model.ActivityPlanModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.activity.plan", response_model=Model.ActivityPlanModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.activity.plan', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.activity.plan', 'read', [id])
+    results = Model.ActivityPlanModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.activity.plan/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_activityplan(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

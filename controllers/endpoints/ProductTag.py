@@ -34,9 +34,24 @@ async def get_producttag(fields:str = '', offset:int = 0, limit:int = 1000, api_
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ProductTagModel.from_execute_kw(results, field_list)
+    results = Model.ProductTagModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/product.tag", response_model=Model.ProductTagModel, tags=["product"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'product.tag', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'product.tag', 'read', [id])
+    results = Model.ProductTagModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/product.tag/{post_id}", response_model=Dict[str, str], tags=["product"])
 async def put_producttag(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

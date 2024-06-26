@@ -34,9 +34,24 @@ async def get_moduleactivationreview(fields:str = '', offset:int = 0, limit:int 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ModuleActivationReviewModel.from_execute_kw(results, field_list)
+    results = Model.ModuleActivationReviewModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/base.module.install.review", response_model=Model.ModuleActivationReviewModel, tags=["base"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'base.module.install.review', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'base.module.install.review', 'read', [id])
+    results = Model.ModuleActivationReviewModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/base.module.install.review/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_moduleactivationreview(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_emailthread(fields:str = '', offset:int = 0, limit:int = 1000, api
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.EmailThreadModel.from_execute_kw(results, field_list)
+    results = Model.EmailThreadModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/mail.thread", response_model=Model.EmailThreadModel, tags=["mail"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.thread', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.thread', 'read', [id])
+    results = Model.EmailThreadModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/mail.thread/{post_id}", response_model=Dict[str, str], tags=["mail"])
 async def put_emailthread(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

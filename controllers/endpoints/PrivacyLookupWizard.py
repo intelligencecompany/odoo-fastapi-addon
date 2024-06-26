@@ -34,9 +34,24 @@ async def get_privacylookupwizard(fields:str = '', offset:int = 0, limit:int = 1
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.PrivacyLookupWizardModel.from_execute_kw(results, field_list)
+    results = Model.PrivacyLookupWizardModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/privacy.lookup.wizard", response_model=Model.PrivacyLookupWizardModel, tags=["privacy"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'privacy.lookup.wizard', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'privacy.lookup.wizard', 'read', [id])
+    results = Model.PrivacyLookupWizardModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/privacy.lookup.wizard/{post_id}", response_model=Dict[str, str], tags=["privacy"])
 async def put_privacylookupwizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

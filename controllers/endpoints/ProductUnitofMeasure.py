@@ -34,9 +34,24 @@ async def get_productunitofmeasure(fields:str = '', offset:int = 0, limit:int = 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ProductUnitofMeasureModel.from_execute_kw(results, field_list)
+    results = Model.ProductUnitofMeasureModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/uom.uom", response_model=Model.ProductUnitofMeasureModel, tags=["uom"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'uom.uom', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'uom.uom', 'read', [id])
+    results = Model.ProductUnitofMeasureModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/uom.uom/{post_id}", response_model=Dict[str, str], tags=["uom"])
 async def put_productunitofmeasure(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

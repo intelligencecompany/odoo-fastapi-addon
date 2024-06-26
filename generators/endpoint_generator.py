@@ -72,9 +72,24 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.{model_name}Model.from_execute_kw(results, field_list)
+    results = Model.{model_name}Model.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/{model}", response_model=Model.{model_name}Model, tags=["{model.split('.')[0]}"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={{'status': 'Connection failed'}}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'read', [id])
+    results = Model.{model_name}Model.from_execute_kw(results)
+
+    return JSONResponse(content={{'success': 'Post updated successfully.'}})
+
+    
 @router.put("/api/{model}/{{post_id}}", response_model=Dict[str, str], tags=["{model.split('.')[0]}"])
 async def put_{model_name_lower}(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

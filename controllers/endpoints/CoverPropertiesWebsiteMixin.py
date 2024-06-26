@@ -34,9 +34,24 @@ async def get_coverpropertieswebsitemixin(fields:str = '', offset:int = 0, limit
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.CoverPropertiesWebsiteMixinModel.from_execute_kw(results, field_list)
+    results = Model.CoverPropertiesWebsiteMixinModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.cover_properties.mixin", response_model=Model.CoverPropertiesWebsiteMixinModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.cover_properties.mixin', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.cover_properties.mixin', 'read', [id])
+    results = Model.CoverPropertiesWebsiteMixinModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.cover_properties.mixin/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_coverpropertieswebsitemixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_producttemplateattributeline(fields:str = '', offset:int = 0, limi
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ProductTemplateAttributeLineModel.from_execute_kw(results, field_list)
+    results = Model.ProductTemplateAttributeLineModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/product.template.attribute.line", response_model=Model.ProductTemplateAttributeLineModel, tags=["product"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'product.template.attribute.line', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'product.template.attribute.line', 'read', [id])
+    results = Model.ProductTemplateAttributeLineModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/product.template.attribute.line/{post_id}", response_model=Dict[str, str], tags=["product"])
 async def put_producttemplateattributeline(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

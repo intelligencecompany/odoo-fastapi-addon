@@ -34,9 +34,24 @@ async def get_robotstxteditor(fields:str = '', offset:int = 0, limit:int = 1000,
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.RobotstxtEditorModel.from_execute_kw(results, field_list)
+    results = Model.RobotstxtEditorModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.robots", response_model=Model.RobotstxtEditorModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.robots', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.robots', 'read', [id])
+    results = Model.RobotstxtEditorModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.robots/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_robotstxteditor(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

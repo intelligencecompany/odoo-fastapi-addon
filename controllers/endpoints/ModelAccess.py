@@ -34,9 +34,24 @@ async def get_modelaccess(fields:str = '', offset:int = 0, limit:int = 1000, api
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ModelAccessModel.from_execute_kw(results, field_list)
+    results = Model.ModelAccessModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/ir.model.access", response_model=Model.ModelAccessModel, tags=["ir"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model.access', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'ir.model.access', 'read', [id])
+    results = Model.ModelAccessModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/ir.model.access/{post_id}", response_model=Dict[str, str], tags=["ir"])
 async def put_modelaccess(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

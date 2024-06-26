@@ -34,9 +34,24 @@ async def get_discussionchannel(fields:str = '', offset:int = 0, limit:int = 100
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.DiscussionChannelModel.from_execute_kw(results, field_list)
+    results = Model.DiscussionChannelModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/discuss.channel", response_model=Model.DiscussionChannelModel, tags=["discuss"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'discuss.channel', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'discuss.channel', 'read', [id])
+    results = Model.DiscussionChannelModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/discuss.channel/{post_id}", response_model=Dict[str, str], tags=["discuss"])
 async def put_discussionchannel(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

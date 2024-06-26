@@ -34,9 +34,24 @@ async def get_onboardingprogresssteptracker(fields:str = '', offset:int = 0, lim
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.OnboardingProgressStepTrackerModel.from_execute_kw(results, field_list)
+    results = Model.OnboardingProgressStepTrackerModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/onboarding.progress.step", response_model=Model.OnboardingProgressStepTrackerModel, tags=["onboarding"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'onboarding.progress.step', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'onboarding.progress.step', 'read', [id])
+    results = Model.OnboardingProgressStepTrackerModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/onboarding.progress.step/{post_id}", response_model=Dict[str, str], tags=["onboarding"])
 async def put_onboardingprogresssteptracker(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

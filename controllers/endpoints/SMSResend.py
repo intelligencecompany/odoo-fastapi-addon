@@ -34,9 +34,24 @@ async def get_smsresend(fields:str = '', offset:int = 0, limit:int = 1000, api_k
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.SMSResendModel.from_execute_kw(results, field_list)
+    results = Model.SMSResendModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/sms.resend", response_model=Model.SMSResendModel, tags=["sms"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'sms.resend', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'sms.resend', 'read', [id])
+    results = Model.SMSResendModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/sms.resend/{post_id}", response_model=Dict[str, str], tags=["sms"])
 async def put_smsresend(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

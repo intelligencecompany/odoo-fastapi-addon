@@ -34,9 +34,24 @@ async def get_allwebsiteroute(fields:str = '', offset:int = 0, limit:int = 1000,
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.AllWebsiteRouteModel.from_execute_kw(results, field_list)
+    results = Model.AllWebsiteRouteModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.route", response_model=Model.AllWebsiteRouteModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.route', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.route', 'read', [id])
+    results = Model.AllWebsiteRouteModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.route/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_allwebsiteroute(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

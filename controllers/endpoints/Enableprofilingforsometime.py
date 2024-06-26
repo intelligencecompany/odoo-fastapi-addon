@@ -34,9 +34,24 @@ async def get_enableprofilingforsometime(fields:str = '', offset:int = 0, limit:
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.EnableprofilingforsometimeModel.from_execute_kw(results, field_list)
+    results = Model.EnableprofilingforsometimeModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/base.enable.profiling.wizard", response_model=Model.EnableprofilingforsometimeModel, tags=["base"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'base.enable.profiling.wizard', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'base.enable.profiling.wizard', 'read', [id])
+    results = Model.EnableprofilingforsometimeModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/base.enable.profiling.wizard/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_enableprofilingforsometime(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

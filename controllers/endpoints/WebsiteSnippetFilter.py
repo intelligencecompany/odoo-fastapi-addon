@@ -34,9 +34,24 @@ async def get_websitesnippetfilter(fields:str = '', offset:int = 0, limit:int = 
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.WebsiteSnippetFilterModel.from_execute_kw(results, field_list)
+    results = Model.WebsiteSnippetFilterModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/website.snippet.filter", response_model=Model.WebsiteSnippetFilterModel, tags=["website"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'website.snippet.filter', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'website.snippet.filter', 'read', [id])
+    results = Model.WebsiteSnippetFilterModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/website.snippet.filter/{post_id}", response_model=Dict[str, str], tags=["website"])
 async def put_websitesnippetfilter(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

@@ -34,9 +34,24 @@ async def get_resourcetimeoffdetail(fields:str = '', offset:int = 0, limit:int =
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ResourceTimeOffDetailModel.from_execute_kw(results, field_list)
+    results = Model.ResourceTimeOffDetailModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/resource.calendar.leaves", response_model=Model.ResourceTimeOffDetailModel, tags=["resource"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'resource.calendar.leaves', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'resource.calendar.leaves', 'read', [id])
+    results = Model.ResourceTimeOffDetailModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/resource.calendar.leaves/{post_id}", response_model=Dict[str, str], tags=["resource"])
 async def put_resourcetimeoffdetail(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)

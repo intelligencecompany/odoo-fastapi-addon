@@ -34,9 +34,24 @@ async def get_resources(fields:str = '', offset:int = 0, limit:int = 1000, api_k
     if results is None:
         return JSONResponse(content=[])
     
-    results = Model.ResourcesModel.from_execute_kw(results, field_list)
+    results = Model.ResourcesModel.list_from_execute_kw(results, field_list)
     return JSONResponse(content=results)
 
+    
+@router.post("/api/resource.resource", response_model=Model.ResourcesModel, tags=["resource"])
+async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
+    uid, models = get_connection(api_key)
+
+    if not uid:
+        return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
+
+    id = models.execute_kw(ODOO_DB, uid, api_key, 'resource.resource', 'create', [data])
+    results = models.execute_kw(ODOO_DB, uid, api_key, 'resource.resource', 'read', [id])
+    results = Model.ResourcesModel.from_execute_kw(results)
+
+    return JSONResponse(content={'success': 'Post updated successfully.'})
+
+    
 @router.put("/api/resource.resource/{post_id}", response_model=Dict[str, str], tags=["resource"])
 async def put_resources(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
