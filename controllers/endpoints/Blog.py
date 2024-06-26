@@ -36,14 +36,14 @@ async def get_blog(fields:str = '', offset:int = 0, limit:int = 1000, api_key:st
         return json.dumps({'status': 'Connection failed'})
 
 @router.put("/api/blog.blog/{post_id}", response_model=Dict[str, str], tags=["blog"])
-async def put_blog(post_id:int, fields:Dict[str, Any], api_key:str = Depends(api_key_header)):
+async def put_blog(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
     print(post_id)
-    print(fields)
+    print(data)
 
     if uid:
-        result = models.execute_kw(ODOO_DB, uid, api_key, 'blog.blog', 'write', [[post_id], fields])
+        result = models.execute_kw(ODOO_DB, uid, api_key, 'blog.blog', 'write', [[post_id], data])
         print(result)
 
         return json.dumps({'success': 'Post updated successfully.'})
