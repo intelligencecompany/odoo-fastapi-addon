@@ -85,7 +85,11 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
 
     id = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'create', [data])
     results = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'read', [id])
-    results = Model.{model_name}Model.from_execute_kw(results)
+    
+    if results is None or len(results) == 0:
+        return JSONResponse(content=[])
+    
+    results = Model.BlogModel.from_execute_kw(results[0])
 
     return JSONResponse(content={{'success': 'Post updated successfully.'}})
 
