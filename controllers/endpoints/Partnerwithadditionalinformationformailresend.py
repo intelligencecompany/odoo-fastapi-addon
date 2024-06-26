@@ -31,6 +31,6 @@ async def get_partnerwithadditionalinformationformailresend(fields:str = '', off
             return json.dumps([])
         
         results = Model.PartnerwithadditionalinformationformailresendModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -31,6 +31,6 @@ async def get_analyticplansapplicabilities(fields:str = '', offset:int = 0, limi
             return json.dumps([])
         
         results = Model.AnalyticPlansApplicabilitiesModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

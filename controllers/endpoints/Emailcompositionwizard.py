@@ -31,6 +31,6 @@ async def get_emailcompositionwizard(fields:str = '', offset:int = 0, limit:int 
             return json.dumps([])
         
         results = Model.EmailcompositionwizardModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

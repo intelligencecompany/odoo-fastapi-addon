@@ -31,6 +31,6 @@ async def get_livechatsupportchannelreport(fields:str = '', offset:int = 0, limi
             return json.dumps([])
         
         results = Model.LivechatSupportChannelReportModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

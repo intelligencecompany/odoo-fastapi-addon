@@ -31,6 +31,6 @@ async def get_paymentprovideronboardingwizard(fields:str = '', offset:int = 0, l
             return json.dumps([])
         
         results = Model.PaymentprovideronboardingwizardModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

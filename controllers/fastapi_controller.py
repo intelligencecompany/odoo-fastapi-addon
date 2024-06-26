@@ -64,12 +64,13 @@ class FastApiController(http.Controller):
         url = f'http://127.0.0.1:8000/api/{action}'
         response = requests.get(url=url, headers=headers)
         # Parse the response content as JSON
-        response_json = response.json()
-        logging.info(response_json)
+        # response_json = response.json()
+        logging.info(response.text)
+        logging.info(response.content)
         # Return the JSON response
         # return response_json
         return http.request.make_response(
-            response_json,
+            response.content,
             headers={'Content-Type': 'application/json'}
         )
         # return http.Response(

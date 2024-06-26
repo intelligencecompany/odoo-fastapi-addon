@@ -31,6 +31,6 @@ async def get_websitemenu(fields:str = '', offset:int = 0, limit:int = 1000, api
             return json.dumps([])
         
         results = Model.WebsiteMenuModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

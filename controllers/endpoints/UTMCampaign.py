@@ -31,6 +31,6 @@ async def get_utmcampaign(fields:str = '', offset:int = 0, limit:int = 1000, api
             return json.dumps([])
         
         results = Model.UTMCampaignModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

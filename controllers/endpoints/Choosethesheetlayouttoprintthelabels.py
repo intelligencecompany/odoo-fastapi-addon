@@ -31,6 +31,6 @@ async def get_choosethesheetlayouttoprintthelabels(fields:str = '', offset:int =
             return json.dumps([])
         
         results = Model.ChoosethesheetlayouttoprintthelabelsModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -31,6 +31,6 @@ async def get_page(fields:str = '', offset:int = 0, limit:int = 1000, api_key:st
             return json.dumps([])
         
         results = Model.PageModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

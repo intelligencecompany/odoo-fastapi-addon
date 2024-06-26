@@ -31,6 +31,6 @@ async def get_portaluserconfig(fields:str = '', offset:int = 0, limit:int = 1000
             return json.dumps([])
         
         results = Model.PortalUserConfigModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

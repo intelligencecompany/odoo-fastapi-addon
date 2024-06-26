@@ -31,6 +31,6 @@ async def get_campaignstage(fields:str = '', offset:int = 0, limit:int = 1000, a
             return json.dumps([])
         
         results = Model.CampaignStageModel.from_execute_kw(results, field_list)
-        return json.dumps(results)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})
