@@ -7,7 +7,7 @@ class MailRenderMixinModel(BaseModel):
     lang: Optional[str] = Field(None, alias="lang", title="Language", description="Optional translation language (ISO code) to select when sending out an email. If not set, the english version will be used. This should usually be a placeholder expression that provides the appropriate language, e.g. {{ object.partner_id.lang }}.")
     render_model: Optional[str] = Field(None, alias="render_model", title="Rendering Model", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -40,5 +40,5 @@ class MailRenderMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

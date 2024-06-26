@@ -19,7 +19,7 @@ class EmailCCmanagementModel(BaseModel):
     message_has_sms_error: Optional[bool] = Field(None, alias="message_has_sms_error", title="SMS Delivery error", description="If checked, some messages have a delivery error.")
     email_cc: Optional[str] = Field(None, alias="email_cc", title="Email cc", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -52,5 +52,5 @@ class EmailCCmanagementModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

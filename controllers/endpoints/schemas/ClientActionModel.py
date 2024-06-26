@@ -23,7 +23,7 @@ class ClientActionModel(BaseModel):
     params: Optional[Any] = Field(None, alias="params", title="Supplementary arguments", description="Arguments sent to the client along with the view tag")
     params_store: Optional[Any] = Field(None, alias="params_store", title="Params storage", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -56,5 +56,5 @@ class ClientActionModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

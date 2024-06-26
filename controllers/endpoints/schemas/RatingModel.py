@@ -35,7 +35,7 @@ class RatingModel(BaseModel):
     publisher_comment: Optional[Any] = Field(None, alias="publisher_comment", title="Publisher comment", description="")
     publisher_datetime: Optional[str] = Field(None, alias="publisher_datetime", title="Commented on", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -68,5 +68,5 @@ class RatingModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

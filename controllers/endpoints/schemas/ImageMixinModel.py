@@ -10,7 +10,7 @@ class ImageMixinModel(BaseModel):
     image_256: Optional[Any] = Field(None, alias="image_256", title="Image 256", description="")
     image_128: Optional[Any] = Field(None, alias="image_128", title="Image 128", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -43,5 +43,5 @@ class ImageMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

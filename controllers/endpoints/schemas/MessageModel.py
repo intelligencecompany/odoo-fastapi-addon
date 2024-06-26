@@ -57,7 +57,7 @@ class MessageModel(BaseModel):
     parent_author_name: Optional[str] = Field(None, alias="parent_author_name", title="Parent Author Name", description="")
     parent_body: Optional[Any] = Field(None, alias="parent_body", title="Parent Body", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -90,5 +90,5 @@ class MessageModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

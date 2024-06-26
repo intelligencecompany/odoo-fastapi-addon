@@ -10,7 +10,7 @@ class MultiWebsitePublishedMixinModel(BaseModel):
     can_publish: Optional[bool] = Field(None, alias="can_publish", title="Can Publish", description="")
     website_url: Optional[str] = Field(None, alias="website_url", title="Website URL", description="The full URL to access the document through the website.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -43,5 +43,5 @@ class MultiWebsitePublishedMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

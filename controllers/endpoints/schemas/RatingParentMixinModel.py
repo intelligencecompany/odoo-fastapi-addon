@@ -10,7 +10,7 @@ class RatingParentMixinModel(BaseModel):
     rating_avg: Optional[Any] = Field(None, alias="rating_avg", title="Average Rating", description="")
     rating_avg_percentage: Optional[Any] = Field(None, alias="rating_avg_percentage", title="Average Rating (%)", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -43,5 +43,5 @@ class RatingParentMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

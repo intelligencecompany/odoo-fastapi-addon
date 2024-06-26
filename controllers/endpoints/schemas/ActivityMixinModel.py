@@ -15,7 +15,7 @@ class ActivityMixinModel(BaseModel):
     activity_exception_decoration: Optional[Any] = Field(None, alias="activity_exception_decoration", title="Activity Exception Decoration", description="Type of the exception activity on record.")
     activity_exception_icon: Optional[str] = Field(None, alias="activity_exception_icon", title="Icon", description="Icon to indicate an exception activity.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -48,5 +48,5 @@ class ActivityMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

@@ -10,7 +10,7 @@ class GoogleGmailMixinModel(BaseModel):
     google_gmail_access_token_expiration: Optional[int] = Field(None, alias="google_gmail_access_token_expiration", title="Access Token Expiration Timestamp", description="")
     google_gmail_uri: Optional[str] = Field(None, alias="google_gmail_uri", title="URI", description="The URL to generate the authorization code from Google")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -43,5 +43,5 @@ class GoogleGmailMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

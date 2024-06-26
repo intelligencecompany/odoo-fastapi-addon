@@ -13,7 +13,7 @@ class GroupofdashboardsModel(BaseModel):
     write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
     write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -46,5 +46,5 @@ class GroupofdashboardsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

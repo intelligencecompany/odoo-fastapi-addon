@@ -62,7 +62,7 @@ class DiscussionChannelModel(BaseModel):
     duration: Optional[Any] = Field(None, alias="duration", title="Duration", description="Duration of the session in hours")
     livechat_active: Optional[bool] = Field(None, alias="livechat_active", title="Is livechat ongoing?", description="Livechat session is active until visitor leaves the conversation.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -95,5 +95,5 @@ class DiscussionChannelModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

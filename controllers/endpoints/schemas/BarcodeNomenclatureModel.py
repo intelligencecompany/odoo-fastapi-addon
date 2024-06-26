@@ -15,7 +15,7 @@ class BarcodeNomenclatureModel(BaseModel):
     is_gs1_nomenclature: Optional[bool] = Field(None, alias="is_gs1_nomenclature", title="Is GS1 Nomenclature", description="This Nomenclature use the GS1 specification, only GS1-128 encoding rules is accepted is this kind of nomenclature.")
     gs1_separator_fnc1: Optional[str] = Field(None, alias="gs1_separator_fnc1", title="FNC1 Separator", description="Alternative regex delimiter for the FNC1. The separator must not match the begin/end of any related rules pattern.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -48,5 +48,5 @@ class BarcodeNomenclatureModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

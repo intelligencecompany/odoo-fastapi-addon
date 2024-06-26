@@ -28,7 +28,7 @@ class ReportActionModel(BaseModel):
     attachment_use: Optional[bool] = Field(None, alias="attachment_use", title="Reload from Attachment", description="If enabled, then the second time the user prints with same attachment name, it returns the previous report.")
     attachment: Optional[str] = Field(None, alias="attachment", title="Save as Attachment Prefix", description="This is the filename of the attachment used to store the printing result. Keep empty to not save the printed reports. You can use a python expression with the object and time variables.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -61,5 +61,5 @@ class ReportActionModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

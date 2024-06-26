@@ -133,7 +133,7 @@ class ContactModel(BaseModel):
     website_description: Optional[Any] = Field(None, alias="website_description", title="Website Partner Full Description", description="")
     website_short_description: Optional[Any] = Field(None, alias="website_short_description", title="Website Partner Short Description", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -166,5 +166,5 @@ class ContactModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

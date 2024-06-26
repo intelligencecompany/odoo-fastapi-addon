@@ -38,7 +38,7 @@ class LivechatChannelModel(BaseModel):
     write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
     website_description: Optional[Any] = Field(None, alias="website_description", title="Website description", description="Description of the channel displayed on the website page")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -71,5 +71,5 @@ class LivechatChannelModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

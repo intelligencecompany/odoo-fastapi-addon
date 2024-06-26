@@ -8,7 +8,7 @@ class UTMMixinModel(BaseModel):
     source_id: Optional[int] = Field(None, alias="source_id", title="Source", description="This is the source of the link, e.g. Search Engine, another domain, or name of email list")
     medium_id: Optional[int] = Field(None, alias="medium_id", title="Medium", description="This is the method of delivery, e.g. Postcard, Email, or Banner Ad")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -41,5 +41,5 @@ class UTMMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

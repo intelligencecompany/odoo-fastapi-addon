@@ -11,7 +11,7 @@ class EmailAliasesMixinlightModel(BaseModel):
     alias_defaults: Optional[Any] = Field(None, alias="alias_defaults", title="Default Values", description="A Python dictionary that will be evaluated to provide default values when creating new records for this alias.")
     alias_email: Optional[str] = Field(None, alias="alias_email", title="Email Alias", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -44,5 +44,5 @@ class EmailAliasesMixinlightModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

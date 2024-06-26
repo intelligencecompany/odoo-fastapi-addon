@@ -21,7 +21,7 @@ class MailBlacklistmixinModel(BaseModel):
     is_blacklisted: Optional[bool] = Field(None, alias="is_blacklisted", title="Blacklist", description="If the email address is on the blacklist, the contact won't receive mass mailing anymore, from any list")
     message_bounce: Optional[int] = Field(None, alias="message_bounce", title="Bounce", description="Counter of the number of bounced emails for this contact")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -54,5 +54,5 @@ class MailBlacklistmixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

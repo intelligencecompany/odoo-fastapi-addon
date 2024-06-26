@@ -13,7 +13,7 @@ class MailComposerMixinModel(BaseModel):
     is_mail_template_editor: Optional[bool] = Field(None, alias="is_mail_template_editor", title="Is Editor", description="")
     can_edit_body: Optional[bool] = Field(None, alias="can_edit_body", title="Can Edit Body", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -46,5 +46,5 @@ class MailComposerMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

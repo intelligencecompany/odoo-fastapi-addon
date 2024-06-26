@@ -6,7 +6,7 @@ class CoverPropertiesWebsiteMixinModel(BaseModel):
 
     cover_properties: Optional[Any] = Field(None, alias="cover_properties", title="Cover Properties", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -39,5 +39,5 @@ class CoverPropertiesWebsiteMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

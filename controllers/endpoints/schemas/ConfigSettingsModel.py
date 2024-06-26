@@ -117,7 +117,7 @@ class ConfigSettingsModel(BaseModel):
     module_website_livechat: Optional[bool] = Field(None, alias="module_website_livechat", title="Module Website Livechat", description="")
     module_marketing_automation: Optional[bool] = Field(None, alias="module_marketing_automation", title="Module Marketing Automation", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -150,5 +150,5 @@ class ConfigSettingsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

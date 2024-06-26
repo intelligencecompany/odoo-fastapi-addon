@@ -7,7 +7,7 @@ class FieldhtmlHistoryModel(BaseModel):
     html_field_history: Optional[Any] = Field(None, alias="html_field_history", title="History data", description="")
     html_field_history_metadata: Optional[Any] = Field(None, alias="html_field_history_metadata", title="History metadata", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -40,5 +40,5 @@ class FieldhtmlHistoryModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

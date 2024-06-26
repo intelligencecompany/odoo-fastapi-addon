@@ -54,7 +54,7 @@ class FieldsModel(BaseModel):
     tracking: Optional[int] = Field(None, alias="tracking", title="Enable Ordered Tracking", description="If set every modification done to this field is tracked. Value is used to order tracking values.")
     website_form_blacklisted: Optional[bool] = Field(None, alias="website_form_blacklisted", title="Blacklisted in web forms", description="Blacklist this field for web forms")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -87,5 +87,5 @@ class FieldsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

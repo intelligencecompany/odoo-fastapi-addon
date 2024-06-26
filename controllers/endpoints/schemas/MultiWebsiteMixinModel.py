@@ -6,7 +6,7 @@ class MultiWebsiteMixinModel(BaseModel):
 
     website_id: Optional[int] = Field(None, alias="website_id", title="Website", description="Restrict publishing to this website.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -39,5 +39,5 @@ class MultiWebsiteMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

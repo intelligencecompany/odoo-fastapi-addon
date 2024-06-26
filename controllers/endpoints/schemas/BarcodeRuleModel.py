@@ -21,7 +21,7 @@ class BarcodeRuleModel(BaseModel):
     gs1_content_type: Optional[Any] = Field(None, alias="gs1_content_type", title="GS1 Content Type", description="The GS1 content type defines what kind of data the rule will process the barcode as:        * Date: the barcode will be converted into a Odoo datetime;        * Measure: the barcode's value is related to a specific UoM;        * Numeric Identifier: fixed length barcode following a specific encoding;        * Alpha-Numeric Name: variable length barcode.")
     gs1_decimal_usage: Optional[bool] = Field(None, alias="gs1_decimal_usage", title="Decimal", description="If True, use the last digit of AI to determine where the first decimal is")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -54,5 +54,5 @@ class BarcodeRuleModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

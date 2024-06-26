@@ -71,7 +71,7 @@ class ScheduledActionsModel(BaseModel):
     website_url: Optional[str] = Field(None, alias="website_url", title="Website Url", description="The full URL to access the server action through the website.")
     website_published: Optional[bool] = Field(None, alias="website_published", title="Available on the Website", description="A code server action can be executed from the website, using a dedicated controller. The address is <base>/website/action/<website_path>. Set this field as True to allow users to run this action. If it is set to False the action cannot be run through the website.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -104,5 +104,5 @@ class ScheduledActionsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

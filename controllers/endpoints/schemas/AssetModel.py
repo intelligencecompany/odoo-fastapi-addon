@@ -20,7 +20,7 @@ class AssetModel(BaseModel):
     write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
     key: Optional[str] = Field(None, alias="key", title="Key", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -53,5 +53,5 @@ class AssetModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

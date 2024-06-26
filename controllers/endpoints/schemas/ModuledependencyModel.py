@@ -11,7 +11,7 @@ class ModuledependencyModel(BaseModel):
     auto_install_required: Optional[bool] = Field(None, alias="auto_install_required", title="Auto Install Required", description="Whether this dependency blocks automatic installation of the dependent")
     display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -44,5 +44,5 @@ class ModuledependencyModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

@@ -23,7 +23,7 @@ class PhoneBlacklistMixinModel(BaseModel):
     mobile_blacklisted: Optional[bool] = Field(None, alias="mobile_blacklisted", title="Blacklisted Phone Is Mobile", description="Indicates if a blacklisted sanitized phone number is a mobile number. Helps distinguish which number is blacklisted             when there is both a mobile and phone field in a model.")
     phone_mobile_search: Optional[str] = Field(None, alias="phone_mobile_search", title="Phone/Mobile", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -56,5 +56,5 @@ class PhoneBlacklistMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

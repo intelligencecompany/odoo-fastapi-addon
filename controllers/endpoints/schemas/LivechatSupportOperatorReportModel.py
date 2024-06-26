@@ -14,7 +14,7 @@ class LivechatSupportOperatorReportModel(BaseModel):
     rating: Optional[Any] = Field(None, alias="rating", title="Average rating", description="Average rating given by the visitor")
     display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -47,5 +47,5 @@ class LivechatSupportOperatorReportModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

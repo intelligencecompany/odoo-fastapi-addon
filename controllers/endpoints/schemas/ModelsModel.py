@@ -31,7 +31,7 @@ class ModelsModel(BaseModel):
     website_form_label: Optional[str] = Field(None, alias="website_form_label", title="Label for form action", description="Form action label. Ex: crm.lead could be 'Send an e-mail' and project.issue could be 'Create an Issue'.")
     website_form_key: Optional[str] = Field(None, alias="website_form_key", title="Website Form Key", description="Used in FormBuilder Registry")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -64,5 +64,5 @@ class ModelsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

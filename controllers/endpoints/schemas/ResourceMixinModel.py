@@ -9,7 +9,7 @@ class ResourceMixinModel(BaseModel):
     resource_calendar_id: Optional[int] = Field(None, alias="resource_calendar_id", title="Working Hours", description="")
     tz: Optional[Any] = Field(None, alias="tz", title="Timezone", description="This field is used in order to define in which timezone the resources will work.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -42,5 +42,5 @@ class ResourceMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

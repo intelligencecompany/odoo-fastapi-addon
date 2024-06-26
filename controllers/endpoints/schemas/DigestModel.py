@@ -29,7 +29,7 @@ class DigestModel(BaseModel):
     kpi_livechat_response: Optional[bool] = Field(None, alias="kpi_livechat_response", title="Time to answer (sec)", description="")
     kpi_livechat_response_value: Optional[Any] = Field(None, alias="kpi_livechat_response_value", title="Kpi Livechat Response Value", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -62,5 +62,5 @@ class DigestModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

@@ -77,7 +77,7 @@ class CompaniesModel(BaseModel):
     snailmail_duplex: Optional[bool] = Field(None, alias="snailmail_duplex", title="Both sides", description="")
     payment_onboarding_payment_method: Optional[Any] = Field(None, alias="payment_onboarding_payment_method", title="Selected onboarding payment method", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -110,5 +110,5 @@ class CompaniesModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

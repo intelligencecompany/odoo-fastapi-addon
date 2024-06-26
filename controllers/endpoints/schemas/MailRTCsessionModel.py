@@ -18,7 +18,7 @@ class MailRTCsessionModel(BaseModel):
     create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
     write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -51,5 +51,5 @@ class MailRTCsessionModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

@@ -6,7 +6,7 @@ class MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeMode
 
     duration_tracking: Optional[Any] = Field(None, alias="duration_tracking", title="Status time", description="JSON that maps ids from a many2one field to seconds spent")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -39,5 +39,5 @@ class MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeMode
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

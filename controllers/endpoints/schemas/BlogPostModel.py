@@ -49,7 +49,7 @@ class BlogPostModel(BaseModel):
     visits: Optional[int] = Field(None, alias="visits", title="No of Views", description="")
     display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -82,5 +82,5 @@ class BlogPostModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

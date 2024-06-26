@@ -44,7 +44,7 @@ class ModuleModel(BaseModel):
     module_type: Optional[Any] = Field(None, alias="module_type", title="Module Type", description="")
     is_installed_on_current_website: Optional[bool] = Field(None, alias="is_installed_on_current_website", title="Is Installed On Current Website", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -77,5 +77,5 @@ class ModuleModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

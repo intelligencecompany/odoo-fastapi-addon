@@ -40,7 +40,7 @@ class ProductDocumentModel(BaseModel):
     image_height: Optional[int] = Field(None, alias="image_height", title="Image Height", description="")
     key: Optional[str] = Field(None, alias="key", title="Key", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -73,5 +73,5 @@ class ProductDocumentModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

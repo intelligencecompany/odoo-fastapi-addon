@@ -19,7 +19,7 @@ class MailMainAttachmentmanagementModel(BaseModel):
     message_attachment_count: Optional[int] = Field(None, alias="message_attachment_count", title="Attachment Count", description="")
     message_has_sms_error: Optional[bool] = Field(None, alias="message_has_sms_error", title="SMS Delivery error", description="If checked, some messages have a delivery error.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -52,5 +52,5 @@ class MailMainAttachmentmanagementModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

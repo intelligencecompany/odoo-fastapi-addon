@@ -69,7 +69,7 @@ class FastApiController(http.Controller):
         # Return the JSON response
         # return response_json
         return http.request.make_response(
-            json.dumps(response_json),
+            response_json,
             headers={'Content-Type': 'application/json'}
         )
         # return http.Response(

@@ -13,7 +13,7 @@ class RelationModelModel(BaseModel):
     create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
     write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -46,5 +46,5 @@ class RelationModelModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

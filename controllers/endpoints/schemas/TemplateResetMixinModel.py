@@ -6,7 +6,7 @@ class TemplateResetMixinModel(BaseModel):
 
     template_fs: Optional[str] = Field(None, alias="template_fs", title="Template Filename", description="File from where the template originates. Used to reset broken template.")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -39,5 +39,5 @@ class TemplateResetMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

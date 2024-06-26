@@ -26,7 +26,7 @@ class RatingMixinModel(BaseModel):
     rating_percentage_satisfaction: Optional[Any] = Field(None, alias="rating_percentage_satisfaction", title="Rating Satisfaction", description="")
     rating_last_text: Optional[Any] = Field(None, alias="rating_last_text", title="Rating Text", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -59,5 +59,5 @@ class RatingMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

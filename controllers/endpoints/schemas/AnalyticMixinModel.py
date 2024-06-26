@@ -8,7 +8,7 @@ class AnalyticMixinModel(BaseModel):
     analytic_distribution_search: Optional[Any] = Field(None, alias="analytic_distribution_search", title="Analytic Distribution Search", description="")
     analytic_precision: Optional[int] = Field(None, alias="analytic_precision", title="Analytic Precision", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -41,5 +41,5 @@ class AnalyticMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

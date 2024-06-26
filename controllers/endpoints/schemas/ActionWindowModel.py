@@ -32,7 +32,7 @@ class ActionWindowModel(BaseModel):
     limit: Optional[int] = Field(None, alias="limit", title="Limit", description="Default limit for the list view")
     filter: Optional[bool] = Field(None, alias="filter", title="Filter", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -65,5 +65,5 @@ class ActionWindowModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

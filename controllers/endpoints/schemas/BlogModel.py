@@ -42,7 +42,7 @@ class BlogModel(BaseModel):
 
     @classmethod
     def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['BlogModel']:
-        transformed:List['BlogModel'] = []
+        transformed = []
         schema = BlogModel.model_json_schema()
         
         for item in data:

@@ -34,7 +34,7 @@ class WebsiteVisitorModel(BaseModel):
     livechat_operator_name: Optional[str] = Field(None, alias="livechat_operator_name", title="Operator Name", description="")
     session_count: Optional[int] = Field(None, alias="session_count", title="# Sessions", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -67,5 +67,5 @@ class WebsiteVisitorModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

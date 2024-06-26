@@ -20,7 +20,7 @@ class UserSettingsModel(BaseModel):
     livechat_username: Optional[str] = Field(None, alias="livechat_username", title="Livechat Username", description="This username will be used as your name in the livechat channels.")
     is_discuss_sidebar_category_livechat_open: Optional[bool] = Field(None, alias="is_discuss_sidebar_category_livechat_open", title="Is category livechat open", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -53,5 +53,5 @@ class UserSettingsModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

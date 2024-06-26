@@ -45,7 +45,7 @@ class ViewModel(BaseModel):
     visibility_password: Optional[str] = Field(None, alias="visibility_password", title="Visibility Password", description="")
     visibility_password_display: Optional[str] = Field(None, alias="visibility_password_display", title="Visibility Password Display", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -78,5 +78,5 @@ class ViewModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

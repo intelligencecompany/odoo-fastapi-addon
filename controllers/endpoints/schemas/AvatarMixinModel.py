@@ -15,7 +15,7 @@ class AvatarMixinModel(BaseModel):
     avatar_256: Optional[Any] = Field(None, alias="avatar_256", title="Avatar 256", description="")
     avatar_128: Optional[Any] = Field(None, alias="avatar_128", title="Avatar 128", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -48,5 +48,5 @@ class AvatarMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed

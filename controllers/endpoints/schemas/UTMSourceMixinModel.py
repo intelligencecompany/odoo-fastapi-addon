@@ -7,7 +7,7 @@ class UTMSourceMixinModel(BaseModel):
     source_id: int = Field(0, alias="source_id", title="Source", description="")
     name: Optional[str] = Field(None, alias="name", title="Name", description="")
 
-    class Config:
+    class ConfigDict:
         from_attributes = True
 
     @classmethod
@@ -40,5 +40,5 @@ class UTMSourceMixinModel(BaseModel):
                     if value is not None:
                         filtered_item[key] = value
 
-            transformed.append(cls(**filtered_item))
+            transformed.append(cls(**filtered_item).model_dump(by_alias=True))
         return transformed
