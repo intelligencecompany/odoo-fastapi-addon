@@ -53,7 +53,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     
     results = Model.BlogModel.from_execute_kw(results[0])
 
-    return JSONResponse(content={'success': 'Post updated successfully.'})
+    return JSONResponse(content=results)
 
     
 @router.put("/api/website.menu/{post_id}", response_model=Dict[str, str], tags=["website"])
