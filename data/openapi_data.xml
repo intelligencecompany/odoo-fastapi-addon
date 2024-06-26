@@ -5,6 +5,11 @@
             <field name="sequence" eval="100"/>
         </record>
 
-        <menuitem id="menu_openapi_model_main" name="OpenAPI Model" parent="base.menu_openapi" sequence="10"/>
+        <record id="menu_openapi_model_main" model="ir.ui.menu">
+            <field name="name">My Model</field>
+            <field name="parent_id" ref="base.menu_openapi"/>
+            <field name="sequence" eval="10"/>
+        </record>
+        <!-- <menuitem id="menu_openapi_model_main" name="OpenAPI Model" parent="base.menu_openapi" sequence="10"/> -->
     </data>
 </odoo>
