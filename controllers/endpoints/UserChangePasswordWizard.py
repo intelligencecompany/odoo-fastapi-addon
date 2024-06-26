@@ -39,7 +39,7 @@ async def get_userchangepasswordwizard(fields:str = '', offset:int = 0, limit:in
         results = Model.UserChangePasswordWizardModel.list_from_execute_kw(results, field_list)
 
     except Exception as e:
-        match = re.match(r"<Fault (\d+): "(.*)">", str(e), re.DOTALL)
+        match = re.match(r'<Fault (\d+): \'(.*)\'>', str(e), re.DOTALL)
         if match:
             error_code = int(match.group(1))
             error_message = match.group(2)

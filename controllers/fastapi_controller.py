@@ -22,8 +22,6 @@ class FastApiController(http.Controller):
     def get_records(self, action=None):
         params = {k: v for k, v in http.request.params.items() if k != 'action'}
 
-        # query_string = urlencode(params)
-
         x_key_header = http.request.httprequest.headers.get('x-key')
 
         headers = {

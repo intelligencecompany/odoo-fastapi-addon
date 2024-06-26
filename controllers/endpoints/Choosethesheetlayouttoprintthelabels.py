@@ -39,7 +39,7 @@ async def get_choosethesheetlayouttoprintthelabels(fields:str = '', offset:int =
         results = Model.ChoosethesheetlayouttoprintthelabelsModel.list_from_execute_kw(results, field_list)
 
     except Exception as e:
-        match = re.match(r"<Fault (\d+): "(.*)">", str(e), re.DOTALL)
+        match = re.match(r'<Fault (\d+): \'(.*)\'>', str(e), re.DOTALL)
         if match:
             error_code = int(match.group(1))
             error_message = match.group(2)
