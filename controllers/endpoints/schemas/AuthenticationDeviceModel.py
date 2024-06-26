@@ -18,7 +18,8 @@ class AuthenticationDeviceModel(BaseModel):
         filtered_item = {}
         schema = AuthenticationDeviceModel.model_json_schema()
 
-        for key, value in item.items():
+        for key in item:
+            value = item[key]
             model_type = 'any'
 
             if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
