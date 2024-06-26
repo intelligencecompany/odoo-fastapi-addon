@@ -18,7 +18,6 @@
         ],
     },
     'data': [
-        'views/res_users_view.xml',
     ],
     'installable': True,
     'application': True,

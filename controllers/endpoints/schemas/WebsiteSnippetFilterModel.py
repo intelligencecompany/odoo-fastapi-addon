@@ -3,21 +3,56 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class WebsiteSnippetFilterModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    name: str = Field("", title="Name", description="")
-    field_names: str = Field("", title="Field Names", description="A list of comma-separated field names")
-    limit: int = Field(0, title="Limit", description="The limit is the maximum number of records retrieved")
-    website_id: Optional[int] = Field(None, title="Website", description="Restrict publishing to this website.")
-    action_server_id: Optional[int] = Field(None, title="Server Action", description="")
-    filter_id: Optional[int] = Field(None, title="Filter", description="")
-    website_published: Optional[bool] = Field(None, title="Visible on current website", description="")
-    is_published: Optional[bool] = Field(None, title="Is Published", description="")
-    can_publish: Optional[bool] = Field(None, title="Can Publish", description="")
-    website_url: Optional[str] = Field(None, title="Website URL", description="The full URL to access the document through the website.")
-    model_name: Optional[str] = Field(None, title="Model name", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    name: str = Field("", alias="name", title="Name", description="")
+    field_names: str = Field("", alias="field_names", title="Field Names", description="A list of comma-separated field names")
+    limit: int = Field(0, alias="limit", title="Limit", description="The limit is the maximum number of records retrieved")
+    website_id: Optional[int] = Field(None, alias="website_id", title="Website", description="Restrict publishing to this website.")
+    action_server_id: Optional[int] = Field(None, alias="action_server_id", title="Server Action", description="")
+    filter_id: Optional[int] = Field(None, alias="filter_id", title="Filter", description="")
+    website_published: Optional[bool] = Field(None, alias="website_published", title="Visible on current website", description="")
+    is_published: Optional[bool] = Field(None, alias="is_published", title="Is Published", description="")
+    can_publish: Optional[bool] = Field(None, alias="can_publish", title="Can Publish", description="")
+    website_url: Optional[str] = Field(None, alias="website_url", title="Website URL", description="The full URL to access the document through the website.")
+    x_model_name: Optional[str] = Field(None, alias="x_model_name", title="Model name", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['WebsiteSnippetFilterModel']:
+        transformed = []
+        schema = WebsiteSnippetFilterModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed

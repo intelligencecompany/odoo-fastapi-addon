@@ -7,7 +7,7 @@ import os
 ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
-ODOO_PASSWORD = 'AdminOdoo2024!'
+ODOO_PASSWORD = '63bcb94e2c7c53f508c723a5b827c189dca26733'
 
 def rename_digits(text):
     # Define a dictionary mapping digits to their text names
@@ -59,14 +59,17 @@ def get_connection(api_key: str):
     return uid, models
 
 @router.get("/api/{model}", response_model=List[Model.{model_name}Model], tags=["{model.split('.')[0]}"])
-async def get_{model_name_lower}(api_key:str = Depends(api_key_header)):
+async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
+    field_list = [x.strip() for x in fields.split(',') if x != '']
+
     if uid:
-        results = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'search_read', [[]])
+        results = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'search_read', [[]], {{'fields': field_list, 'offset': offset, 'limit': limit}})
         if results is None:
             return json.dumps([])
         
-        return json.dumps(results)
+        results = Model.{model_name}Model.from_execute_kw(results, field_list)
+        return results
     else:
         return json.dumps({{'status': 'Connection failed'}})
 """

@@ -3,18 +3,53 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class UpdateaddressofpartnerModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    partner_id: Optional[int] = Field(None, title="Partner", description="")
-    letter_id: Optional[int] = Field(None, title="Letter", description="")
-    state_id: Optional[int] = Field(None, title="State", description="")
-    country_id: Optional[int] = Field(None, title="Country", description="")
-    street: Optional[str] = Field(None, title="Street", description="")
-    street2: Optional[str] = Field(None, title="Street2", description="")
-    zip: Optional[str] = Field(None, title="Zip", description="")
-    city: Optional[str] = Field(None, title="City", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    partner_id: Optional[int] = Field(None, alias="partner_id", title="Partner", description="")
+    letter_id: Optional[int] = Field(None, alias="letter_id", title="Letter", description="")
+    state_id: Optional[int] = Field(None, alias="state_id", title="State", description="")
+    country_id: Optional[int] = Field(None, alias="country_id", title="Country", description="")
+    street: Optional[str] = Field(None, alias="street", title="Street", description="")
+    street2: Optional[str] = Field(None, alias="street2", title="Street2", description="")
+    zip: Optional[str] = Field(None, alias="zip", title="Zip", description="")
+    city: Optional[str] = Field(None, alias="city", title="City", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['UpdateaddressofpartnerModel']:
+        transformed = []
+        schema = UpdateaddressofpartnerModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed

@@ -3,20 +3,55 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class WebsiteThemeMenuModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    name: str = Field("", title="Name", description="")
-    page_id: Optional[int] = Field(None, title="Page", description="")
-    parent_id: Optional[int] = Field(None, title="Parent", description="")
-    copy_ids: Optional[List[int]] = Field(None, title="Menu using a copy of me", description="")
-    url: Optional[str] = Field(None, title="Url", description="")
-    new_window: Optional[bool] = Field(None, title="New Window", description="")
-    sequence: Optional[int] = Field(None, title="Sequence", description="")
-    mega_menu_content: Optional[Any] = Field(None, title="Mega Menu Content", description="")
-    mega_menu_classes: Optional[str] = Field(None, title="Mega Menu Classes", description="")
-    use_main_menu_as_parent: Optional[bool] = Field(None, title="Use Main Menu As Parent", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    name: str = Field("", alias="name", title="Name", description="")
+    page_id: Optional[int] = Field(None, alias="page_id", title="Page", description="")
+    parent_id: Optional[int] = Field(None, alias="parent_id", title="Parent", description="")
+    copy_ids: Optional[List[int]] = Field(None, alias="copy_ids", title="Menu using a copy of me", description="")
+    url: Optional[str] = Field(None, alias="url", title="Url", description="")
+    new_window: Optional[bool] = Field(None, alias="new_window", title="New Window", description="")
+    sequence: Optional[int] = Field(None, alias="sequence", title="Sequence", description="")
+    mega_menu_content: Optional[Any] = Field(None, alias="mega_menu_content", title="Mega Menu Content", description="")
+    mega_menu_classes: Optional[str] = Field(None, alias="mega_menu_classes", title="Mega Menu Classes", description="")
+    use_main_menu_as_parent: Optional[bool] = Field(None, alias="use_main_menu_as_parent", title="Use Main Menu As Parent", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['WebsiteThemeMenuModel']:
+        transformed = []
+        schema = WebsiteThemeMenuModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed

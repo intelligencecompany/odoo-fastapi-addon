@@ -8,7 +8,7 @@ import os
 ODOO_URL = 'https://dataruba.com'
 ODOO_DB = 'azureuser'
 ODOO_USERNAME = 'admin'
-ODOO_PASSWORD = 'AdminOdoo2024!'
+ODOO_PASSWORD = '63bcb94e2c7c53f508c723a5b827c189dca26733'
 
 def remove_leading_special_chars(s):
     return re.sub(r'^[^a-zA-Z0-9]+', '', s)
@@ -76,11 +76,14 @@ def generate_field(field_name: str, field_info: Dict[str, Any]) -> str:
     else:
         help_text = '""'
 
+    if field_name.startswith('model_'):
+        field_name = f'x_{field_name}'
+
     if required:
-        field_definition = f'    {field_name}: {python_type} = Field({default_value}, title="{string}", description={help_text})'
+        field_definition = f'    {field_name}: {python_type} = Field({default_value}, alias="{field_name}", title="{string}", description={help_text})'
     else:
         optional_field = f"Optional[{python_type}]"
-        field_definition = f'    {field_name}: {optional_field} = Field(None, title="{string}", description={help_text})'
+        field_definition = f'    {field_name}: {optional_field} = Field(None, alias="{field_name}", title="{string}", description={help_text})'
     
     
     return field_definition
@@ -118,6 +121,41 @@ from typing import Optional, List, Any
 class {model_name}Model(BaseModel):
 {model_body}
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['{model_name}Model']:
+        transformed = []
+        schema = {model_name}Model.model_json_schema()
+        
+        for item in data:
+            filtered_item = {{}}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed
 """
     return model_definition
 

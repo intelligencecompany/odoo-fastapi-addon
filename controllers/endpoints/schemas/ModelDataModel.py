@@ -3,17 +3,52 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class ModelDataModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    name: str = Field("", title="External Identifier", description="External Key/Identifier that can be used for data integration with third-party systems")
-    model: str = Field("", title="Model Name", description="")
-    module: str = Field("", title="Module", description="")
-    res_id: Optional[Any] = Field(None, title="Record ID", description="ID of the target record in the database")
-    complete_name: Optional[str] = Field(None, title="Complete ID", description="")
-    noupdate: Optional[bool] = Field(None, title="Non Updatable", description="")
-    reference: Optional[str] = Field(None, title="Reference", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    name: str = Field("", alias="name", title="External Identifier", description="External Key/Identifier that can be used for data integration with third-party systems")
+    model: str = Field("", alias="model", title="Model Name", description="")
+    module: str = Field("", alias="module", title="Module", description="")
+    res_id: Optional[Any] = Field(None, alias="res_id", title="Record ID", description="ID of the target record in the database")
+    complete_name: Optional[str] = Field(None, alias="complete_name", title="Complete ID", description="")
+    noupdate: Optional[bool] = Field(None, alias="noupdate", title="Non Updatable", description="")
+    reference: Optional[str] = Field(None, alias="reference", title="Reference", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['ModelDataModel']:
+        transformed = []
+        schema = ModelDataModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed

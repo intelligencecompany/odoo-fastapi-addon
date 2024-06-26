@@ -3,18 +3,53 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class LoggingModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    name: str = Field("", title="Name", description="")
-    type: Any = Field(None, title="Type", description="")
-    message: Any = Field(None, title="Message", description="")
-    path: str = Field("", title="Path", description="")
-    func: str = Field("", title="Function", description="")
-    line: str = Field("", title="Line", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
-    dbname: Optional[str] = Field(None, title="Database Name", description="")
-    level: Optional[str] = Field(None, title="Level", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    name: str = Field("", alias="name", title="Name", description="")
+    type: Any = Field(None, alias="type", title="Type", description="")
+    message: Any = Field(None, alias="message", title="Message", description="")
+    path: str = Field("", alias="path", title="Path", description="")
+    func: str = Field("", alias="func", title="Function", description="")
+    line: str = Field("", alias="line", title="Line", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
+    dbname: Optional[str] = Field(None, alias="dbname", title="Database Name", description="")
+    level: Optional[str] = Field(None, alias="level", title="Level", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['LoggingModel']:
+        transformed = []
+        schema = LoggingModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed

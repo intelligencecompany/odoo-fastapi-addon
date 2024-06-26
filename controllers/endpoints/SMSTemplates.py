@@ -21,13 +21,16 @@ def get_connection(api_key: str):
     return uid, models
 
 @router.get("/api/sms.template", response_model=List[Model.SMSTemplatesModel], tags=["sms"])
-async def get_smstemplates(api_key:str = Depends(api_key_header)):
+async def get_smstemplates(fields:str = '', offset:int = 0, limit:int = 1000, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
+    field_list = [x.strip() for x in fields.split(',') if x != '']
+
     if uid:
-        results = models.execute_kw(ODOO_DB, uid, api_key, 'sms.template', 'search_read', [[]])
+        results = models.execute_kw(ODOO_DB, uid, api_key, 'sms.template', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
         if results is None:
             return json.dumps([])
         
-        return json.dumps(results)
+        results = Model.SMSTemplatesModel.from_execute_kw(results, field_list)
+        return results
     else:
         return json.dumps({'status': 'Connection failed'})

@@ -3,19 +3,54 @@ from pydantic import BaseModel, Field
 from typing import Optional, List, Any
 
 class ActivityplantemplateModel(BaseModel):
-    id: Optional[int] = Field(None, title="ID", description="")
-    responsible_type: Any = Field(None, title="Assignment", description="")
-    plan_id: int = Field(0, title="Plan", description="")
-    company_id: Optional[int] = Field(None, title="Company", description="")
-    activity_type_id: int = Field(0, title="Activity Type", description="")
-    responsible_id: Optional[int] = Field(None, title="Assigned to", description="")
-    res_model: Optional[Any] = Field(None, title="Model", description="Specify a model if the activity should be specific to a model and not available when managing activities for other models.")
-    sequence: Optional[int] = Field(None, title="Sequence", description="")
-    summary: Optional[str] = Field(None, title="Summary", description="")
-    note: Optional[Any] = Field(None, title="Note", description="")
-    display_name: Optional[str] = Field(None, title="Display Name", description="")
-    create_uid: Optional[int] = Field(None, title="Created by", description="")
-    create_date: Optional[str] = Field(None, title="Created on", description="")
-    write_uid: Optional[int] = Field(None, title="Last Updated by", description="")
-    write_date: Optional[str] = Field(None, title="Last Updated on", description="")
+    id: Optional[int] = Field(None, alias="id", title="ID", description="")
+    responsible_type: Any = Field(None, alias="responsible_type", title="Assignment", description="")
+    plan_id: int = Field(0, alias="plan_id", title="Plan", description="")
+    company_id: Optional[int] = Field(None, alias="company_id", title="Company", description="")
+    activity_type_id: int = Field(0, alias="activity_type_id", title="Activity Type", description="")
+    responsible_id: Optional[int] = Field(None, alias="responsible_id", title="Assigned to", description="")
+    res_model: Optional[Any] = Field(None, alias="res_model", title="Model", description="Specify a model if the activity should be specific to a model and not available when managing activities for other models.")
+    sequence: Optional[int] = Field(None, alias="sequence", title="Sequence", description="")
+    summary: Optional[str] = Field(None, alias="summary", title="Summary", description="")
+    note: Optional[Any] = Field(None, alias="note", title="Note", description="")
+    display_name: Optional[str] = Field(None, alias="display_name", title="Display Name", description="")
+    create_uid: Optional[int] = Field(None, alias="create_uid", title="Created by", description="")
+    create_date: Optional[str] = Field(None, alias="create_date", title="Created on", description="")
+    write_uid: Optional[int] = Field(None, alias="write_uid", title="Last Updated by", description="")
+    write_date: Optional[str] = Field(None, alias="write_date", title="Last Updated on", description="")
 
+    class Config:
+        from_attributes = True
+
+    @classmethod
+    def from_execute_kw(cls, data:List[dict], fields:List[str] = []) -> List['ActivityplantemplateModel']:
+        transformed = []
+        schema = ActivityplantemplateModel.model_json_schema()
+        
+        for item in data:
+            filtered_item = {}
+
+            if len(fields) == 0:
+                fields = item.keys()
+
+            for key in fields:
+                if key in item:
+                    value = item[key]
+                    model_type = 'any'
+
+                    if 'anyOf' in schema['properties'][key] and 'type' in schema['properties'][key]['anyOf'][0]:
+                        model_type = schema['properties'][key]['anyOf'][0]['type']
+                    elif 'type' in schema['properties'][key]:
+                        model_type = schema['properties'][key]['type']
+
+                    if isinstance(value, list) and model_type != 'array':
+                        value = value[0] if item[key] else None
+                    
+                    if isinstance(value, bool) and model_type == 'string':
+                        value = ''
+
+                    if value is not None:
+                        filtered_item[key] = value
+
+            transformed.append(cls(**filtered_item))
+        return transformed
