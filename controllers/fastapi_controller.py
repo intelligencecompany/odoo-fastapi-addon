@@ -48,11 +48,6 @@ class FastApiController(http.Controller):
                 headers={'Content-Type': 'application/json'}, 
                 status=400
             )
-
-        post_id = id
-        # updated_fields = fields 
-        print(post_id)
-        # print(updated_fields)
         
         try:
             data = json.loads(http.request.httprequest.data)
@@ -65,7 +60,7 @@ class FastApiController(http.Controller):
             )
 
 
-        if not post_id or post_id < 0 or not data:
+        if not id or id < 0 or not data:
             return http.request.make_response(
                 json.dumps({'error': 'Missing id or fields'}),
                 headers={'Content-Type': 'application/json'}, 
@@ -73,15 +68,12 @@ class FastApiController(http.Controller):
             )
                                 
         params = {k: v for k, v in http.request.params.items() if k != 'action' and k != 'id'}
-
-        x_key_header = http.request.httprequest.headers.get('x-key')
-
         headers = {
-            'x-key': x_key_header
+            'x-key': http.request.httprequest.headers.get('x-key')
         }
 
-        url = f'http://127.0.0.1:8000/api/{action}/{post_id}'
-        response = requests.put(url=url, headers=headers, params=params, data=updated_fields)
+        url = f'http://127.0.0.1:8000/api/{action}/{id}'
+        response = requests.put(url=url, headers=headers, params=params, data=data)
         
         if response.status_code == 200:
             return http.request.make_response(
