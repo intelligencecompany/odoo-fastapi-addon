@@ -45,7 +45,7 @@ class FastApiController(http.Controller):
 
         headers = {
             'x-key': x_key_header,
-            'user_id': user_id
+            'uid': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}'
@@ -88,7 +88,7 @@ class FastApiController(http.Controller):
 
         headers = {
             'x-key': x_key_header,
-            'user_id': user_id
+            'uid': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}'
@@ -140,7 +140,7 @@ class FastApiController(http.Controller):
 
         headers = {
             'x-key': x_key_header,
-            'user_id': user_id
+            'uid': user_id
         }
 
         url = f'http://127.0.0.1:8000/api/{action}/{id}'

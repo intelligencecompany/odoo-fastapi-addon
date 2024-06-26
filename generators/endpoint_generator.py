@@ -68,7 +68,7 @@ async def get_{model_name_lower}(
         offset:int = 0, 
         limit:int = 10, 
         api_key:str = Depends(api_key_header),
-        uid: Annotated[Union[int, None], Header()] = None
+        uid:str | None = Header(default=None)
     ):
     print(uid)
     uid, models = get_connection(uid, api_key)
