@@ -40,17 +40,7 @@ async def get_documentfollowers(fields:str = '', offset:int = 0, limit:int = 10,
 
     except Exception as e:
         logging.error(str(e))
-        # match = re.match(r'<Fault (\d+): '(.*)'>', str(e), re.DOTALL)
-        # if match:
-        #     error_code = int(match.group(1))
-        #     error_message = match.group(2)
-
-        #     error_info = {
-        #         "error_code": error_code,
-        #         "error_message": error_message
-        #     }
-        #     return JSONResponse(content=str(e), status_code=400)
-        return JSONResponse(content={ "error": str(e)}, status_code=400)
+        return JSONResponse(content={ "error": str(e)}, status_code=500)
 
     return JSONResponse(content=results)
 
@@ -62,13 +52,17 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     if not uid:
         return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
 
-    id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'create', [data])
-    results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'read', [id])
-    
-    if results is None or len(results) == 0:
-        return JSONResponse(content=[])
-    
-    results = Model.BlogModel.from_execute_kw(results[0])
+    try:
+        id = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'create', [data])
+        results = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'read', [id])
+        
+        if results is None or len(results) == 0:
+            return JSONResponse(content=[])
+        
+        results = Model.BlogModel.from_execute_kw(results[0])
+    except Exception as e:
+        logging.error(str(e))
+        return JSONResponse(content={ "error": str(e)}, status_code=500)
 
     return JSONResponse(content=results)
 
@@ -83,7 +77,10 @@ async def put_documentfollowers(post_id:int, data:dict, api_key:str = Depends(ap
     if not uid:
         return JSONResponse(content={'status': 'Connection failed'}, status_code=401)
 
-    result = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'write', [[post_id], data])
-    print(result)
+    try:
+        result = models.execute_kw(ODOO_DB, uid, api_key, 'mail.followers', 'write', [[post_id], data])
+    except Exception as e:
+        logging.error(str(e))
+        return JSONResponse(content={ "error": str(e)}, status_code=500)
 
     return JSONResponse(content={'success': 'Post updated successfully.'})

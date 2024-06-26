@@ -33,9 +33,10 @@ class FastApiController(http.Controller):
         
         return http.request.make_response(
             response.content,
-            headers={'Content-Type': 'application/json'}
+            headers={'Content-Type': 'application/json'}, 
+            status=response.status_code
         )
-    
+
     @http.route('/api/<string:action>', type='http', methods=['POST'], auth='public', csrf=False)
     def create_record(self, action:str=None):
         if http.request.httprequest.content_type != 'application/json':
