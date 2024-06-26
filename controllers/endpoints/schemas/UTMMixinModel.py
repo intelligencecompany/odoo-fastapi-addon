@@ -16,7 +16,7 @@ class UTMMixinModel(BaseModel):
         filtered_item = {}
         schema = UTMMixinModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

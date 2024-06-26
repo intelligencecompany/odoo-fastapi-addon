@@ -31,7 +31,7 @@ class ChatbotScriptModel(BaseModel):
         filtered_item = {}
         schema = ChatbotScriptModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

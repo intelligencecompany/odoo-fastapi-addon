@@ -21,7 +21,7 @@ class ExportsModel(BaseModel):
         filtered_item = {}
         schema = ExportsModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

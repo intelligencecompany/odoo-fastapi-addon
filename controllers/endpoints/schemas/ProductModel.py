@@ -90,7 +90,7 @@ class ProductModel(BaseModel):
         filtered_item = {}
         schema = ProductModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

@@ -65,7 +65,7 @@ class MessageModel(BaseModel):
         filtered_item = {}
         schema = MessageModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

@@ -42,7 +42,7 @@ class WebsiteVisitorModel(BaseModel):
         filtered_item = {}
         schema = WebsiteVisitorModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

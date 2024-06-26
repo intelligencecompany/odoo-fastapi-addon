@@ -22,7 +22,7 @@ class UserSettingsVolumesModel(BaseModel):
         filtered_item = {}
         schema = UserSettingsVolumesModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

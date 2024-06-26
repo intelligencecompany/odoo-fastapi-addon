@@ -16,7 +16,7 @@ class AnalyticMixinModel(BaseModel):
         filtered_item = {}
         schema = AnalyticMixinModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 

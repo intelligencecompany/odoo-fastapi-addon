@@ -19,7 +19,7 @@ class MetadataforvoiceattachmentsModel(BaseModel):
         filtered_item = {}
         schema = MetadataforvoiceattachmentsModel.model_json_schema()
 
-        for key in item:
+        for key in item.keys():
             value = item[key]
             model_type = 'any'
 
