@@ -44,8 +44,9 @@ class BlogModel(BaseModel):
     def from_execute_kw(cls, item:dict) -> 'BlogModel':
         filtered_item = {}
         schema = BlogModel.model_json_schema()
-
-        for key in item.keys():
+        print(item)
+        print(type(item))
+        for key in item:
             value = item[key]
             model_type = 'any'
 
