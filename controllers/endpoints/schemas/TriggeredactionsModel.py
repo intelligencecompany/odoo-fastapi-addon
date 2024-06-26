@@ -16,7 +16,7 @@ class TriggeredactionsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'TriggeredactionsModel':
+    def from_execute_kw(cls, item:dict) -> 'TriggeredactionsModel':
         filtered_item = {}
         schema = TriggeredactionsModel.model_json_schema()
 

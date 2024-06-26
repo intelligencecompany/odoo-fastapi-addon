@@ -22,7 +22,7 @@ class LoggingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LoggingModel':
+    def from_execute_kw(cls, item:dict) -> 'LoggingModel':
         filtered_item = {}
         schema = LoggingModel.model_json_schema()
 

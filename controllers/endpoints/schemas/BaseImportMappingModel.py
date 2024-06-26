@@ -17,7 +17,7 @@ class BaseImportMappingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BaseImportMappingModel':
+    def from_execute_kw(cls, item:dict) -> 'BaseImportMappingModel':
         filtered_item = {}
         schema = BaseImportMappingModel.model_json_schema()
 

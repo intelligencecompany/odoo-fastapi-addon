@@ -41,7 +41,7 @@ class BlogModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BlogModel':
+    def from_execute_kw(cls, item:dict) -> 'BlogModel':
         filtered_item = {}
         schema = BlogModel.model_json_schema()
 

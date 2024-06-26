@@ -16,7 +16,7 @@ class UTMMediumModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMMediumModel':
+    def from_execute_kw(cls, item:dict) -> 'UTMMediumModel':
         filtered_item = {}
         schema = UTMMediumModel.model_json_schema()
 

@@ -17,7 +17,7 @@ class ProductTemplateAttributeExclusionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductTemplateAttributeExclusionModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductTemplateAttributeExclusionModel':
         filtered_item = {}
         schema = ProductTemplateAttributeExclusionModel.model_json_schema()
 

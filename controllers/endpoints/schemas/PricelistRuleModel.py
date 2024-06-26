@@ -37,7 +37,7 @@ class PricelistRuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PricelistRuleModel':
+    def from_execute_kw(cls, item:dict) -> 'PricelistRuleModel':
         filtered_item = {}
         schema = PricelistRuleModel.model_json_schema()
 

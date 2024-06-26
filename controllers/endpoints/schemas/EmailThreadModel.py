@@ -22,7 +22,7 @@ class EmailThreadModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailThreadModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailThreadModel':
         filtered_item = {}
         schema = EmailThreadModel.model_json_schema()
 

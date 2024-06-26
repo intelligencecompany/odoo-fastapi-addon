@@ -22,7 +22,7 @@ class UpdateaddressofpartnerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UpdateaddressofpartnerModel':
+    def from_execute_kw(cls, item:dict) -> 'UpdateaddressofpartnerModel':
         filtered_item = {}
         schema = UpdateaddressofpartnerModel.model_json_schema()
 

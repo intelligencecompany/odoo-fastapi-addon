@@ -29,7 +29,7 @@ class EmailTemplatePreviewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailTemplatePreviewModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailTemplatePreviewModel':
         filtered_item = {}
         schema = EmailTemplatePreviewModel.model_json_schema()
 

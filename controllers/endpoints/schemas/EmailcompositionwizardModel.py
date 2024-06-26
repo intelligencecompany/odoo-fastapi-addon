@@ -52,7 +52,7 @@ class EmailcompositionwizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailcompositionwizardModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailcompositionwizardModel':
         filtered_item = {}
         schema = EmailcompositionwizardModel.model_json_schema()
 

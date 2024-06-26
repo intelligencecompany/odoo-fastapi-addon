@@ -17,7 +17,7 @@ class DocumentFollowersModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DocumentFollowersModel':
+    def from_execute_kw(cls, item:dict) -> 'DocumentFollowersModel':
         filtered_item = {}
         schema = DocumentFollowersModel.model_json_schema()
 

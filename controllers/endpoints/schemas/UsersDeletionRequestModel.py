@@ -17,7 +17,7 @@ class UsersDeletionRequestModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UsersDeletionRequestModel':
+    def from_execute_kw(cls, item:dict) -> 'UsersDeletionRequestModel':
         filtered_item = {}
         schema = UsersDeletionRequestModel.model_json_schema()
 

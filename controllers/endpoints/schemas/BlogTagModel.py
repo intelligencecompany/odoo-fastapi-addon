@@ -23,7 +23,7 @@ class BlogTagModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BlogTagModel':
+    def from_execute_kw(cls, item:dict) -> 'BlogTagModel':
         filtered_item = {}
         schema = BlogTagModel.model_json_schema()
 

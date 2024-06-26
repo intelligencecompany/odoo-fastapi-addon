@@ -16,7 +16,7 @@ class CrondatausedforwebpushnotificationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CrondatausedforwebpushnotificationModel':
+    def from_execute_kw(cls, item:dict) -> 'CrondatausedforwebpushnotificationModel':
         filtered_item = {}
         schema = CrondatausedforwebpushnotificationModel.model_json_schema()
 

@@ -64,7 +64,7 @@ class ServerActionsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ServerActionsModel':
+    def from_execute_kw(cls, item:dict) -> 'ServerActionsModel':
         filtered_item = {}
         schema = ServerActionsModel.model_json_schema()
 

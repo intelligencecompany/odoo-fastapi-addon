@@ -25,7 +25,7 @@ class ThemeUIViewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ThemeUIViewModel':
+    def from_execute_kw(cls, item:dict) -> 'ThemeUIViewModel':
         filtered_item = {}
         schema = ThemeUIViewModel.model_json_schema()
 

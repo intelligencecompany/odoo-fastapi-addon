@@ -22,7 +22,7 @@ class ProductAttributeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductAttributeModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductAttributeModel':
         filtered_item = {}
         schema = ProductAttributeModel.model_json_schema()
 

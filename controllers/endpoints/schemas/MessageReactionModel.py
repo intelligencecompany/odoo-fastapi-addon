@@ -14,7 +14,7 @@ class MessageReactionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessageReactionModel':
+    def from_execute_kw(cls, item:dict) -> 'MessageReactionModel':
         filtered_item = {}
         schema = MessageReactionModel.model_json_schema()
 

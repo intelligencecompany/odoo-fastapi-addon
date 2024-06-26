@@ -40,7 +40,7 @@ class AnalyticAccountModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AnalyticAccountModel':
+    def from_execute_kw(cls, item:dict) -> 'AnalyticAccountModel':
         filtered_item = {}
         schema = AnalyticAccountModel.model_json_schema()
 

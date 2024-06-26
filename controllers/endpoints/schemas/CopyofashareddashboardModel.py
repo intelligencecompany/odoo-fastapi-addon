@@ -22,7 +22,7 @@ class CopyofashareddashboardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CopyofashareddashboardModel':
+    def from_execute_kw(cls, item:dict) -> 'CopyofashareddashboardModel':
         filtered_item = {}
         schema = CopyofashareddashboardModel.model_json_schema()
 

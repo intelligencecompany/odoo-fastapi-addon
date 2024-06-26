@@ -16,7 +16,7 @@ class CreateMenuWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CreateMenuWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'CreateMenuWizardModel':
         filtered_item = {}
         schema = CreateMenuWizardModel.model_json_schema()
 

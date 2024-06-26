@@ -22,7 +22,7 @@ class ModelAccessModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModelAccessModel':
+    def from_execute_kw(cls, item:dict) -> 'ModelAccessModel':
         filtered_item = {}
         schema = ModelAccessModel.model_json_schema()
 

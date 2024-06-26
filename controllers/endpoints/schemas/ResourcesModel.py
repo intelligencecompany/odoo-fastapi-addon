@@ -22,7 +22,7 @@ class ResourcesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResourcesModel':
+    def from_execute_kw(cls, item:dict) -> 'ResourcesModel':
         filtered_item = {}
         schema = ResourcesModel.model_json_schema()
 

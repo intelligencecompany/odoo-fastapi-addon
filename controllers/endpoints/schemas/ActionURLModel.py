@@ -23,7 +23,7 @@ class ActionURLModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActionURLModel':
+    def from_execute_kw(cls, item:dict) -> 'ActionURLModel':
         filtered_item = {}
         schema = ActionURLModel.model_json_schema()
 

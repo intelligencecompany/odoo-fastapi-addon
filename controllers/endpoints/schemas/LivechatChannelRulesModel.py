@@ -22,7 +22,7 @@ class LivechatChannelRulesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LivechatChannelRulesModel':
+    def from_execute_kw(cls, item:dict) -> 'LivechatChannelRulesModel':
         filtered_item = {}
         schema = LivechatChannelRulesModel.model_json_schema()
 

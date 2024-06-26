@@ -137,7 +137,7 @@ class ContactModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ContactModel':
+    def from_execute_kw(cls, item:dict) -> 'ContactModel':
         filtered_item = {}
         schema = ContactModel.model_json_schema()
 

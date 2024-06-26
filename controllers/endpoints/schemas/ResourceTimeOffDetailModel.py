@@ -21,7 +21,7 @@ class ResourceTimeOffDetailModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResourceTimeOffDetailModel':
+    def from_execute_kw(cls, item:dict) -> 'ResourceTimeOffDetailModel':
         filtered_item = {}
         schema = ResourceTimeOffDetailModel.model_json_schema()
 

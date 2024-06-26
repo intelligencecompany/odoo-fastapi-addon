@@ -29,7 +29,7 @@ class AnalyticLineModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AnalyticLineModel':
+    def from_execute_kw(cls, item:dict) -> 'AnalyticLineModel':
         filtered_item = {}
         schema = AnalyticLineModel.model_json_schema()
 

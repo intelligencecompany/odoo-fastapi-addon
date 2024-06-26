@@ -18,7 +18,7 @@ class CannedResponseShortcodeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CannedResponseShortcodeModel':
+    def from_execute_kw(cls, item:dict) -> 'CannedResponseShortcodeModel':
         filtered_item = {}
         schema = CannedResponseShortcodeModel.model_json_schema()
 

@@ -10,7 +10,7 @@ class TemplateResetMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'TemplateResetMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'TemplateResetMixinModel':
         filtered_item = {}
         schema = TemplateResetMixinModel.model_json_schema()
 

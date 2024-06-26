@@ -12,7 +12,7 @@ class SpreadsheetmixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SpreadsheetmixinModel':
+    def from_execute_kw(cls, item:dict) -> 'SpreadsheetmixinModel':
         filtered_item = {}
         schema = SpreadsheetmixinModel.model_json_schema()
 

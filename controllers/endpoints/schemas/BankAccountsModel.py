@@ -27,7 +27,7 @@ class BankAccountsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BankAccountsModel':
+    def from_execute_kw(cls, item:dict) -> 'BankAccountsModel':
         filtered_item = {}
         schema = BankAccountsModel.model_json_schema()
 

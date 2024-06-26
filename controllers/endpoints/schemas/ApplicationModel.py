@@ -23,7 +23,7 @@ class ApplicationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ApplicationModel':
+    def from_execute_kw(cls, item:dict) -> 'ApplicationModel':
         filtered_item = {}
         schema = ApplicationModel.model_json_schema()
 

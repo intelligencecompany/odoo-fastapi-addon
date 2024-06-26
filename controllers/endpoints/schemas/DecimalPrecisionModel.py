@@ -16,7 +16,7 @@ class DecimalPrecisionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DecimalPrecisionModel':
+    def from_execute_kw(cls, item:dict) -> 'DecimalPrecisionModel':
         filtered_item = {}
         schema = DecimalPrecisionModel.model_json_schema()
 

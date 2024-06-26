@@ -29,7 +29,7 @@ class WebsiteMenuModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteMenuModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteMenuModel':
         filtered_item = {}
         schema = WebsiteMenuModel.model_json_schema()
 

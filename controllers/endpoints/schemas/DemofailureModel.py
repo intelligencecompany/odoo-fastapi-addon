@@ -17,7 +17,7 @@ class DemofailureModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DemofailureModel':
+    def from_execute_kw(cls, item:dict) -> 'DemofailureModel':
         filtered_item = {}
         schema = DemofailureModel.model_json_schema()
 

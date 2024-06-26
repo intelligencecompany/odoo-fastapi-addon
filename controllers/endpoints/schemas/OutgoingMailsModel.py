@@ -79,7 +79,7 @@ class OutgoingMailsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OutgoingMailsModel':
+    def from_execute_kw(cls, item:dict) -> 'OutgoingMailsModel':
         filtered_item = {}
         schema = OutgoingMailsModel.model_json_schema()
 

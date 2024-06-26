@@ -10,7 +10,7 @@ class MultiWebsiteMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MultiWebsiteMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'MultiWebsiteMixinModel':
         filtered_item = {}
         schema = MultiWebsiteMixinModel.model_json_schema()
 

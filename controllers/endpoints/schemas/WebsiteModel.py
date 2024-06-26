@@ -54,7 +54,7 @@ class WebsiteModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteModel':
         filtered_item = {}
         schema = WebsiteModel.model_json_schema()
 

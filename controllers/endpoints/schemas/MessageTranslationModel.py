@@ -18,7 +18,7 @@ class MessageTranslationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessageTranslationModel':
+    def from_execute_kw(cls, item:dict) -> 'MessageTranslationModel':
         filtered_item = {}
         schema = MessageTranslationModel.model_json_schema()
 

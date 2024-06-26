@@ -25,7 +25,7 @@ class WebsiteConfiguratorFeatureModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteConfiguratorFeatureModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteConfiguratorFeatureModel':
         filtered_item = {}
         schema = WebsiteConfiguratorFeatureModel.model_json_schema()
 

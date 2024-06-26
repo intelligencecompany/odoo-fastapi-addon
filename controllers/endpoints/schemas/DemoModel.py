@@ -14,7 +14,7 @@ class DemoModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DemoModel':
+    def from_execute_kw(cls, item:dict) -> 'DemoModel':
         filtered_item = {}
         schema = DemoModel.model_json_schema()
 

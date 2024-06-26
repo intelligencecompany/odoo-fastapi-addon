@@ -29,7 +29,7 @@ class WorkDetailModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WorkDetailModel':
+    def from_execute_kw(cls, item:dict) -> 'WorkDetailModel':
         filtered_item = {}
         schema = WorkDetailModel.model_json_schema()
 

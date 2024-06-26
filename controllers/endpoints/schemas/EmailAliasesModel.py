@@ -27,7 +27,7 @@ class EmailAliasesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailAliasesModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailAliasesModel':
         filtered_item = {}
         schema = EmailAliasesModel.model_json_schema()
 

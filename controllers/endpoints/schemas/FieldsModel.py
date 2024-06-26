@@ -58,7 +58,7 @@ class FieldsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'FieldsModel':
+    def from_execute_kw(cls, item:dict) -> 'FieldsModel':
         filtered_item = {}
         schema = FieldsModel.model_json_schema()
 

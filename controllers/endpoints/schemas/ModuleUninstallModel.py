@@ -18,7 +18,7 @@ class ModuleUninstallModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuleUninstallModel':
+    def from_execute_kw(cls, item:dict) -> 'ModuleUninstallModel':
         filtered_item = {}
         schema = ModuleUninstallModel.model_json_schema()
 

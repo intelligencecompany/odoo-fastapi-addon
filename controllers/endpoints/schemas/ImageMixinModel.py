@@ -14,7 +14,7 @@ class ImageMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ImageMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'ImageMixinModel':
         filtered_item = {}
         schema = ImageMixinModel.model_json_schema()
 

@@ -18,7 +18,7 @@ class InstallLanguageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'InstallLanguageModel':
+    def from_execute_kw(cls, item:dict) -> 'InstallLanguageModel':
         filtered_item = {}
         schema = InstallLanguageModel.model_json_schema()
 

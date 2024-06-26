@@ -21,7 +21,7 @@ class SpreadsheetDashboardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SpreadsheetDashboardModel':
+    def from_execute_kw(cls, item:dict) -> 'SpreadsheetDashboardModel':
         filtered_item = {}
         schema = SpreadsheetDashboardModel.model_json_schema()
 

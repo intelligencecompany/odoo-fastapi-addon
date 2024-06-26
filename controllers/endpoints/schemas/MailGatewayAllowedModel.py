@@ -16,7 +16,7 @@ class MailGatewayAllowedModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailGatewayAllowedModel':
+    def from_execute_kw(cls, item:dict) -> 'MailGatewayAllowedModel':
         filtered_item = {}
         schema = MailGatewayAllowedModel.model_json_schema()
 

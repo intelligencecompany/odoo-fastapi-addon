@@ -16,7 +16,7 @@ class PartnerTitleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PartnerTitleModel':
+    def from_execute_kw(cls, item:dict) -> 'PartnerTitleModel':
         filtered_item = {}
         schema = PartnerTitleModel.model_json_schema()
 

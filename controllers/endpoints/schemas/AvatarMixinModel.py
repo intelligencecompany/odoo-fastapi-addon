@@ -19,7 +19,7 @@ class AvatarMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AvatarMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'AvatarMixinModel':
         filtered_item = {}
         schema = AvatarMixinModel.model_json_schema()
 

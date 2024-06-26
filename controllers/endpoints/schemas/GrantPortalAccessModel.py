@@ -17,7 +17,7 @@ class GrantPortalAccessModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'GrantPortalAccessModel':
+    def from_execute_kw(cls, item:dict) -> 'GrantPortalAccessModel':
         filtered_item = {}
         schema = GrantPortalAccessModel.model_json_schema()
 

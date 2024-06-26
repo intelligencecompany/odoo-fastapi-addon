@@ -20,7 +20,7 @@ class EmailresendwizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailresendwizardModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailresendwizardModel':
         filtered_item = {}
         schema = EmailresendwizardModel.model_json_schema()
 

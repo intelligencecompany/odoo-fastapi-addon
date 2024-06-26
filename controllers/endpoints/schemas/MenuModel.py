@@ -25,7 +25,7 @@ class MenuModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MenuModel':
+    def from_execute_kw(cls, item:dict) -> 'MenuModel':
         filtered_item = {}
         schema = MenuModel.model_json_schema()
 

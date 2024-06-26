@@ -15,7 +15,7 @@ class SEOmetadataModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SEOmetadataModel':
+    def from_execute_kw(cls, item:dict) -> 'SEOmetadataModel':
         filtered_item = {}
         schema = SEOmetadataModel.model_json_schema()
 

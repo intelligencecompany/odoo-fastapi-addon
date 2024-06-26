@@ -15,7 +15,7 @@ class AllWebsiteRouteModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AllWebsiteRouteModel':
+    def from_execute_kw(cls, item:dict) -> 'AllWebsiteRouteModel':
         filtered_item = {}
         schema = AllWebsiteRouteModel.model_json_schema()
 

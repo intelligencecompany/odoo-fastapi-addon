@@ -21,7 +21,7 @@ class PrivacyLogModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PrivacyLogModel':
+    def from_execute_kw(cls, item:dict) -> 'PrivacyLogModel':
         filtered_item = {}
         schema = PrivacyLogModel.model_json_schema()
 

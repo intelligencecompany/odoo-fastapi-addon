@@ -17,7 +17,7 @@ class ScheduledMessagesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ScheduledMessagesModel':
+    def from_execute_kw(cls, item:dict) -> 'ScheduledMessagesModel':
         filtered_item = {}
         schema = ScheduledMessagesModel.model_json_schema()
 

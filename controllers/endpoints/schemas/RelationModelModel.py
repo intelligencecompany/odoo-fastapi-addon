@@ -17,7 +17,7 @@ class RelationModelModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RelationModelModel':
+    def from_execute_kw(cls, item:dict) -> 'RelationModelModel':
         filtered_item = {}
         schema = RelationModelModel.model_json_schema()
 

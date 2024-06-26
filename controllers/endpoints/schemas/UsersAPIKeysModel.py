@@ -14,7 +14,7 @@ class UsersAPIKeysModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UsersAPIKeysModel':
+    def from_execute_kw(cls, item:dict) -> 'UsersAPIKeysModel':
         filtered_item = {}
         schema = UsersAPIKeysModel.model_json_schema()
 

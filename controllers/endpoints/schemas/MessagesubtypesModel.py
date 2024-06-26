@@ -24,7 +24,7 @@ class MessagesubtypesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessagesubtypesModel':
+    def from_execute_kw(cls, item:dict) -> 'MessagesubtypesModel':
         filtered_item = {}
         schema = MessagesubtypesModel.model_json_schema()
 

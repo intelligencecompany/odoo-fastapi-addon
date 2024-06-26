@@ -25,7 +25,7 @@ class OnboardingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OnboardingModel':
+    def from_execute_kw(cls, item:dict) -> 'OnboardingModel':
         filtered_item = {}
         schema = OnboardingModel.model_json_schema()
 

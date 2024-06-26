@@ -24,7 +24,7 @@ class UserSettingsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UserSettingsModel':
+    def from_execute_kw(cls, item:dict) -> 'UserSettingsModel':
         filtered_item = {}
         schema = UserSettingsModel.model_json_schema()
 

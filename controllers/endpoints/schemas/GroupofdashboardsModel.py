@@ -17,7 +17,7 @@ class GroupofdashboardsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'GroupofdashboardsModel':
+    def from_execute_kw(cls, item:dict) -> 'GroupofdashboardsModel':
         filtered_item = {}
         schema = GroupofdashboardsModel.model_json_schema()
 

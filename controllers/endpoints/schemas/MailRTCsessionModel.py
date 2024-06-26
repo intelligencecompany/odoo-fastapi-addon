@@ -22,7 +22,7 @@ class MailRTCsessionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailRTCsessionModel':
+    def from_execute_kw(cls, item:dict) -> 'MailRTCsessionModel':
         filtered_item = {}
         schema = MailRTCsessionModel.model_json_schema()
 

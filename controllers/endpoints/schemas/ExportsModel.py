@@ -17,7 +17,7 @@ class ExportsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ExportsModel':
+    def from_execute_kw(cls, item:dict) -> 'ExportsModel':
         filtered_item = {}
         schema = ExportsModel.model_json_schema()
 

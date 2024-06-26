@@ -28,7 +28,7 @@ class LanguagesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LanguagesModel':
+    def from_execute_kw(cls, item:dict) -> 'LanguagesModel':
         filtered_item = {}
         schema = LanguagesModel.model_json_schema()
 

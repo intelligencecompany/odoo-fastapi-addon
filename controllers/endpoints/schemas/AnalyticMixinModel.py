@@ -12,7 +12,7 @@ class AnalyticMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AnalyticMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'AnalyticMixinModel':
         filtered_item = {}
         schema = AnalyticMixinModel.model_json_schema()
 

@@ -22,7 +22,7 @@ class PortalUserConfigModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PortalUserConfigModel':
+    def from_execute_kw(cls, item:dict) -> 'PortalUserConfigModel':
         filtered_item = {}
         schema = PortalUserConfigModel.model_json_schema()
 

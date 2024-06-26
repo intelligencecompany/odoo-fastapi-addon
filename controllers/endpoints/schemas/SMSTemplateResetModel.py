@@ -15,7 +15,7 @@ class SMSTemplateResetModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SMSTemplateResetModel':
+    def from_execute_kw(cls, item:dict) -> 'SMSTemplateResetModel':
         filtered_item = {}
         schema = SMSTemplateResetModel.model_json_schema()
 

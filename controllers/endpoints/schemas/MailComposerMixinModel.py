@@ -17,7 +17,7 @@ class MailComposerMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailComposerMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'MailComposerMixinModel':
         filtered_item = {}
         schema = MailComposerMixinModel.model_json_schema()
 

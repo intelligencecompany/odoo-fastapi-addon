@@ -13,7 +13,7 @@ class ResourceMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResourceMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'ResourceMixinModel':
         filtered_item = {}
         schema = ResourceMixinModel.model_json_schema()
 

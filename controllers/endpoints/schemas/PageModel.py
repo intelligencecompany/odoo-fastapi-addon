@@ -66,7 +66,7 @@ class PageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PageModel':
+    def from_execute_kw(cls, item:dict) -> 'PageModel':
         filtered_item = {}
         schema = PageModel.model_json_schema()
 

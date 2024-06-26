@@ -42,7 +42,7 @@ class LivechatChannelModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LivechatChannelModel':
+    def from_execute_kw(cls, item:dict) -> 'LivechatChannelModel':
         filtered_item = {}
         schema = LivechatChannelModel.model_json_schema()
 

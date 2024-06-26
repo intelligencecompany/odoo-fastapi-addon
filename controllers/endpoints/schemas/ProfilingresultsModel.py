@@ -23,7 +23,7 @@ class ProfilingresultsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProfilingresultsModel':
+    def from_execute_kw(cls, item:dict) -> 'ProfilingresultsModel':
         filtered_item = {}
         schema = ProfilingresultsModel.model_json_schema()
 

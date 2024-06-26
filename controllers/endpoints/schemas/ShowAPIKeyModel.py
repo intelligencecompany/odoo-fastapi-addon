@@ -10,7 +10,7 @@ class ShowAPIKeyModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ShowAPIKeyModel':
+    def from_execute_kw(cls, item:dict) -> 'ShowAPIKeyModel':
         filtered_item = {}
         schema = ShowAPIKeyModel.model_json_schema()
 

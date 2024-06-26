@@ -16,7 +16,7 @@ class CampaignStageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CampaignStageModel':
+    def from_execute_kw(cls, item:dict) -> 'CampaignStageModel':
         filtered_item = {}
         schema = CampaignStageModel.model_json_schema()
 

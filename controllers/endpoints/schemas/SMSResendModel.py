@@ -20,7 +20,7 @@ class SMSResendModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SMSResendModel':
+    def from_execute_kw(cls, item:dict) -> 'SMSResendModel':
         filtered_item = {}
         schema = SMSResendModel.model_json_schema()
 

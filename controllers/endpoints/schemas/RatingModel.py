@@ -39,7 +39,7 @@ class RatingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RatingModel':
+    def from_execute_kw(cls, item:dict) -> 'RatingModel':
         filtered_item = {}
         schema = RatingModel.model_json_schema()
 

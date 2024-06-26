@@ -26,7 +26,7 @@ class PaymentCaptureWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaymentCaptureWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'PaymentCaptureWizardModel':
         filtered_item = {}
         schema = PaymentCaptureWizardModel.model_json_schema()
 

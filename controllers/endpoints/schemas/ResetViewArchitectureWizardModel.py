@@ -21,7 +21,7 @@ class ResetViewArchitectureWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResetViewArchitectureWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'ResetViewArchitectureWizardModel':
         filtered_item = {}
         schema = ResetViewArchitectureWizardModel.model_json_schema()
 

@@ -32,7 +32,7 @@ class ReportActionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ReportActionModel':
+    def from_execute_kw(cls, item:dict) -> 'ReportActionModel':
         filtered_item = {}
         schema = ReportActionModel.model_json_schema()
 

@@ -23,7 +23,7 @@ class ProductUnitofMeasureModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductUnitofMeasureModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductUnitofMeasureModel':
         filtered_item = {}
         schema = ProductUnitofMeasureModel.model_json_schema()
 

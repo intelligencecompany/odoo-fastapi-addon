@@ -24,7 +24,7 @@ class PrivacyLookupWizardLineModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PrivacyLookupWizardLineModel':
+    def from_execute_kw(cls, item:dict) -> 'PrivacyLookupWizardLineModel':
         filtered_item = {}
         schema = PrivacyLookupWizardLineModel.model_json_schema()
 

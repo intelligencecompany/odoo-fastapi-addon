@@ -49,7 +49,7 @@ class ViewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ViewModel':
+    def from_execute_kw(cls, item:dict) -> 'ViewModel':
         filtered_item = {}
         schema = ViewModel.model_json_schema()
 

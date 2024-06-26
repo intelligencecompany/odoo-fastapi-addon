@@ -23,7 +23,7 @@ class ActivityplantemplateModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityplantemplateModel':
+    def from_execute_kw(cls, item:dict) -> 'ActivityplantemplateModel':
         filtered_item = {}
         schema = ActivityplantemplateModel.model_json_schema()
 

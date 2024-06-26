@@ -21,7 +21,7 @@ class PortalSharingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PortalSharingModel':
+    def from_execute_kw(cls, item:dict) -> 'PortalSharingModel':
         filtered_item = {}
         schema = PortalSharingModel.model_json_schema()
 

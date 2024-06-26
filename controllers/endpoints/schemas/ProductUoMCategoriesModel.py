@@ -17,7 +17,7 @@ class ProductUoMCategoriesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductUoMCategoriesModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductUoMCategoriesModel':
         filtered_item = {}
         schema = ProductUoMCategoriesModel.model_json_schema()
 

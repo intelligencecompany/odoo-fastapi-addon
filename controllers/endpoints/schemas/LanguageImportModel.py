@@ -19,7 +19,7 @@ class LanguageImportModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LanguageImportModel':
+    def from_execute_kw(cls, item:dict) -> 'LanguageImportModel':
         filtered_item = {}
         schema = LanguageImportModel.model_json_schema()
 

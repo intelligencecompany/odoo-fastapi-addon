@@ -16,7 +16,7 @@ class LinkSMStomailingsmstrackingmodelsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LinkSMStomailingsmstrackingmodelsModel':
+    def from_execute_kw(cls, item:dict) -> 'LinkSMStomailingsmstrackingmodelsModel':
         filtered_item = {}
         schema = LinkSMStomailingsmstrackingmodelsModel.model_json_schema()
 

@@ -15,7 +15,7 @@ class ModuledependencyModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuledependencyModel':
+    def from_execute_kw(cls, item:dict) -> 'ModuledependencyModel':
         filtered_item = {}
         schema = ModuledependencyModel.model_json_schema()
 

@@ -14,7 +14,7 @@ class VisitedPagesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'VisitedPagesModel':
+    def from_execute_kw(cls, item:dict) -> 'VisitedPagesModel':
         filtered_item = {}
         schema = VisitedPagesModel.model_json_schema()
 

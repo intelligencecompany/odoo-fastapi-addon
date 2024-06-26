@@ -11,7 +11,7 @@ class MailRenderMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailRenderMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'MailRenderMixinModel':
         filtered_item = {}
         schema = MailRenderMixinModel.model_json_schema()
 

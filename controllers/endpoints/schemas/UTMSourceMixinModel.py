@@ -11,7 +11,7 @@ class UTMSourceMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMSourceMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'UTMSourceMixinModel':
         filtered_item = {}
         schema = UTMSourceMixinModel.model_json_schema()
 

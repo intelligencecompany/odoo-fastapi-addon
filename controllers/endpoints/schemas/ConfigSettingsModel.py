@@ -121,7 +121,7 @@ class ConfigSettingsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ConfigSettingsModel':
+    def from_execute_kw(cls, item:dict) -> 'ConfigSettingsModel':
         filtered_item = {}
         schema = ConfigSettingsModel.model_json_schema()
 

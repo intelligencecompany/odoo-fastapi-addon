@@ -19,7 +19,7 @@ class ReportLayoutModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ReportLayoutModel':
+    def from_execute_kw(cls, item:dict) -> 'ReportLayoutModel':
         filtered_item = {}
         schema = ReportLayoutModel.model_json_schema()
 

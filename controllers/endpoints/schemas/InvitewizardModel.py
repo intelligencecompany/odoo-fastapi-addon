@@ -19,7 +19,7 @@ class InvitewizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'InvitewizardModel':
+    def from_execute_kw(cls, item:dict) -> 'InvitewizardModel':
         filtered_item = {}
         schema = InvitewizardModel.model_json_schema()
 

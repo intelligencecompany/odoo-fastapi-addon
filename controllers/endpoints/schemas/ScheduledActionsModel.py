@@ -75,7 +75,7 @@ class ScheduledActionsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ScheduledActionsModel':
+    def from_execute_kw(cls, item:dict) -> 'ScheduledActionsModel':
         filtered_item = {}
         schema = ScheduledActionsModel.model_json_schema()
 

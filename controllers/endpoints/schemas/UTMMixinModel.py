@@ -12,7 +12,7 @@ class UTMMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'UTMMixinModel':
         filtered_item = {}
         schema = UTMMixinModel.model_json_schema()
 

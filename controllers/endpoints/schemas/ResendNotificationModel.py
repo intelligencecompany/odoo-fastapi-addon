@@ -21,7 +21,7 @@ class ResendNotificationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResendNotificationModel':
+    def from_execute_kw(cls, item:dict) -> 'ResendNotificationModel':
         filtered_item = {}
         schema = ResendNotificationModel.model_json_schema()
 

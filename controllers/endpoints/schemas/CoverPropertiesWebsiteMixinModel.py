@@ -10,7 +10,7 @@ class CoverPropertiesWebsiteMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CoverPropertiesWebsiteMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'CoverPropertiesWebsiteMixinModel':
         filtered_item = {}
         schema = CoverPropertiesWebsiteMixinModel.model_json_schema()
 

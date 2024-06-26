@@ -23,7 +23,7 @@ class StorelinkpreviewdataModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'StorelinkpreviewdataModel':
+    def from_execute_kw(cls, item:dict) -> 'StorelinkpreviewdataModel':
         filtered_item = {}
         schema = StorelinkpreviewdataModel.model_json_schema()
 

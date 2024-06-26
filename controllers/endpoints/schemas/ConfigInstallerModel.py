@@ -14,7 +14,7 @@ class ConfigInstallerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ConfigInstallerModel':
+    def from_execute_kw(cls, item:dict) -> 'ConfigInstallerModel':
         filtered_item = {}
         schema = ConfigInstallerModel.model_json_schema()
 

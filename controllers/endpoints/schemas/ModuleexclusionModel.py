@@ -18,7 +18,7 @@ class ModuleexclusionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuleexclusionModel':
+    def from_execute_kw(cls, item:dict) -> 'ModuleexclusionModel':
         filtered_item = {}
         schema = ModuleexclusionModel.model_json_schema()
 

@@ -19,7 +19,7 @@ class BarcodeNomenclatureModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BarcodeNomenclatureModel':
+    def from_execute_kw(cls, item:dict) -> 'BarcodeNomenclatureModel':
         filtered_item = {}
         schema = BarcodeNomenclatureModel.model_json_schema()
 

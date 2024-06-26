@@ -38,7 +38,7 @@ class SnailmailLetterModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SnailmailLetterModel':
+    def from_execute_kw(cls, item:dict) -> 'SnailmailLetterModel':
         filtered_item = {}
         schema = SnailmailLetterModel.model_json_schema()
 

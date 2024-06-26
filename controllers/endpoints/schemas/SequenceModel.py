@@ -27,7 +27,7 @@ class SequenceModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SequenceModel':
+    def from_execute_kw(cls, item:dict) -> 'SequenceModel':
         filtered_item = {}
         schema = SequenceModel.model_json_schema()
 

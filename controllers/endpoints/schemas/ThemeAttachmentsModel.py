@@ -18,7 +18,7 @@ class ThemeAttachmentsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ThemeAttachmentsModel':
+    def from_execute_kw(cls, item:dict) -> 'ThemeAttachmentsModel':
         filtered_item = {}
         schema = ThemeAttachmentsModel.model_json_schema()
 

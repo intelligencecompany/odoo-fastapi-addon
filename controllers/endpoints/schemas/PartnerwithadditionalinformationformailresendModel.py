@@ -23,7 +23,7 @@ class PartnerwithadditionalinformationformailresendModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PartnerwithadditionalinformationformailresendModel':
+    def from_execute_kw(cls, item:dict) -> 'PartnerwithadditionalinformationformailresendModel':
         filtered_item = {}
         schema = PartnerwithadditionalinformationformailresendModel.model_json_schema()
 

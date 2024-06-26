@@ -18,7 +18,7 @@ class AnalyticPlansApplicabilitiesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AnalyticPlansApplicabilitiesModel':
+    def from_execute_kw(cls, item:dict) -> 'AnalyticPlansApplicabilitiesModel':
         filtered_item = {}
         schema = AnalyticPlansApplicabilitiesModel.model_json_schema()
 

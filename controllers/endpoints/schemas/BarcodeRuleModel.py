@@ -25,7 +25,7 @@ class BarcodeRuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BarcodeRuleModel':
+    def from_execute_kw(cls, item:dict) -> 'BarcodeRuleModel':
         filtered_item = {}
         schema = BarcodeRuleModel.model_json_schema()
 

@@ -36,7 +36,7 @@ class ActivityTypeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityTypeModel':
+    def from_execute_kw(cls, item:dict) -> 'ActivityTypeModel':
         filtered_item = {}
         schema = ActivityTypeModel.model_json_schema()
 

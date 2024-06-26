@@ -14,7 +14,7 @@ class UsersLogModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UsersLogModel':
+    def from_execute_kw(cls, item:dict) -> 'UsersLogModel':
         filtered_item = {}
         schema = UsersLogModel.model_json_schema()
 

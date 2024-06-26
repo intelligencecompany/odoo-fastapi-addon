@@ -21,7 +21,7 @@ class PaymentprovideronboardingwizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaymentprovideronboardingwizardModel':
+    def from_execute_kw(cls, item:dict) -> 'PaymentprovideronboardingwizardModel':
         filtered_item = {}
         schema = PaymentprovideronboardingwizardModel.model_json_schema()
 

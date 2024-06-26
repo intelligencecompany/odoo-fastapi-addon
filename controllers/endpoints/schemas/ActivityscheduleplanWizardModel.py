@@ -34,7 +34,7 @@ class ActivityscheduleplanWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityscheduleplanWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'ActivityscheduleplanWizardModel':
         filtered_item = {}
         schema = ActivityscheduleplanWizardModel.model_json_schema()
 

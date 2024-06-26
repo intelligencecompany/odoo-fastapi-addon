@@ -15,7 +15,7 @@ class PasswordCheckWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PasswordCheckWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'PasswordCheckWizardModel':
         filtered_item = {}
         schema = PasswordCheckWizardModel.model_json_schema()
 

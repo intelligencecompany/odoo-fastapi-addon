@@ -23,7 +23,7 @@ class WebsiteThemePageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteThemePageModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteThemePageModel':
         filtered_item = {}
         schema = WebsiteThemePageModel.model_json_schema()
 

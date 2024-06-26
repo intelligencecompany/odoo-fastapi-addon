@@ -17,7 +17,7 @@ class UpdateModuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UpdateModuleModel':
+    def from_execute_kw(cls, item:dict) -> 'UpdateModuleModel':
         filtered_item = {}
         schema = UpdateModuleModel.model_json_schema()
 

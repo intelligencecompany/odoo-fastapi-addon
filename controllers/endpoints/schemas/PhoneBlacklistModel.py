@@ -29,7 +29,7 @@ class PhoneBlacklistModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PhoneBlacklistModel':
+    def from_execute_kw(cls, item:dict) -> 'PhoneBlacklistModel':
         filtered_item = {}
         schema = PhoneBlacklistModel.model_json_schema()
 

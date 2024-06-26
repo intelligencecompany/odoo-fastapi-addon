@@ -125,7 +125,7 @@ class {model_name}Model(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> '{model_name}Model':
+    def from_execute_kw(cls, item:dict) -> '{model_name}Model':
         filtered_item = {{}}
         schema = {model_name}Model.model_json_schema()
 

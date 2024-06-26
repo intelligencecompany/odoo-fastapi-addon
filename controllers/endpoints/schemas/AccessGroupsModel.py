@@ -27,7 +27,7 @@ class AccessGroupsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AccessGroupsModel':
+    def from_execute_kw(cls, item:dict) -> 'AccessGroupsModel':
         filtered_item = {}
         schema = AccessGroupsModel.model_json_schema()
 

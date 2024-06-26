@@ -22,7 +22,7 @@ class SMSTemplatesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SMSTemplatesModel':
+    def from_execute_kw(cls, item:dict) -> 'SMSTemplatesModel':
         filtered_item = {}
         schema = SMSTemplatesModel.model_json_schema()
 

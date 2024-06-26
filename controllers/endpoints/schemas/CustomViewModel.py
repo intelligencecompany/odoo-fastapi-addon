@@ -17,7 +17,7 @@ class CustomViewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CustomViewModel':
+    def from_execute_kw(cls, item:dict) -> 'CustomViewModel':
         filtered_item = {}
         schema = CustomViewModel.model_json_schema()
 

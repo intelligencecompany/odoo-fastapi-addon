@@ -16,7 +16,7 @@ class SystemParameterModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SystemParameterModel':
+    def from_execute_kw(cls, item:dict) -> 'SystemParameterModel':
         filtered_item = {}
         schema = SystemParameterModel.model_json_schema()
 

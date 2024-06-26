@@ -15,7 +15,7 @@ class MetadataforvoiceattachmentsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MetadataforvoiceattachmentsModel':
+    def from_execute_kw(cls, item:dict) -> 'MetadataforvoiceattachmentsModel':
         filtered_item = {}
         schema = MetadataforvoiceattachmentsModel.model_json_schema()
 

@@ -23,7 +23,7 @@ class EmailDomainModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailDomainModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailDomainModel':
         filtered_item = {}
         schema = EmailDomainModel.model_json_schema()
 

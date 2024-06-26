@@ -19,7 +19,7 @@ class ProductTagModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductTagModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductTagModel':
         filtered_item = {}
         schema = ProductTagModel.model_json_schema()
 

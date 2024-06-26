@@ -37,7 +37,7 @@ class IncomingMailServerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'IncomingMailServerModel':
+    def from_execute_kw(cls, item:dict) -> 'IncomingMailServerModel':
         filtered_item = {}
         schema = IncomingMailServerModel.model_json_schema()
 

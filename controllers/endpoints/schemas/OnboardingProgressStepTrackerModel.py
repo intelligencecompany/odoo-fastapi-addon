@@ -18,7 +18,7 @@ class OnboardingProgressStepTrackerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OnboardingProgressStepTrackerModel':
+    def from_execute_kw(cls, item:dict) -> 'OnboardingProgressStepTrackerModel':
         filtered_item = {}
         schema = OnboardingProgressStepTrackerModel.model_json_schema()
 

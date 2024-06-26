@@ -29,7 +29,7 @@ class MailTrackingValueModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailTrackingValueModel':
+    def from_execute_kw(cls, item:dict) -> 'MailTrackingValueModel':
         filtered_item = {}
         schema = MailTrackingValueModel.model_json_schema()
 

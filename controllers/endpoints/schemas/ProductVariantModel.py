@@ -102,7 +102,7 @@ class ProductVariantModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductVariantModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductVariantModel':
         filtered_item = {}
         schema = ProductVariantModel.model_json_schema()
 

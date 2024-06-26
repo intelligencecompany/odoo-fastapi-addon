@@ -16,7 +16,7 @@ class CommunicationBusModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CommunicationBusModel':
+    def from_execute_kw(cls, item:dict) -> 'CommunicationBusModel':
         filtered_item = {}
         schema = CommunicationBusModel.model_json_schema()
 

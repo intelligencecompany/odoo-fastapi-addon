@@ -19,7 +19,7 @@ class SequenceDateRangeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SequenceDateRangeModel':
+    def from_execute_kw(cls, item:dict) -> 'SequenceDateRangeModel':
         filtered_item = {}
         schema = SequenceDateRangeModel.model_json_schema()
 

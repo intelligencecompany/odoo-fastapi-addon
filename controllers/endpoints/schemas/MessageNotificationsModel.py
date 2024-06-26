@@ -25,7 +25,7 @@ class MessageNotificationsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessageNotificationsModel':
+    def from_execute_kw(cls, item:dict) -> 'MessageNotificationsModel':
         filtered_item = {}
         schema = MessageNotificationsModel.model_json_schema()
 

@@ -14,7 +14,7 @@ class ConfigModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ConfigModel':
+    def from_execute_kw(cls, item:dict) -> 'ConfigModel':
         filtered_item = {}
         schema = ConfigModel.model_json_schema()
 

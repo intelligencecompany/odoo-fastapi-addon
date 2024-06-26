@@ -13,7 +13,7 @@ class WebsitePublishedMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsitePublishedMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsitePublishedMixinModel':
         filtered_item = {}
         schema = WebsitePublishedMixinModel.model_json_schema()
 

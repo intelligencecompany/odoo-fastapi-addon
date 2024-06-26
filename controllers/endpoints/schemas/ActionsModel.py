@@ -21,7 +21,7 @@ class ActionsModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActionsModel':
+    def from_execute_kw(cls, item:dict) -> 'ActionsModel':
         filtered_item = {}
         schema = ActionsModel.model_json_schema()
 

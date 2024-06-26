@@ -29,7 +29,7 @@ class OnboardingStepModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OnboardingStepModel':
+    def from_execute_kw(cls, item:dict) -> 'OnboardingStepModel':
         filtered_item = {}
         schema = OnboardingStepModel.model_json_schema()
 

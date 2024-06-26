@@ -16,7 +16,7 @@ class PartnerAutocompleteSyncModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PartnerAutocompleteSyncModel':
+    def from_execute_kw(cls, item:dict) -> 'PartnerAutocompleteSyncModel':
         filtered_item = {}
         schema = PartnerAutocompleteSyncModel.model_json_schema()
 

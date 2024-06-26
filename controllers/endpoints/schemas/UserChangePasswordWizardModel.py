@@ -18,7 +18,7 @@ class UserChangePasswordWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UserChangePasswordWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'UserChangePasswordWizardModel':
         filtered_item = {}
         schema = UserChangePasswordWizardModel.model_json_schema()
 

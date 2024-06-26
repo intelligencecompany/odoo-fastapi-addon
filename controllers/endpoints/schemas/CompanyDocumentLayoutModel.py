@@ -40,7 +40,7 @@ class CompanyDocumentLayoutModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CompanyDocumentLayoutModel':
+    def from_execute_kw(cls, item:dict) -> 'CompanyDocumentLayoutModel':
         filtered_item = {}
         schema = CompanyDocumentLayoutModel.model_json_schema()
 

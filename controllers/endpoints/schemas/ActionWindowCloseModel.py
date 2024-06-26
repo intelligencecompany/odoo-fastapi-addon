@@ -21,7 +21,7 @@ class ActionWindowCloseModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActionWindowCloseModel':
+    def from_execute_kw(cls, item:dict) -> 'ActionWindowCloseModel':
         filtered_item = {}
         schema = ActionWindowCloseModel.model_json_schema()
 

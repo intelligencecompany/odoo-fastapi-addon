@@ -20,7 +20,7 @@ class AnalyticDistributionModelModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AnalyticDistributionModelModel':
+    def from_execute_kw(cls, item:dict) -> 'AnalyticDistributionModelModel':
         filtered_item = {}
         schema = AnalyticDistributionModelModel.model_json_schema()
 

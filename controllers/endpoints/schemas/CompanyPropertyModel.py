@@ -25,7 +25,7 @@ class CompanyPropertyModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CompanyPropertyModel':
+    def from_execute_kw(cls, item:dict) -> 'CompanyPropertyModel':
         filtered_item = {}
         schema = CompanyPropertyModel.model_json_schema()
 

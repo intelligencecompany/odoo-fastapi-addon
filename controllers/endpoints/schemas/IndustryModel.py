@@ -17,7 +17,7 @@ class IndustryModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'IndustryModel':
+    def from_execute_kw(cls, item:dict) -> 'IndustryModel':
         filtered_item = {}
         schema = IndustryModel.model_json_schema()
 

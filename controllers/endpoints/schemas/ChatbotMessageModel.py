@@ -19,7 +19,7 @@ class ChatbotMessageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ChatbotMessageModel':
+    def from_execute_kw(cls, item:dict) -> 'ChatbotMessageModel':
         filtered_item = {}
         schema = ChatbotMessageModel.model_json_schema()
 

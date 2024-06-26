@@ -17,7 +17,7 @@ class ModuleActivationReviewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuleActivationReviewModel':
+    def from_execute_kw(cls, item:dict) -> 'ModuleActivationReviewModel':
         filtered_item = {}
         schema = ModuleActivationReviewModel.model_json_schema()
 

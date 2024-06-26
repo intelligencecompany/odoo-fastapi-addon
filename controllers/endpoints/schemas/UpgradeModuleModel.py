@@ -15,7 +15,7 @@ class UpgradeModuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UpgradeModuleModel':
+    def from_execute_kw(cls, item:dict) -> 'UpgradeModuleModel':
         filtered_item = {}
         schema = UpgradeModuleModel.model_json_schema()
 

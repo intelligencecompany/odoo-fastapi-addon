@@ -15,7 +15,7 @@ class EmailAliasesMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailAliasesMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailAliasesMixinModel':
         filtered_item = {}
         schema = EmailAliasesMixinModel.model_json_schema()
 

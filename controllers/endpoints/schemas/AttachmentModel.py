@@ -42,7 +42,7 @@ class AttachmentModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AttachmentModel':
+    def from_execute_kw(cls, item:dict) -> 'AttachmentModel':
         filtered_item = {}
         schema = AttachmentModel.model_json_schema()
 

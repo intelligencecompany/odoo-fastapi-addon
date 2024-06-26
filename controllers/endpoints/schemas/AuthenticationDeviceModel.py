@@ -14,7 +14,7 @@ class AuthenticationDeviceModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AuthenticationDeviceModel':
+    def from_execute_kw(cls, item:dict) -> 'AuthenticationDeviceModel':
         filtered_item = {}
         schema = AuthenticationDeviceModel.model_json_schema()
 

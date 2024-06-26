@@ -24,7 +24,7 @@ class GeneratePaymentLinkModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'GeneratePaymentLinkModel':
+    def from_execute_kw(cls, item:dict) -> 'GeneratePaymentLinkModel':
         filtered_item = {}
         schema = GeneratePaymentLinkModel.model_json_schema()
 

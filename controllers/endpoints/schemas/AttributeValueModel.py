@@ -25,7 +25,7 @@ class AttributeValueModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AttributeValueModel':
+    def from_execute_kw(cls, item:dict) -> 'AttributeValueModel':
         filtered_item = {}
         schema = AttributeValueModel.model_json_schema()
 

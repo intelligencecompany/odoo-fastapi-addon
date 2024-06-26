@@ -10,7 +10,7 @@ class MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeMode
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel':
+    def from_execute_kw(cls, item:dict) -> 'MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel':
         filtered_item = {}
         schema = MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel.model_json_schema()
 

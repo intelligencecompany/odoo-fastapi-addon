@@ -24,7 +24,7 @@ class AssetModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AssetModel':
+    def from_execute_kw(cls, item:dict) -> 'AssetModel':
         filtered_item = {}
         schema = AssetModel.model_json_schema()
 

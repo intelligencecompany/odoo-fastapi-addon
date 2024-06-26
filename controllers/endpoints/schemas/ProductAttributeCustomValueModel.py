@@ -17,7 +17,7 @@ class ProductAttributeCustomValueModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductAttributeCustomValueModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductAttributeCustomValueModel':
         filtered_item = {}
         schema = ProductAttributeCustomValueModel.model_json_schema()
 

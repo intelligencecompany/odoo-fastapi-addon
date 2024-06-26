@@ -27,7 +27,7 @@ class ChatbotScriptModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ChatbotScriptModel':
+    def from_execute_kw(cls, item:dict) -> 'ChatbotScriptModel':
         filtered_item = {}
         schema = ChatbotScriptModel.model_json_schema()
 

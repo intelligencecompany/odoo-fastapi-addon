@@ -29,7 +29,7 @@ class ProductTemplateAttributeValueModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductTemplateAttributeValueModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductTemplateAttributeValueModel':
         filtered_item = {}
         schema = ProductTemplateAttributeValueModel.model_json_schema()
 

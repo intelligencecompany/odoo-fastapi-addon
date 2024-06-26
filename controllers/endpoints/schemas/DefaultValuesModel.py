@@ -19,7 +19,7 @@ class DefaultValuesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DefaultValuesModel':
+    def from_execute_kw(cls, item:dict) -> 'DefaultValuesModel':
         filtered_item = {}
         schema = DefaultValuesModel.model_json_schema()
 

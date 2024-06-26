@@ -20,7 +20,7 @@ class ImportModuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ImportModuleModel':
+    def from_execute_kw(cls, item:dict) -> 'ImportModuleModel':
         filtered_item = {}
         schema = ImportModuleModel.model_json_schema()
 

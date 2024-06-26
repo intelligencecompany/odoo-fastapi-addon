@@ -31,7 +31,7 @@ class ChannelMemberModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ChannelMemberModel':
+    def from_execute_kw(cls, item:dict) -> 'ChannelMemberModel':
         filtered_item = {}
         schema = ChannelMemberModel.model_json_schema()
 

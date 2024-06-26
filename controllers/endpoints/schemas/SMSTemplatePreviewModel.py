@@ -20,7 +20,7 @@ class SMSTemplatePreviewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SMSTemplatePreviewModel':
+    def from_execute_kw(cls, item:dict) -> 'SMSTemplatePreviewModel':
         filtered_item = {}
         schema = SMSTemplatePreviewModel.model_json_schema()
 

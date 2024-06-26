@@ -19,7 +19,7 @@ class TwoFactorSetupWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'TwoFactorSetupWizardModel':
+    def from_execute_kw(cls, item:dict) -> 'TwoFactorSetupWizardModel':
         filtered_item = {}
         schema = TwoFactorSetupWizardModel.model_json_schema()
 

@@ -22,7 +22,7 @@ class WebsiterewriteModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiterewriteModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiterewriteModel':
         filtered_item = {}
         schema = WebsiterewriteModel.model_json_schema()
 

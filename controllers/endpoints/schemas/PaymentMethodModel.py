@@ -29,7 +29,7 @@ class PaymentMethodModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaymentMethodModel':
+    def from_execute_kw(cls, item:dict) -> 'PaymentMethodModel':
         filtered_item = {}
         schema = PaymentMethodModel.model_json_schema()
 

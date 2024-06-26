@@ -12,7 +12,7 @@ class ToursModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ToursModel':
+    def from_execute_kw(cls, item:dict) -> 'ToursModel':
         filtered_item = {}
         schema = ToursModel.model_json_schema()
 

@@ -41,7 +41,7 @@ class EmailTemplatesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailTemplatesModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailTemplatesModel':
         filtered_item = {}
         schema = EmailTemplatesModel.model_json_schema()
 

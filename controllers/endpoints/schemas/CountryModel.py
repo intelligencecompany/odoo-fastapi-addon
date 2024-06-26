@@ -27,7 +27,7 @@ class CountryModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CountryModel':
+    def from_execute_kw(cls, item:dict) -> 'CountryModel':
         filtered_item = {}
         schema = CountryModel.model_json_schema()
 

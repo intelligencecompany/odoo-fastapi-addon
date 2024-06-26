@@ -18,7 +18,7 @@ class PartnerWebPushDeviceModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PartnerWebPushDeviceModel':
+    def from_execute_kw(cls, item:dict) -> 'PartnerWebPushDeviceModel':
         filtered_item = {}
         schema = PartnerWebPushDeviceModel.model_json_schema()
 

@@ -25,7 +25,7 @@ class WebEditorConverterTestModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebEditorConverterTestModel':
+    def from_execute_kw(cls, item:dict) -> 'WebEditorConverterTestModel':
         filtered_item = {}
         schema = WebEditorConverterTestModel.model_json_schema()
 

@@ -23,7 +23,7 @@ class EmailCCmanagementModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailCCmanagementModel':
+    def from_execute_kw(cls, item:dict) -> 'EmailCCmanagementModel':
         filtered_item = {}
         schema = EmailCCmanagementModel.model_json_schema()
 

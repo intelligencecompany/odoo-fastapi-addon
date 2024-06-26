@@ -16,7 +16,7 @@ class UTMTagModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMTagModel':
+    def from_execute_kw(cls, item:dict) -> 'UTMTagModel':
         filtered_item = {}
         schema = UTMTagModel.model_json_schema()
 

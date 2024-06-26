@@ -24,7 +24,7 @@ class WebsiteThemeMenuModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteThemeMenuModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteThemeMenuModel':
         filtered_item = {}
         schema = WebsiteThemeMenuModel.model_json_schema()
 

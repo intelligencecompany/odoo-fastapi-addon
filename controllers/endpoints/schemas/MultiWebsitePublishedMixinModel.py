@@ -14,7 +14,7 @@ class MultiWebsitePublishedMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MultiWebsitePublishedMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'MultiWebsitePublishedMixinModel':
         filtered_item = {}
         schema = MultiWebsitePublishedMixinModel.model_json_schema()
 

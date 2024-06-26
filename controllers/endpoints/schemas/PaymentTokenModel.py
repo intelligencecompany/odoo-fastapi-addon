@@ -24,7 +24,7 @@ class PaymentTokenModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaymentTokenModel':
+    def from_execute_kw(cls, item:dict) -> 'PaymentTokenModel':
         filtered_item = {}
         schema = PaymentTokenModel.model_json_schema()
 

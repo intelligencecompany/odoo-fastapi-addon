@@ -25,7 +25,7 @@ class ResourceWorkingTimeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResourceWorkingTimeModel':
+    def from_execute_kw(cls, item:dict) -> 'ResourceWorkingTimeModel':
         filtered_item = {}
         schema = ResourceWorkingTimeModel.model_json_schema()
 

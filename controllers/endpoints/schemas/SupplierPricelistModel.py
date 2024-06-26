@@ -31,7 +31,7 @@ class SupplierPricelistModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SupplierPricelistModel':
+    def from_execute_kw(cls, item:dict) -> 'SupplierPricelistModel':
         filtered_item = {}
         schema = SupplierPricelistModel.model_json_schema()
 

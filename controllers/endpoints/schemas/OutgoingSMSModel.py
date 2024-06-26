@@ -23,7 +23,7 @@ class OutgoingSMSModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OutgoingSMSModel':
+    def from_execute_kw(cls, item:dict) -> 'OutgoingSMSModel':
         filtered_item = {}
         schema = OutgoingSMSModel.model_json_schema()
 

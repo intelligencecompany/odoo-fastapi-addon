@@ -15,7 +15,7 @@ class APIKeyDescriptionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'APIKeyDescriptionModel':
+    def from_execute_kw(cls, item:dict) -> 'APIKeyDescriptionModel':
         filtered_item = {}
         schema = APIKeyDescriptionModel.model_json_schema()
 

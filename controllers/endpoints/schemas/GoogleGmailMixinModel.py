@@ -14,7 +14,7 @@ class GoogleGmailMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'GoogleGmailMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'GoogleGmailMixinModel':
         filtered_item = {}
         schema = GoogleGmailMixinModel.model_json_schema()
 

@@ -29,7 +29,7 @@ class CurrencyModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CurrencyModel':
+    def from_execute_kw(cls, item:dict) -> 'CurrencyModel':
         filtered_item = {}
         schema = CurrencyModel.model_json_schema()
 

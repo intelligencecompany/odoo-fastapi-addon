@@ -22,7 +22,7 @@ class UTMCampaignModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMCampaignModel':
+    def from_execute_kw(cls, item:dict) -> 'UTMCampaignModel':
         filtered_item = {}
         schema = UTMCampaignModel.model_json_schema()
 

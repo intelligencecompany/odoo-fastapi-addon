@@ -27,7 +27,7 @@ class ClientActionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ClientActionModel':
+    def from_execute_kw(cls, item:dict) -> 'ClientActionModel':
         filtered_item = {}
         schema = ClientActionModel.model_json_schema()
 

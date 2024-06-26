@@ -15,7 +15,7 @@ class SavefavoriteGIFfromTenorAPIModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SavefavoriteGIFfromTenorAPIModel':
+    def from_execute_kw(cls, item:dict) -> 'SavefavoriteGIFfromTenorAPIModel':
         filtered_item = {}
         schema = SavefavoriteGIFfromTenorAPIModel.model_json_schema()
 

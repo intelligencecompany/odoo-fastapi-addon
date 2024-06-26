@@ -21,7 +21,7 @@ class ProductTemplateAttributeLineModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductTemplateAttributeLineModel':
+    def from_execute_kw(cls, item:dict) -> 'ProductTemplateAttributeLineModel':
         filtered_item = {}
         schema = ProductTemplateAttributeLineModel.model_json_schema()
 

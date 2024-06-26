@@ -23,7 +23,7 @@ class ThemeAssetModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ThemeAssetModel':
+    def from_execute_kw(cls, item:dict) -> 'ThemeAssetModel':
         filtered_item = {}
         schema = ThemeAssetModel.model_json_schema()
 

@@ -17,7 +17,7 @@ class MergePartnerLineModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MergePartnerLineModel':
+    def from_execute_kw(cls, item:dict) -> 'MergePartnerLineModel':
         filtered_item = {}
         schema = MergePartnerLineModel.model_json_schema()
 

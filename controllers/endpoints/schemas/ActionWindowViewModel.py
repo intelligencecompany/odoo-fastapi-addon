@@ -19,7 +19,7 @@ class ActionWindowViewModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActionWindowViewModel':
+    def from_execute_kw(cls, item:dict) -> 'ActionWindowViewModel':
         filtered_item = {}
         schema = ActionWindowViewModel.model_json_schema()
 

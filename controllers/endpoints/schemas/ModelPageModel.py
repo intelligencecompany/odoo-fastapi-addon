@@ -60,7 +60,7 @@ class ModelPageModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModelPageModel':
+    def from_execute_kw(cls, item:dict) -> 'ModelPageModel':
         filtered_item = {}
         schema = ModelPageModel.model_json_schema()
 

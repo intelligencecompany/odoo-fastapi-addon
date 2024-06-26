@@ -31,7 +31,7 @@ class PaperFormatConfigModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaperFormatConfigModel':
+    def from_execute_kw(cls, item:dict) -> 'PaperFormatConfigModel':
         filtered_item = {}
         schema = PaperFormatConfigModel.model_json_schema()
 

@@ -20,7 +20,7 @@ class ModelConstraintModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModelConstraintModel':
+    def from_execute_kw(cls, item:dict) -> 'ModelConstraintModel':
         filtered_item = {}
         schema = ModelConstraintModel.model_json_schema()
 

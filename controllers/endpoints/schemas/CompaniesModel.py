@@ -81,7 +81,7 @@ class CompaniesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CompaniesModel':
+    def from_execute_kw(cls, item:dict) -> 'CompaniesModel':
         filtered_item = {}
         schema = CompaniesModel.model_json_schema()
 

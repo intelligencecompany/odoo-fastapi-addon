@@ -23,7 +23,7 @@ class RecordRuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RecordRuleModel':
+    def from_execute_kw(cls, item:dict) -> 'RecordRuleModel':
         filtered_item = {}
         schema = RecordRuleModel.model_json_schema()
 

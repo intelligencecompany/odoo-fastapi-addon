@@ -15,7 +15,7 @@ class UserPresenceModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UserPresenceModel':
+    def from_execute_kw(cls, item:dict) -> 'UserPresenceModel':
         filtered_item = {}
         schema = UserPresenceModel.model_json_schema()
 

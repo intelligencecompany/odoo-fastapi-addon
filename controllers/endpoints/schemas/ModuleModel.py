@@ -48,7 +48,7 @@ class ModuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuleModel':
+    def from_execute_kw(cls, item:dict) -> 'ModuleModel':
         filtered_item = {}
         schema = ModuleModel.model_json_schema()
 

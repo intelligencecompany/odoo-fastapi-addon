@@ -25,7 +25,7 @@ class WebsiteSnippetFilterModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiteSnippetFilterModel':
+    def from_execute_kw(cls, item:dict) -> 'WebsiteSnippetFilterModel':
         filtered_item = {}
         schema = WebsiteSnippetFilterModel.model_json_schema()
 

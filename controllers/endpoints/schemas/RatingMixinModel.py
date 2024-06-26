@@ -30,7 +30,7 @@ class RatingMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RatingMixinModel':
+    def from_execute_kw(cls, item:dict) -> 'RatingMixinModel':
         filtered_item = {}
         schema = RatingMixinModel.model_json_schema()
 
