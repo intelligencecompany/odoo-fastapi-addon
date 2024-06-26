@@ -38,7 +38,7 @@ def generate_endpoint(model: str = "", model_name: str = "DynamicModel") -> str:
     model_name_lower = model_name.lower()
     endpoint_definition = f"""
 import json
-import re
+import logging
 import xmlrpc.client
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import APIKeyHeader
@@ -77,17 +77,18 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
         results = Model.{model_name}Model.list_from_execute_kw(results, field_list)
 
     except Exception as e:
-        match = re.match(r'<Fault (\d+): \'(.*)\'>', str(e), re.DOTALL)
-        if match:
-            error_code = int(match.group(1))
-            error_message = match.group(2)
+        logging.error(str(e))
+        # match = re.match(r'<Fault (\d+): \'(.*)\'>', str(e), re.DOTALL)
+        # if match:
+        #     error_code = int(match.group(1))
+        #     error_message = match.group(2)
 
-            error_info = {{
-                "error_code": error_code,
-                "error_message": error_message
-            }}
-            return JSONResponse(content=error_info, status_code=400)
-        return JSONResponse(content={{ "error": "An unknown error occurred."}}, status_code=400)
+        #     error_info = {{
+        #         "error_code": error_code,
+        #         "error_message": error_message
+        #     }}
+        #     return JSONResponse(content=str(e), status_code=400)
+        return JSONResponse(content={{ "error": str(e)}}, status_code=400)
 
     return JSONResponse(content=results)
 

@@ -1,6 +1,6 @@
 
 import json
-import re
+import logging
 import xmlrpc.client
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import APIKeyHeader
@@ -39,17 +39,18 @@ async def get_workdetail(fields:str = '', offset:int = 0, limit:int = 10, api_ke
         results = Model.WorkDetailModel.list_from_execute_kw(results, field_list)
 
     except Exception as e:
-        match = re.match(r'<Fault (\d+): \'(.*)\'>', str(e), re.DOTALL)
-        if match:
-            error_code = int(match.group(1))
-            error_message = match.group(2)
+        logging.error(str(e))
+        # match = re.match(r'<Fault (\d+): '(.*)'>', str(e), re.DOTALL)
+        # if match:
+        #     error_code = int(match.group(1))
+        #     error_message = match.group(2)
 
-            error_info = {
-                "error_code": error_code,
-                "error_message": error_message
-            }
-            return JSONResponse(content=error_info, status_code=400)
-        return JSONResponse(content={ "error": "An unknown error occurred."}, status_code=400)
+        #     error_info = {
+        #         "error_code": error_code,
+        #         "error_message": error_message
+        #     }
+        #     return JSONResponse(content=str(e), status_code=400)
+        return JSONResponse(content={ "error": str(e)}, status_code=400)
 
     return JSONResponse(content=results)
 
