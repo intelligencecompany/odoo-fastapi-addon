@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MessagesubtypesModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -24,7 +24,7 @@ class MessagesubtypesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MessagesubtypesModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessagesubtypesModel':
         filtered_item = {}
         schema = MessagesubtypesModel.model_json_schema()
 

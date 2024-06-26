@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PaymentTransactionModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -49,7 +49,7 @@ class PaymentTransactionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PaymentTransactionModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PaymentTransactionModel':
         filtered_item = {}
         schema = PaymentTransactionModel.model_json_schema()
 

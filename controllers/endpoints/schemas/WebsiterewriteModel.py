@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class WebsiterewriteModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -22,7 +22,7 @@ class WebsiterewriteModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'WebsiterewriteModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebsiterewriteModel':
         filtered_item = {}
         schema = WebsiterewriteModel.model_json_schema()
 

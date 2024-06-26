@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class UTMTagModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -16,7 +16,7 @@ class UTMTagModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'UTMTagModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMTagModel':
         filtered_item = {}
         schema = UTMTagModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class CrondatausedforwebpushnotificationModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -16,7 +16,7 @@ class CrondatausedforwebpushnotificationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'CrondatausedforwebpushnotificationModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CrondatausedforwebpushnotificationModel':
         filtered_item = {}
         schema = CrondatausedforwebpushnotificationModel.model_json_schema()
 

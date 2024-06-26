@@ -116,7 +116,7 @@ def generate_pydantic_model(json_data: Dict[str, Any], model_name: str = "Dynami
     
     model_definition = f"""
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class {model_name}Model(BaseModel):
 {model_body}
@@ -125,7 +125,7 @@ class {model_name}Model(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> '{model_name}Model':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> '{model_name}Model':
         filtered_item = {{}}
         schema = {model_name}Model.model_json_schema()
 

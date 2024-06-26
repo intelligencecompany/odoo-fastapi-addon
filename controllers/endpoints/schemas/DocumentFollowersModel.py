@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class DocumentFollowersModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -17,7 +17,7 @@ class DocumentFollowersModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'DocumentFollowersModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'DocumentFollowersModel':
         filtered_item = {}
         schema = DocumentFollowersModel.model_json_schema()
 

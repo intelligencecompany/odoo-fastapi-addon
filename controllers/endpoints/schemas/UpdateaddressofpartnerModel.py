@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class UpdateaddressofpartnerModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -22,7 +22,7 @@ class UpdateaddressofpartnerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'UpdateaddressofpartnerModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UpdateaddressofpartnerModel':
         filtered_item = {}
         schema = UpdateaddressofpartnerModel.model_json_schema()
 

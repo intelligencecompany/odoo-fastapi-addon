@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ResourceMixinModel(BaseModel):
 
@@ -13,7 +13,7 @@ class ResourceMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ResourceMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ResourceMixinModel':
         filtered_item = {}
         schema = ResourceMixinModel.model_json_schema()
 

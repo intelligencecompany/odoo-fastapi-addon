@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PortalUserConfigModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -22,7 +22,7 @@ class PortalUserConfigModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PortalUserConfigModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PortalUserConfigModel':
         filtered_item = {}
         schema = PortalUserConfigModel.model_json_schema()
 

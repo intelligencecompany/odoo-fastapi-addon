@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MessageTranslationModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -18,7 +18,7 @@ class MessageTranslationModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MessageTranslationModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MessageTranslationModel':
         filtered_item = {}
         schema = MessageTranslationModel.model_json_schema()
 

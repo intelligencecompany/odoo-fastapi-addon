@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ActivityTypeModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -36,7 +36,7 @@ class ActivityTypeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ActivityTypeModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityTypeModel':
         filtered_item = {}
         schema = ActivityTypeModel.model_json_schema()
 

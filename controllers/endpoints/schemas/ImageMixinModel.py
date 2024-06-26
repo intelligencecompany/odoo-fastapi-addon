@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ImageMixinModel(BaseModel):
 
@@ -14,7 +14,7 @@ class ImageMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ImageMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ImageMixinModel':
         filtered_item = {}
         schema = ImageMixinModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class SpreadsheetDashboardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -21,7 +21,7 @@ class SpreadsheetDashboardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'SpreadsheetDashboardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SpreadsheetDashboardModel':
         filtered_item = {}
         schema = SpreadsheetDashboardModel.model_json_schema()
 

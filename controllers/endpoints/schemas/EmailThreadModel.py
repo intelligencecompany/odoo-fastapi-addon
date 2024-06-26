@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class EmailThreadModel(BaseModel):
 
@@ -22,7 +22,7 @@ class EmailThreadModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'EmailThreadModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailThreadModel':
         filtered_item = {}
         schema = EmailThreadModel.model_json_schema()
 

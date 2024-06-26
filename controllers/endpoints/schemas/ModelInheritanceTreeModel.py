@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ModelInheritanceTreeModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -13,7 +13,7 @@ class ModelInheritanceTreeModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ModelInheritanceTreeModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModelInheritanceTreeModel':
         filtered_item = {}
         schema = ModelInheritanceTreeModel.model_json_schema()
 

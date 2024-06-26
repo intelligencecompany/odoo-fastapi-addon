@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class BankModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -25,7 +25,7 @@ class BankModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'BankModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BankModel':
         filtered_item = {}
         schema = BankModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PortalSharingModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -21,7 +21,7 @@ class PortalSharingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PortalSharingModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PortalSharingModel':
         filtered_item = {}
         schema = PortalSharingModel.model_json_schema()
 

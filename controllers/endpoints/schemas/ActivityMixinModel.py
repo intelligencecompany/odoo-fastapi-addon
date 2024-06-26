@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ActivityMixinModel(BaseModel):
 
@@ -19,7 +19,7 @@ class ActivityMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ActivityMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityMixinModel':
         filtered_item = {}
         schema = ActivityMixinModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PortalMixinModel(BaseModel):
 
@@ -12,7 +12,7 @@ class PortalMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PortalMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PortalMixinModel':
         filtered_item = {}
         schema = PortalMixinModel.model_json_schema()
 

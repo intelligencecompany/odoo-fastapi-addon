@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class RecordRuleModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -23,7 +23,7 @@ class RecordRuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'RecordRuleModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RecordRuleModel':
         filtered_item = {}
         schema = RecordRuleModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ActivityscheduleplanWizardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -34,7 +34,7 @@ class ActivityscheduleplanWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ActivityscheduleplanWizardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActivityscheduleplanWizardModel':
         filtered_item = {}
         schema = ActivityscheduleplanWizardModel.model_json_schema()
 

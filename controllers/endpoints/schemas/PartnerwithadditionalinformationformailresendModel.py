@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PartnerwithadditionalinformationformailresendModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -23,7 +23,7 @@ class PartnerwithadditionalinformationformailresendModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PartnerwithadditionalinformationformailresendModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PartnerwithadditionalinformationformailresendModel':
         filtered_item = {}
         schema = PartnerwithadditionalinformationformailresendModel.model_json_schema()
 

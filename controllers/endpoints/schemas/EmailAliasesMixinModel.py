@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class EmailAliasesMixinModel(BaseModel):
 
@@ -15,7 +15,7 @@ class EmailAliasesMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'EmailAliasesMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailAliasesMixinModel':
         filtered_item = {}
         schema = EmailAliasesMixinModel.model_json_schema()
 

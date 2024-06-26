@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class SMSResendModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -20,7 +20,7 @@ class SMSResendModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'SMSResendModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SMSResendModel':
         filtered_item = {}
         schema = SMSResendModel.model_json_schema()
 

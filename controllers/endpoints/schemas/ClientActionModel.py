@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ClientActionModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -27,7 +27,7 @@ class ClientActionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ClientActionModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ClientActionModel':
         filtered_item = {}
         schema = ClientActionModel.model_json_schema()
 

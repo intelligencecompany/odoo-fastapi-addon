@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MailBlacklistModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -29,7 +29,7 @@ class MailBlacklistModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MailBlacklistModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailBlacklistModel':
         filtered_item = {}
         schema = MailBlacklistModel.model_json_schema()
 

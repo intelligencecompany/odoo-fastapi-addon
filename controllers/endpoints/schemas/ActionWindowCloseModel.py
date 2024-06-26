@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ActionWindowCloseModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -21,7 +21,7 @@ class ActionWindowCloseModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ActionWindowCloseModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ActionWindowCloseModel':
         filtered_item = {}
         schema = ActionWindowCloseModel.model_json_schema()
 

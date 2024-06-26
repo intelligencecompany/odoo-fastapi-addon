@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ProductUnitofMeasureModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -23,7 +23,7 @@ class ProductUnitofMeasureModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ProductUnitofMeasureModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ProductUnitofMeasureModel':
         filtered_item = {}
         schema = ProductUnitofMeasureModel.model_json_schema()
 

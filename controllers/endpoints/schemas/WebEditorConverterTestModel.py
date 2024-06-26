@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class WebEditorConverterTestModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -25,7 +25,7 @@ class WebEditorConverterTestModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'WebEditorConverterTestModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'WebEditorConverterTestModel':
         filtered_item = {}
         schema = WebEditorConverterTestModel.model_json_schema()
 

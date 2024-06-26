@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class LoggingModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -22,7 +22,7 @@ class LoggingModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'LoggingModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LoggingModel':
         filtered_item = {}
         schema = LoggingModel.model_json_schema()
 

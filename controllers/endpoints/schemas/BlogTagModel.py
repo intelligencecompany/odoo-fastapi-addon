@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class BlogTagModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -23,7 +23,7 @@ class BlogTagModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'BlogTagModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'BlogTagModel':
         filtered_item = {}
         schema = BlogTagModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class GoogleGmailMixinModel(BaseModel):
 
@@ -14,7 +14,7 @@ class GoogleGmailMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'GoogleGmailMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'GoogleGmailMixinModel':
         filtered_item = {}
         schema = GoogleGmailMixinModel.model_json_schema()
 

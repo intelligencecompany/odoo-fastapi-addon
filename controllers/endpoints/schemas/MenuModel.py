@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MenuModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -25,7 +25,7 @@ class MenuModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MenuModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MenuModel':
         filtered_item = {}
         schema = MenuModel.model_json_schema()
 

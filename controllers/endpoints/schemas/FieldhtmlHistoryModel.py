@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class FieldhtmlHistoryModel(BaseModel):
 
@@ -11,7 +11,7 @@ class FieldhtmlHistoryModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'FieldhtmlHistoryModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'FieldhtmlHistoryModel':
         filtered_item = {}
         schema = FieldhtmlHistoryModel.model_json_schema()
 

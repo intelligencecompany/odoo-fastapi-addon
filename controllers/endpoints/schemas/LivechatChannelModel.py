@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class LivechatChannelModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -42,7 +42,7 @@ class LivechatChannelModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'LivechatChannelModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'LivechatChannelModel':
         filtered_item = {}
         schema = LivechatChannelModel.model_json_schema()
 

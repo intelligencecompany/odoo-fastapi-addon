@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ModuleActivationRequestModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -18,7 +18,7 @@ class ModuleActivationRequestModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ModuleActivationRequestModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ModuleActivationRequestModel':
         filtered_item = {}
         schema = ModuleActivationRequestModel.model_json_schema()
 

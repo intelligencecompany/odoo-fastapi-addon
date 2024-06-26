@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ExportsLineModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -16,7 +16,7 @@ class ExportsLineModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ExportsLineModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ExportsLineModel':
         filtered_item = {}
         schema = ExportsLineModel.model_json_schema()
 

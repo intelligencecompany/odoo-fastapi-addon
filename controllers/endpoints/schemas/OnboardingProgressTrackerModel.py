@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class OnboardingProgressTrackerModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -19,7 +19,7 @@ class OnboardingProgressTrackerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'OnboardingProgressTrackerModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OnboardingProgressTrackerModel':
         filtered_item = {}
         schema = OnboardingProgressTrackerModel.model_json_schema()
 

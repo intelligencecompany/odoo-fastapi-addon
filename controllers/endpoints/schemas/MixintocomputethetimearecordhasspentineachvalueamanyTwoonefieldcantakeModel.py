@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel(BaseModel):
 
@@ -10,7 +10,7 @@ class MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeMode
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel':
         filtered_item = {}
         schema = MixintocomputethetimearecordhasspentineachvalueamanyTwoonefieldcantakeModel.model_json_schema()
 

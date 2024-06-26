@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class UpgradeModuleModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -15,7 +15,7 @@ class UpgradeModuleModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'UpgradeModuleModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UpgradeModuleModel':
         filtered_item = {}
         schema = UpgradeModuleModel.model_json_schema()
 

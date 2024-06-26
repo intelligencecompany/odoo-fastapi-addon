@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class CreateMenuWizardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -16,7 +16,7 @@ class CreateMenuWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'CreateMenuWizardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CreateMenuWizardModel':
         filtered_item = {}
         schema = CreateMenuWizardModel.model_json_schema()
 

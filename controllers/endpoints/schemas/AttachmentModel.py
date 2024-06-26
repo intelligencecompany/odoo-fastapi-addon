@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class AttachmentModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -42,7 +42,7 @@ class AttachmentModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'AttachmentModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AttachmentModel':
         filtered_item = {}
         schema = AttachmentModel.model_json_schema()
 

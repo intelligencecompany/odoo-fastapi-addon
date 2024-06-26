@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MergePartnerWizardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -28,7 +28,7 @@ class MergePartnerWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MergePartnerWizardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MergePartnerWizardModel':
         filtered_item = {}
         schema = MergePartnerWizardModel.model_json_schema()
 

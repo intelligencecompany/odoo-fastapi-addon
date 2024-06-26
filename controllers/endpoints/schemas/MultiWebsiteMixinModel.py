@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MultiWebsiteMixinModel(BaseModel):
 
@@ -10,7 +10,7 @@ class MultiWebsiteMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MultiWebsiteMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MultiWebsiteMixinModel':
         filtered_item = {}
         schema = MultiWebsiteMixinModel.model_json_schema()
 

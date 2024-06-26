@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class FieldsSelectionModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -18,7 +18,7 @@ class FieldsSelectionModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'FieldsSelectionModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'FieldsSelectionModel':
         filtered_item = {}
         schema = FieldsSelectionModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class OnboardingStepModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -29,7 +29,7 @@ class OnboardingStepModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'OnboardingStepModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'OnboardingStepModel':
         filtered_item = {}
         schema = OnboardingStepModel.model_json_schema()
 

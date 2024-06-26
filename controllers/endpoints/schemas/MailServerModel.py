@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class MailServerModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -34,7 +34,7 @@ class MailServerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'MailServerModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'MailServerModel':
         filtered_item = {}
         schema = MailServerModel.model_json_schema()
 

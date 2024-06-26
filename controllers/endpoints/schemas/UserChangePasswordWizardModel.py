@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class UserChangePasswordWizardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -18,7 +18,7 @@ class UserChangePasswordWizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'UserChangePasswordWizardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UserChangePasswordWizardModel':
         filtered_item = {}
         schema = UserChangePasswordWizardModel.model_json_schema()
 

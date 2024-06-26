@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class PhoneBlacklistMixinModel(BaseModel):
 
@@ -27,7 +27,7 @@ class PhoneBlacklistMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'PhoneBlacklistMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'PhoneBlacklistMixinModel':
         filtered_item = {}
         schema = PhoneBlacklistMixinModel.model_json_schema()
 

@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class EmailcompositionwizardModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -52,7 +52,7 @@ class EmailcompositionwizardModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'EmailcompositionwizardModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'EmailcompositionwizardModel':
         filtered_item = {}
         schema = EmailcompositionwizardModel.model_json_schema()
 

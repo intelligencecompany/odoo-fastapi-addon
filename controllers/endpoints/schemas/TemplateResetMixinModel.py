@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class TemplateResetMixinModel(BaseModel):
 
@@ -10,7 +10,7 @@ class TemplateResetMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'TemplateResetMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'TemplateResetMixinModel':
         filtered_item = {}
         schema = TemplateResetMixinModel.model_json_schema()
 

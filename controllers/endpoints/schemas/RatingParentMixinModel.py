@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class RatingParentMixinModel(BaseModel):
 
@@ -14,7 +14,7 @@ class RatingParentMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'RatingParentMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'RatingParentMixinModel':
         filtered_item = {}
         schema = RatingParentMixinModel.model_json_schema()
 

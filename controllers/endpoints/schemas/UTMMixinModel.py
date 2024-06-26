@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class UTMMixinModel(BaseModel):
 
@@ -12,7 +12,7 @@ class UTMMixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'UTMMixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'UTMMixinModel':
         filtered_item = {}
         schema = UTMMixinModel.model_json_schema()
 

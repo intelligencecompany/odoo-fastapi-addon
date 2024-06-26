@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class VisitedPagesModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -14,7 +14,7 @@ class VisitedPagesModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'VisitedPagesModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'VisitedPagesModel':
         filtered_item = {}
         schema = VisitedPagesModel.model_json_schema()
 

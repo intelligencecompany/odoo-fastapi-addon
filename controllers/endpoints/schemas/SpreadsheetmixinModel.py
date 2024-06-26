@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class SpreadsheetmixinModel(BaseModel):
 
@@ -12,7 +12,7 @@ class SpreadsheetmixinModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'SpreadsheetmixinModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'SpreadsheetmixinModel':
         filtered_item = {}
         schema = SpreadsheetmixinModel.model_json_schema()
 

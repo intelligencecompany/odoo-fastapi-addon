@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class AllWebsiteRouteModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -15,7 +15,7 @@ class AllWebsiteRouteModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'AllWebsiteRouteModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'AllWebsiteRouteModel':
         filtered_item = {}
         schema = AllWebsiteRouteModel.model_json_schema()
 

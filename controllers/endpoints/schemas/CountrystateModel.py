@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class CountrystateModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -17,7 +17,7 @@ class CountrystateModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'CountrystateModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'CountrystateModel':
         filtered_item = {}
         schema = CountrystateModel.model_json_schema()
 

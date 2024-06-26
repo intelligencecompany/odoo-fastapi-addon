@@ -1,6 +1,6 @@
 
 from pydantic import BaseModel, Field
-from typing import Optional, List, Any
+from typing import Optional, List, Any, Dict
 
 class ConfigInstallerModel(BaseModel):
     id: Optional[int] = Field(None, alias="id", title="ID", description="")
@@ -14,7 +14,7 @@ class ConfigInstallerModel(BaseModel):
         from_attributes = True
 
     @classmethod
-    def from_execute_kw(cls, item:dict[str, any]) -> 'ConfigInstallerModel':
+    def from_execute_kw(cls, item:Dict[str, Any]) -> 'ConfigInstallerModel':
         filtered_item = {}
         schema = ConfigInstallerModel.model_json_schema()
 
