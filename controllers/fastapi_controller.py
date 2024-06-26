@@ -39,7 +39,7 @@ class FastApiController(http.Controller):
         )
     
     @http.route('/api/<string:action>/<int:id>', type='http', methods=['PUT'], auth='public', csrf=False)
-    def update_record(self, action:str=None, id:int=None, fields=[]):
+    def update_record(self, action:str=None, id:int=-1, fields=[]):
         csrf = http.request.httprequest.headers.get('X-CSRF-TOKEN')
         print('CSRF: ' + csrf)
         if http.request.httprequest.content_type != 'application/json':
@@ -64,7 +64,7 @@ class FastApiController(http.Controller):
             )
 
 
-        if not post_id or not updated_fields:
+        if not post_id or post_id < 0 or not updated_fields:
             return http.request.make_response(
                 json.dumps({'error': 'Missing id or fields'}),
                 headers={'Content-Type': 'application/json'}, 
