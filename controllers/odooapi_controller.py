@@ -1,7 +1,4 @@
-
-from odoo import http
 import requests
-from urllib.parse import urlencode
 import json
 import logging
 from odoo import http
@@ -24,9 +21,13 @@ def get_user_id(api_key: str):
         return request.make_response("User not found", status=400)
     
     logging.info(f'Request for user: {user_id} {user.login}')
-    return user.login
 
-class FastApiController(http.Controller):
+    database_name = request.env.cr.dbname
+    logging.info(f'Request database: {database_name}')
+
+    return user.login, database_name
+
+class OdooApiController(http.Controller):
     @http.route('/openapi.json', methods=['GET'], auth='public')
     def openapi(self):
         url = 'http://127.0.0.1:8000/openapi.json'

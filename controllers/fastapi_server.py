@@ -9,25 +9,39 @@ from odoo.http import request
 from .endpoints import *
 
 ODOO_URL = 'http://127.0.0.1:8069'
-ODOO_DB = 'azureuser'
-ODOO_USERNAME = 'admin'
 
 api_key_header = APIKeyHeader(name='x-key')
 
-# XML-RPC connection
-def get_connection(api_key: str):
-    common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
+def get_user_id(api_key: str):
+    if not api_key:
+            raise http.make_response("API key invalid", status=400)
 
     user_id = request.env["res.users.apikeys"]._check_credentials(
         scope="rpc", key=api_key
     )
 
     if not user_id:
-            raise http.BadRequest("API key invalid")
+            raise http.make_response("API key invalid", status=400)
     
-    print(user_id)
+    user = request.env['res.users'].browse(user_id)
+
+    if not user.exists():
+        return request.make_response("User not found", status=400)
     
-    uid = common.authenticate(ODOO_DB, user_id, api_key, {})
+    logging.info(f'Request for user: {user_id} {user.login}')
+
+    database_name = request.env.cr.dbname
+    logging.info(f'Request database: {database_name}')
+
+    return user.login, database_name
+
+# XML-RPC connection
+def get_connection(api_key: str):
+    common = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/common')
+
+    user_id, database = get_user_id(api_key)
+        
+    uid = common.authenticate(database, user_id, api_key, {})
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
@@ -50,23 +64,3 @@ async def get_models(api_key:str = Depends(api_key_header)):
         return json.dumps(model_names)
     else:
         return json.dumps({'status': 'Connection failed'})
-
-# @app.get("/api/{model}", response_model=List[Dict[str, Any]])
-# async def get_model(
-#     model: str, 
-#     api_key:str = Depends(api_key_header),
-#     fields: Optional[List[str]] = Query(None)
-# ):
-#     uid, models = get_connection(api_key)
-#     if uid:
-#         results = models.execute_kw(ODOO_DB, uid, api_key, model, 'search_read', [[]])
-#         if results == None:
-#             return json.dumps([])
-        
-#         return json.dumps(results)
-#     else:
-#         return json.dumps({'status': 'Connection failed'})
-    
-# Endpoint defined in a separate file
-# from .endpoints import AnalyticAccount  # Adjust the import path based on your project structure
-# app.include_router(AnalyticAccount.router)

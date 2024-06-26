@@ -62,7 +62,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{{ODOO_URL}}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/{model}", response_model=List[Model.{model_name}Model], tags={model.split('.')})
+@router.get("/api/{model}", response_model=List[Model.{model_name}Model], tags=[{model.split('.')[0]}])
 async def get_{model_name_lower}(
         fields:str = '', 
         offset:int = 0, 

@@ -18,6 +18,8 @@
         ],
     },
     'data': [
+        'views/openapi_view.xml',
+        'data/openapi_data.xml',
     ],
     'installable': True,
     'application': True,
