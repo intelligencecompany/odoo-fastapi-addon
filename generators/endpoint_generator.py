@@ -38,6 +38,7 @@ def generate_endpoint(model: str = "", model_name: str = "DynamicModel") -> str:
     model_name_lower = model_name.lower()
     endpoint_definition = f"""
 import json
+import re
 import xmlrpc.client
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.security import APIKeyHeader
@@ -74,7 +75,7 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
             return JSONResponse(content=[], status_code=204)
     
         results = Model.{model_name}Model.list_from_execute_kw(results, field_list)
-        
+
     except Exception as e:
         return JSONResponse(content={{'error': json.dumps(e) }}, status_code=400)
 
