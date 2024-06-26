@@ -31,6 +31,7 @@ async def get_analyticaccount(fields:str = '', offset:int = 0, limit:int = 1000,
         
 
     results = models.execute_kw(ODOO_DB, uid, api_key, 'account.analytic.account', 'search_read', [[]], {'fields': field_list, 'offset': offset, 'limit': limit})
+    print(results)
     if results is None:
         return JSONResponse(content=[])
     

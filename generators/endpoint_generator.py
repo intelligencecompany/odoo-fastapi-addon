@@ -67,7 +67,6 @@ async def get_{model_name_lower}(fields:str = '', offset:int = 0, limit:int = 10
     if not uid:
         return JSONResponse(content={{'status': 'Connection failed'}}, status_code=401)
         
-
     results = models.execute_kw(ODOO_DB, uid, api_key, '{model}', 'search_read', [[]], {{'fields': field_list, 'offset': offset, 'limit': limit}})
     if results is None:
         return JSONResponse(content=[])
