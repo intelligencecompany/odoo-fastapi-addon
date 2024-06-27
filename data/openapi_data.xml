@@ -1,10 +1,10 @@
 <odoo>
-    <data>
+    <!-- <data>
         <record id="base.menu_openapi" model="ir.ui.menu">
             <field name="name">OpenAPI</field>
             <field name="sequence" eval="100"/>
         </record>
-    </data>
+    </data> -->
     <!-- <data>
         <record id="menu_openapi_model_main" model="ir.ui.menu">
             <field name="name">Settings</field>
