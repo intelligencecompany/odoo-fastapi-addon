@@ -4,7 +4,8 @@
             <field name="name">OpenAPI (REST)</field>
             <field name="sequence" eval="100"/>
         </record>
-
+    </data>
+    <data>
         <record id="menu_openapi_model_main" model="ir.ui.menu">
             <field name="name">Settings</field>
             <field name="parent_id" ref="base.menu_openapi"/>
