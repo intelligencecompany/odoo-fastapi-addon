@@ -1,4 +1,4 @@
-<odoo>
+<!-- <odoo>
     <data>
         <!-- Main Menu Item for OpenAPI -->
         <record id="base.menu_openapi" model="ir.ui.menu">
@@ -35,4 +35,4 @@
             <field name="sequence" eval="30"/>
         </record>
     </data>
-</odoo>
+</odoo> -->
