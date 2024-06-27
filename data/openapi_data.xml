@@ -1,33 +1,28 @@
 <!-- <odoo>
     <data>
-        <!-- Main Menu Item for OpenAPI -->
         <record id="base.menu_openapi" model="ir.ui.menu">
             <field name="name">OpenAPI (REST)</field>
             <field name="sequence" eval="100"/>
         </record>
 
-        <!-- Submenu Item for Settings under OpenAPI -->
         <record id="menu_openapi_settings" model="ir.ui.menu">
             <field name="name">Settings</field>
             <field name="parent_id" ref="base.menu_openapi"/>
             <field name="sequence" eval="10"/>
         </record>
 
-        <!-- Another Menu Item under OpenAPI -->
         <record id="menu_openapi_model" model="ir.ui.menu">
             <field name="name">OpenAPI Model</field>
             <field name="parent_id" ref="base.menu_openapi"/>
             <field name="sequence" eval="20"/>
         </record>
 
-        <!-- Action for OpenAPI Model -->
         <record id="action_openapi_model" model="ir.actions.act_window">
             <field name="name">OpenAPI Model</field>
             <field name="res_model">openapi.model</field>
             <field name="view_mode">tree,form</field>
         </record>
 
-        <!-- Menu item linking to the action -->
         <record id="menu_openapi_model_action" model="ir.ui.menu">
             <field name="name">OpenAPI Model</field>
             <field name="parent_id" ref="base.menu_openapi"/>
