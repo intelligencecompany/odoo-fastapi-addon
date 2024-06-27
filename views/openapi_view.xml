@@ -19,11 +19,22 @@
     </record>
 
     <record id="action_openapi_model" model="ir.actions.act_window">
-        <field name="name">OpenAPI Model</field>
+        <field name="name">OpenAPI</field>
         <field name="res_model">openapi.model</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem id="menu_openapi_model_main" name="OpenAPI Model" sequence="10"/>
-    <menuitem id="menu_openapi_model" name="OpenAPI Model" parent="menu_openapi_model_main" action="action_openapi_model"/>
+    <menuitem 
+        id="menu_openapi_model_main" 
+        name="OpenAPI" 
+        sequence="10"
+        web_icon="calendar,static/description/icon.png"
+        groups="base.group_user"/>
+    
+    <menuitem 
+        id="menu_openapi_model" 
+        name="OpenAPI" 
+        parent="menu_openapi_model_main" 
+        action="action_openapi_model"
+        groups="base.group_user"/>
 </odoo>
