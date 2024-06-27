@@ -6,7 +6,7 @@ class FastApiModel(models.Model):
     _description = 'OpenAPI Model'
     
     name = fields.Char(string='Name')
-    fastapi_url = fields.Char(string="FASTAPI URL")
+    name = fields.Text(string='Description')
 
     def action_button_1(self):
         # Define action for button 1
