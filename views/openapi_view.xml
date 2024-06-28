@@ -18,39 +18,10 @@
         </field>
     </record>
 
-    <record id="action_openapi_model" model="ir.actions.act_window">
-        <field name="name">OpenAPI</field>
-        <field name="res_model">openapi.model</field>
-        <field name="view_mode">tree,form</field>
-    </record>
-
-    <menuitem id="menu_customer_details_main_reports"
-         name="Reports"
-         parent="menu_customer_details"
-         sequence="0"/>
-        
-    <menuitem id="menu_customer_details_report"
-         name="Customer Details Report"
-         parent="menu_customer_details_main_reports"
-         action="action_customer_details_report"
-         sequence="0"/>
-
-    <record id="action_customer_details_report" model="ir.actions.act_window">
-        <field name="name">Customer Details Report</field>
-        <field name="res_model">customer.details</field>
-        <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="customer_details_tree"/>
-        <field name="help" type="html">
-            <p class="o_view_nocontent_smiling_face">
-                Generate Customer Details
-            </p>
-        </field>
-    </record>
-
     <menuitem 
         id="menu_openapi_model_main" 
         name="OpenAPI" 
-        sequence="10"
+        sequence="0"
         web_icon="calendar,static/description/icon.png"
         groups="base.group_user"/>
     
@@ -59,5 +30,12 @@
         name="OpenAPI" 
         parent="menu_openapi_model_main" 
         action="action_openapi_model"
+        sequence="0"
         groups="base.group_user"/>
+    
+    <record id="action_openapi_model" model="ir.actions.act_window">
+        <field name="name">OpenAPI</field>
+        <field name="res_model">openapi.model</field>
+        <field name="view_mode">tree,form</field>
+    </record>
 </odoo>
