@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/reset.view.arch.wizard", response_model=List[Model.ResetViewArchitectureWizardModel], tags=['reset', 'view', 'arch', 'wizard'])
+@router.get("/api/reset.view.arch.wizard", response_model=List[Model.ResetViewArchitectureWizardModel], tags=[reset])
 async def get_resetviewarchitecturewizard(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_resetviewarchitecturewizard(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

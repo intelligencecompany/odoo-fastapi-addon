@@ -8,6 +8,7 @@ class ProductVariantModel(BaseModel):
     detailed_type: Any = Field(None, alias="detailed_type", title="Product Type", description="A storable product is a product for which you manage stock. The Inventory app has to be installed.\nA consumable product is a product for which stock is not managed.\nA service is a non-material product you provide.")
     activity_user_id: Optional[int] = Field(None, alias="activity_user_id", title="Responsible User", description="")
     activity_type_id: Optional[int] = Field(None, alias="activity_type_id", title="Next Activity Type", description="")
+    activity_calendar_event_id: Optional[int] = Field(None, alias="activity_calendar_event_id", title="Next Activity Calendar Event", description="")
     product_tmpl_id: int = Field(0, alias="product_tmpl_id", title="Product Template", description="")
     categ_id: int = Field(0, alias="categ_id", title="Product Category", description="")
     currency_id: Optional[int] = Field(None, alias="currency_id", title="Currency", description="")

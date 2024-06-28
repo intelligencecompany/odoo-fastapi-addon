@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/mail.notification.web.push", response_model=List[Model.CrondatausedforwebpushnotificationModel], tags=['mail', 'notification', 'web', 'push'])
+@router.get("/api/mail.notification.web.push", response_model=List[Model.CrondatausedforwebpushnotificationModel], tags=[mail])
 async def get_crondatausedforwebpushnotification(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_crondatausedforwebpushnotification(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

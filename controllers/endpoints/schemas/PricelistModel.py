@@ -8,6 +8,7 @@ class PricelistModel(BaseModel):
     discount_policy: Any = Field(None, alias="discount_policy", title="Discount Policy", description="")
     activity_user_id: Optional[int] = Field(None, alias="activity_user_id", title="Responsible User", description="")
     activity_type_id: Optional[int] = Field(None, alias="activity_type_id", title="Next Activity Type", description="")
+    activity_calendar_event_id: Optional[int] = Field(None, alias="activity_calendar_event_id", title="Next Activity Calendar Event", description="")
     currency_id: int = Field(0, alias="currency_id", title="Currency", description="")
     company_id: Optional[int] = Field(None, alias="company_id", title="Company", description="")
     activity_ids: Optional[List[int]] = Field(None, alias="activity_ids", title="Activities", description="")

@@ -12,6 +12,7 @@ class ActivityModel(BaseModel):
     request_partner_id: Optional[int] = Field(None, alias="request_partner_id", title="Requesting Partner", description="")
     recommended_activity_type_id: Optional[int] = Field(None, alias="recommended_activity_type_id", title="Recommended Activity Type", description="")
     previous_activity_type_id: Optional[int] = Field(None, alias="previous_activity_type_id", title="Previous Activity Type", description="")
+    calendar_event_id: Optional[int] = Field(None, alias="calendar_event_id", title="Calendar Meeting", description="")
     attachment_ids: Optional[List[int]] = Field(None, alias="attachment_ids", title="Attachments", description="")
     mail_template_ids: Optional[List[int]] = Field(None, alias="mail_template_ids", title="Email templates", description="")
     res_model: Optional[str] = Field(None, alias="res_model", title="Related Document Model", description="")

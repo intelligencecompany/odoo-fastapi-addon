@@ -6,6 +6,7 @@ class ActivityMixinModel(BaseModel):
 
     activity_user_id: Optional[int] = Field(None, alias="activity_user_id", title="Responsible User", description="")
     activity_type_id: Optional[int] = Field(None, alias="activity_type_id", title="Next Activity Type", description="")
+    activity_calendar_event_id: Optional[int] = Field(None, alias="activity_calendar_event_id", title="Next Activity Calendar Event", description="")
     activity_ids: Optional[List[int]] = Field(None, alias="activity_ids", title="Activities", description="")
     activity_state: Optional[Any] = Field(None, alias="activity_state", title="Activity State", description="Status based on activities\nOverdue: Due date is already passed\nToday: Activity date is today\nPlanned: Future activities.")
     activity_type_icon: Optional[str] = Field(None, alias="activity_type_icon", title="Activity Type Icon", description="Font awesome icon e.g. fa-tasks")

@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/res.partner.autocomplete.sync", response_model=List[Model.PartnerAutocompleteSyncModel], tags=['res', 'partner', 'autocomplete', 'sync'])
+@router.get("/api/res.partner.autocomplete.sync", response_model=List[Model.PartnerAutocompleteSyncModel], tags=[res])
 async def get_partnerautocompletesync(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_partnerautocompletesync(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

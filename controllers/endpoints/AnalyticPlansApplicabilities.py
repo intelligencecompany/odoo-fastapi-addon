@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/account.analytic.applicability", response_model=List[Model.AnalyticPlansApplicabilitiesModel], tags=['account', 'analytic', 'applicability'])
+@router.get("/api/account.analytic.applicability", response_model=List[Model.AnalyticPlansApplicabilitiesModel], tags=[account])
 async def get_analyticplansapplicabilities(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_analyticplansapplicabilities(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

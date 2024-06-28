@@ -4,6 +4,7 @@ from . import AnalyticAccount
 from . import BankAccounts
 from . import Blog
 from . import BlogPost
+from . import CalendarEvent
 from . import Companies
 from . import Contact
 from . import DiscussionChannel
@@ -51,6 +52,10 @@ from . import BaseImport
 from . import BaseImportMapping
 from . import BlogTag
 from . import BlogTagCategory
+from . import CalendarAttendeeInformation
+from . import CalendarFilters
+from . import CalendarPopoverDeleteWizard
+from . import CalendarProviderConfigurationWizard
 from . import CampaignStage
 from . import CannedResponseShortcode
 from . import ChangePasswordWizard
@@ -95,6 +100,9 @@ from . import EmailTemplates
 from . import Emailcompositionwizard
 from . import Emailresendwizard
 from . import Enableprofilingforsometime
+from . import EventAlarm
+from . import EventMeetingType
+from . import EventRecurrenceRule
 from . import Exports
 from . import ExportsLine
 from . import FieldhtmlHistory
@@ -161,6 +169,7 @@ from . import Onboarding
 from . import OnboardingProgressStepTracker
 from . import OnboardingProgressTracker
 from . import OnboardingStep
+from . import OpenAPIModel
 from . import OutgoingMails
 from . import OutgoingSMS
 from . import Page
@@ -275,6 +284,7 @@ app.include_router(AnalyticAccount.router)
 app.include_router(BankAccounts.router)
 app.include_router(Blog.router)
 app.include_router(BlogPost.router)
+app.include_router(CalendarEvent.router)
 app.include_router(Companies.router)
 app.include_router(Contact.router)
 app.include_router(DiscussionChannel.router)
@@ -322,6 +332,10 @@ app.include_router(BaseImport.router)
 app.include_router(BaseImportMapping.router)
 app.include_router(BlogTag.router)
 app.include_router(BlogTagCategory.router)
+app.include_router(CalendarAttendeeInformation.router)
+app.include_router(CalendarFilters.router)
+app.include_router(CalendarPopoverDeleteWizard.router)
+app.include_router(CalendarProviderConfigurationWizard.router)
 app.include_router(CampaignStage.router)
 app.include_router(CannedResponseShortcode.router)
 app.include_router(ChangePasswordWizard.router)
@@ -366,6 +380,9 @@ app.include_router(EmailTemplates.router)
 app.include_router(Emailcompositionwizard.router)
 app.include_router(Emailresendwizard.router)
 app.include_router(Enableprofilingforsometime.router)
+app.include_router(EventAlarm.router)
+app.include_router(EventMeetingType.router)
+app.include_router(EventRecurrenceRule.router)
 app.include_router(Exports.router)
 app.include_router(ExportsLine.router)
 app.include_router(FieldhtmlHistory.router)
@@ -432,6 +449,7 @@ app.include_router(Onboarding.router)
 app.include_router(OnboardingProgressStepTracker.router)
 app.include_router(OnboardingProgressTracker.router)
 app.include_router(OnboardingStep.router)
+app.include_router(OpenAPIModel.router)
 app.include_router(OutgoingMails.router)
 app.include_router(OutgoingSMS.router)
 app.include_router(Page.router)

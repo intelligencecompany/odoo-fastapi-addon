@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/avatar.mixin", response_model=List[Model.AvatarMixinModel], tags=['avatar', 'mixin'])
+@router.get("/api/avatar.mixin", response_model=List[Model.AvatarMixinModel], tags=[avatar])
 async def get_avatarmixin(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_avatarmixin(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

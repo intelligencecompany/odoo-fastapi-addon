@@ -1,7 +1,7 @@
 {
     'name': 'Odoo REST OpenAPI',
     'version': '1.0',
-    'category': 'Tools',
+    'category': 'Technical',
     'summary': 'Converting XML-RPC to a OpenAPI REST API',
     'description': """
         This module integrates Odoo with FASTAPI using the XML-RPC external API client.

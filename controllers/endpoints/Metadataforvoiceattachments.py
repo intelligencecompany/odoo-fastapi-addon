@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/discuss.voice.metadata", response_model=List[Model.MetadataforvoiceattachmentsModel], tags=['discuss', 'voice', 'metadata'])
+@router.get("/api/discuss.voice.metadata", response_model=List[Model.MetadataforvoiceattachmentsModel], tags=[discuss])
 async def get_metadataforvoiceattachments(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_metadataforvoiceattachments(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 

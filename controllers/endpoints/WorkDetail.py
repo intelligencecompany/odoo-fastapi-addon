@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/resource.calendar.attendance", response_model=List[Model.WorkDetailModel], tags=['resource', 'calendar', 'attendance'])
+@router.get("/api/resource.calendar.attendance", response_model=List[Model.WorkDetailModel], tags=[resource])
 async def get_workdetail(
         fields:str = '', 
         offset:int = 0, 
@@ -32,7 +32,6 @@ async def get_workdetail(
         api_key:str = Depends(api_key_header),
         uid:str | None = Header(default=None)
     ):
-    print(uid)
     uid, models = get_connection(uid, api_key)
     field_list = [x.strip() for x in fields.split(',') if x != '']
 
