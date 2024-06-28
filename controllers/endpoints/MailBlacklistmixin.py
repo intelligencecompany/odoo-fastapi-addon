@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/mail.thread.blacklist", response_model=List[Model.MailBlacklistmixinModel], tags=[mail])
+@router.get("/api/mail.thread.blacklist", response_model=List[Model.MailBlacklistmixinModel], tags="mail")
 async def get_mailblacklistmixin(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_mailblacklistmixin(
     return JSONResponse(content=results)
 
     
-@router.post("/api/mail.thread.blacklist", response_model=Model.MailBlacklistmixinModel, tags=['mail', 'thread', 'blacklist'])
+@router.post("/api/mail.thread.blacklist", response_model=Model.MailBlacklistmixinModel, tags="mail")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/mail.thread.blacklist/{post_id}", response_model=Dict[str, str], tags=['mail', 'thread', 'blacklist'])
+@router.put("/api/mail.thread.blacklist/{post_id}", response_model=Dict[str, str], tags="mail")
 async def put_mailblacklistmixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

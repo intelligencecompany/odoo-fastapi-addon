@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/resource.calendar.attendance", response_model=List[Model.WorkDetailModel], tags=[resource])
+@router.get("/api/resource.calendar.attendance", response_model=List[Model.WorkDetailModel], tags="resource")
 async def get_workdetail(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_workdetail(
     return JSONResponse(content=results)
 
     
-@router.post("/api/resource.calendar.attendance", response_model=Model.WorkDetailModel, tags=['resource', 'calendar', 'attendance'])
+@router.post("/api/resource.calendar.attendance", response_model=Model.WorkDetailModel, tags="resource")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/resource.calendar.attendance/{post_id}", response_model=Dict[str, str], tags=['resource', 'calendar', 'attendance'])
+@router.put("/api/resource.calendar.attendance/{post_id}", response_model=Dict[str, str], tags="resource")
 async def put_workdetail(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

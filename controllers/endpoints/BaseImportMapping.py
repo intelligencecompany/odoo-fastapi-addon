@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/base_import.mapping", response_model=List[Model.BaseImportMappingModel], tags=[base_import])
+@router.get("/api/base_import.mapping", response_model=List[Model.BaseImportMappingModel], tags="base_import")
 async def get_baseimportmapping(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_baseimportmapping(
     return JSONResponse(content=results)
 
     
-@router.post("/api/base_import.mapping", response_model=Model.BaseImportMappingModel, tags=['base_import', 'mapping'])
+@router.post("/api/base_import.mapping", response_model=Model.BaseImportMappingModel, tags="base_import")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/base_import.mapping/{post_id}", response_model=Dict[str, str], tags=['base_import', 'mapping'])
+@router.put("/api/base_import.mapping/{post_id}", response_model=Dict[str, str], tags="base_import")
 async def put_baseimportmapping(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

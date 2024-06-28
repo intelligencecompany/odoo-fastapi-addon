@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/website.track", response_model=List[Model.VisitedPagesModel], tags=[website])
+@router.get("/api/website.track", response_model=List[Model.VisitedPagesModel], tags="website")
 async def get_visitedpages(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_visitedpages(
     return JSONResponse(content=results)
 
     
-@router.post("/api/website.track", response_model=Model.VisitedPagesModel, tags=['website', 'track'])
+@router.post("/api/website.track", response_model=Model.VisitedPagesModel, tags="website")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/website.track/{post_id}", response_model=Dict[str, str], tags=['website', 'track'])
+@router.put("/api/website.track/{post_id}", response_model=Dict[str, str], tags="website")
 async def put_visitedpages(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

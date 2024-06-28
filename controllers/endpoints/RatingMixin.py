@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/rating.mixin", response_model=List[Model.RatingMixinModel], tags=[rating])
+@router.get("/api/rating.mixin", response_model=List[Model.RatingMixinModel], tags="rating")
 async def get_ratingmixin(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_ratingmixin(
     return JSONResponse(content=results)
 
     
-@router.post("/api/rating.mixin", response_model=Model.RatingMixinModel, tags=['rating', 'mixin'])
+@router.post("/api/rating.mixin", response_model=Model.RatingMixinModel, tags="rating")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/rating.mixin/{post_id}", response_model=Dict[str, str], tags=['rating', 'mixin'])
+@router.put("/api/rating.mixin/{post_id}", response_model=Dict[str, str], tags="rating")
 async def put_ratingmixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

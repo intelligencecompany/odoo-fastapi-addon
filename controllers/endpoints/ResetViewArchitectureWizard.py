@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/reset.view.arch.wizard", response_model=List[Model.ResetViewArchitectureWizardModel], tags=[reset])
+@router.get("/api/reset.view.arch.wizard", response_model=List[Model.ResetViewArchitectureWizardModel], tags="reset")
 async def get_resetviewarchitecturewizard(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_resetviewarchitecturewizard(
     return JSONResponse(content=results)
 
     
-@router.post("/api/reset.view.arch.wizard", response_model=Model.ResetViewArchitectureWizardModel, tags=['reset', 'view', 'arch', 'wizard'])
+@router.post("/api/reset.view.arch.wizard", response_model=Model.ResetViewArchitectureWizardModel, tags="reset")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/reset.view.arch.wizard/{post_id}", response_model=Dict[str, str], tags=['reset', 'view', 'arch', 'wizard'])
+@router.put("/api/reset.view.arch.wizard/{post_id}", response_model=Dict[str, str], tags="reset")
 async def put_resetviewarchitecturewizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/base.module.uninstall", response_model=List[Model.ModuleUninstallModel], tags=[base])
+@router.get("/api/base.module.uninstall", response_model=List[Model.ModuleUninstallModel], tags="base")
 async def get_moduleuninstall(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_moduleuninstall(
     return JSONResponse(content=results)
 
     
-@router.post("/api/base.module.uninstall", response_model=Model.ModuleUninstallModel, tags=['base', 'module', 'uninstall'])
+@router.post("/api/base.module.uninstall", response_model=Model.ModuleUninstallModel, tags="base")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/base.module.uninstall/{post_id}", response_model=Dict[str, str], tags=['base', 'module', 'uninstall'])
+@router.put("/api/base.module.uninstall/{post_id}", response_model=Dict[str, str], tags="base")
 async def put_moduleuninstall(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

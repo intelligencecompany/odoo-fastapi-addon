@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.model.constraint", response_model=List[Model.ModelConstraintModel], tags=[ir])
+@router.get("/api/ir.model.constraint", response_model=List[Model.ModelConstraintModel], tags="ir")
 async def get_modelconstraint(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_modelconstraint(
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.model.constraint", response_model=Model.ModelConstraintModel, tags=['ir', 'model', 'constraint'])
+@router.post("/api/ir.model.constraint", response_model=Model.ModelConstraintModel, tags="ir")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.model.constraint/{post_id}", response_model=Dict[str, str], tags=['ir', 'model', 'constraint'])
+@router.put("/api/ir.model.constraint/{post_id}", response_model=Dict[str, str], tags="ir")
 async def put_modelconstraint(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/portal.share", response_model=List[Model.PortalSharingModel], tags=[portal])
+@router.get("/api/portal.share", response_model=List[Model.PortalSharingModel], tags="portal")
 async def get_portalsharing(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_portalsharing(
     return JSONResponse(content=results)
 
     
-@router.post("/api/portal.share", response_model=Model.PortalSharingModel, tags=['portal', 'share'])
+@router.post("/api/portal.share", response_model=Model.PortalSharingModel, tags="portal")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/portal.share/{post_id}", response_model=Dict[str, str], tags=['portal', 'share'])
+@router.put("/api/portal.share/{post_id}", response_model=Dict[str, str], tags="portal")
 async def put_portalsharing(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

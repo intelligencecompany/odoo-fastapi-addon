@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.actions.act_window.view", response_model=List[Model.ActionWindowViewModel], tags=[ir])
+@router.get("/api/ir.actions.act_window.view", response_model=List[Model.ActionWindowViewModel], tags="ir")
 async def get_actionwindowview(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_actionwindowview(
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.actions.act_window.view", response_model=Model.ActionWindowViewModel, tags=['ir', 'actions', 'act_window', 'view'])
+@router.post("/api/ir.actions.act_window.view", response_model=Model.ActionWindowViewModel, tags="ir")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.actions.act_window.view/{post_id}", response_model=Dict[str, str], tags=['ir', 'actions', 'act_window', 'view'])
+@router.put("/api/ir.actions.act_window.view/{post_id}", response_model=Dict[str, str], tags="ir")
 async def put_actionwindowview(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
