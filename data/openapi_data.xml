@@ -4,16 +4,14 @@
             id="menu_openapi_model_main" 
             name="OpenAPI" 
             sequence="0"
-            web_icon="calendar,static/description/icon.png"
-            groups="base.group_user"/>
+            web_icon="calendar,static/description/icon.png"/>
         
         <menuitem 
             id="menu_openapi_model" 
             name="OpenAPI" 
             parent="menu_openapi_model_main" 
             action="action_openapi_model"
-            sequence="0"
-            groups="base.group_user"/>
+            sequence="0"/>
     
         <record id="action_openapi_model" model="ir.actions.act_window">
             <field name="name">OpenAPI</field>
