@@ -29,7 +29,7 @@
         id="menu_openapi_model" 
         name="OpenAPI" 
         parent="menu_openapi_model_main" 
-        action="action_openapi_model"
+        action="view_openapi_model_form"
         sequence="0"
         groups="base.group_user"/>
     
