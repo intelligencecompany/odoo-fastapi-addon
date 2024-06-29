@@ -1,12 +1,12 @@
 # models/res_users.py
-from odoo import models, fields
+from odoo import models, fields, api
 
 class OpenModel(models.Model):
     _name = 'openapi.model'
     _description = 'OpenAPI Model'
-    
-    x_name = fields.Char(string='Name')
-    x_description = fields.Text(string='Description')
+        
+    name = fields.Char('Name')
+    description = fields.Text('Description')
 
     def action_button_1(self):
         # Define action for button 1
