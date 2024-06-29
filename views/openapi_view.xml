@@ -21,7 +21,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="description"/>
+                        <!-- <field name="description"/> -->
                     </group>
                     <footer>
                         <button name="action_button_1" string="Button 1" type="object" class="btn-primary"/>
