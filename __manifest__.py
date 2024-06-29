@@ -1,6 +1,6 @@
 {
     'name': 'Odoo REST OpenAPI',
-    'version': '1.0',
+    'version': '1.01',
     'category': 'Technical',
     'summary': 'Converting XML-RPC to a OpenAPI REST API',
     'description': """
