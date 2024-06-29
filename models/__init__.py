@@ -1,1 +1,1 @@
-from . import openapi_model
+from .openapi_model import OpenModel

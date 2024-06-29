@@ -1,7 +1,7 @@
 # models/res_users.py
 from odoo import models, fields
 
-class FastApiModel(models.Model):
+class OpenModel(models.Model):
     _name = 'openapi.model'
     _description = 'OpenAPI Model'
     
