@@ -1,5 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Tree view -->
+    <record id="view_openapi_model_tree" model="ir.ui.view">
+        <field name="name">openapi.model.tree</field>
+        <field name="model">openapi.model</field>
+        <field name="arch" type="xml">
+            <tree string="OpenAPI Models">
+                <field name="name"/>
+                <button name="action_button_1" string="Button 1" type="object" class="oe_highlight"/>
+                <button name="action_button_2" string="Button 2" type="object"/>
+                <button name="action_button_3" string="Button 3" type="object"/>
+                <!-- <field name="description"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form view -->
     <record id="view_openapi_model_form" model="ir.ui.view">
         <field name="name">openapi.model.form</field>
         <field name="model">openapi.model</field>
@@ -11,31 +27,23 @@
                         <!-- <field name="description"/> -->
                     </group>
                     <footer>
-                        <button string="Action Button 1" type="object" name="action_button_1" class="oe_highlight"/>
-                        <button string="Action Button 2" type="object" name="action_button_2"/>
-                        <button string="Action Button 3" type="object" name="action_button_3"/>
+                        <button name="action_button_1" string="Button 1" type="object" class="btn-primary"/>
+                        <button name="action_button_2" string="Button 2" type="object" class="btn-secondary"/>
+                        <button name="action_button_3" string="Button 3" type="object" class="btn-success"/>
                     </footer>
                 </sheet>
             </form>
         </field>
     </record>
 
-    <record id="view_openapi_model_tree" model="ir.ui.view">
-        <field name="name">openapi.model.tree</field>
-        <field name="model">openapi.model</field>
-        <field name="arch" type="xml">
-            <tree string="OpenAPI Model">
-                <field name="name"/>
-                <!-- <field name="description"/> -->
-            </tree>
-        </field>
-    </record>
-
-    <menuitem id="menu_openapi_model" name="OpenAPI Model" parent="base.menu_administration" action="action_openapi_model"/>
-    
+    <!-- Action -->
     <record id="action_openapi_model" model="ir.actions.act_window">
-        <field name="name">OpenAPI Model</field>
+        <field name="name">OpenAPI Models</field>
         <field name="res_model">openapi.model</field>
         <field name="view_mode">tree,form</field>
     </record>
+
+    <!-- Menuitem -->
+    <menuitem id="menu_openapi_root" name="OpenAPI"/>
+    <menuitem id="menu_openapi_model" name="OpenAPI Models" parent="menu_openapi_root" action="action_openapi_model"/>
 </odoo>
