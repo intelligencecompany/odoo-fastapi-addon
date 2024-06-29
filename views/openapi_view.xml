@@ -4,7 +4,7 @@
         <field name="name">openapi.model.buttons.form</field>
         <field name="model">openapi.model</field>
         <field name="arch" type="xml">
-            <form string="OpenAPI Model Actions" create="false">
+            <form string="OpenAPI Model Actions" create="false" edit="false" delete="false">
                 <header>
                     <button name="action_button_1" string="Button 1" type="object" class="oe_highlight"/>
                     <button name="action_button_2" string="Button 2" type="object"/>

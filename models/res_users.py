@@ -11,20 +11,20 @@ class OpenModel(models.Model):
     @api.model
     def action_button_1(self):
         # Define action for button 1
-        # self.ensure_one()
+        self.ensure_one()
         self.name = 'Button 1 Clicked'
         return True
 
     @api.model
     def action_button_2(self):
         # Define action for button 2
-        # self.ensure_one()
+        self.ensure_one()
         self.name = 'Button 2 Clicked'
         return True
 
     @api.model
     def action_button_3(self):
         # Define action for button 3
-        # self.ensure_one()
+        self.ensure_one()
         self.name = 'Button 3 Clicked'
         return True
