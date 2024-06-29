@@ -1,6 +1,6 @@
 <odoo>
     <data>
-        <menuitem 
+        <!-- <menuitem 
             id="menu_openapi_model_main" 
             name="OpenAPI" 
             sequence="0"
@@ -22,6 +22,6 @@
                     Generate OpenAPI
                 </p>
             </field>
-        </record>
+        </record> -->
     </data>
 </odoo>
