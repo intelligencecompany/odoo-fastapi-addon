@@ -6,8 +6,8 @@
         <field name="model">openapi.model</field>
         <field name="arch" type="xml">
             <tree string="OpenAPI Models">
-                <field name="name"/>
-                <field name="description"/>
+                <field name="x_name"/>
+                <field name="x_description"/>
             </tree>
         </field>
     </record>
@@ -20,8 +20,8 @@
             <form string="OpenAPI Model">
                 <sheet>
                     <group>
-                        <field name="name"/>
-                        <field name="description"/>
+                        <field name="x_name"/>
+                        <field name="x_description"/>
                     </group>
                     <footer>
                         <button name="action_button_1" string="Button 1" type="object" class="btn-primary"/>
