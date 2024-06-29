@@ -41,5 +41,6 @@
     </record>
 
     <!-- Menuitem -->
-    <menuitem id="menu_openapi_model" name="OpenAPI Models" action="action_openapi_model"/>
+    <menuitem id="menu_openapi_root" name="OpenAPI"/>
+    <menuitem id="menu_openapi_model" name="OpenAPI Models" parent="menu_openapi_root" action="action_openapi_model"/>
 </odoo>
