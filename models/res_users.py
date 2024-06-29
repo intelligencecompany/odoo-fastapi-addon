@@ -6,7 +6,7 @@ class OpenModel(models.Model):
     _description = 'OpenAPI Model'
         
     name = fields.Char('Name')
-    description = fields.Text('Description')
+    content = fields.Text('Content')
 
     def action_button_1(self):
         # Define action for button 1
