@@ -1,46 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <!-- Tree view -->
-    <record id="view_openapi_model_tree" model="ir.ui.view">
-        <field name="name">openapi.model.tree</field>
+    <record id="view_openapi_model_buttons_form" model="ir.ui.view">
+        <field name="name">openapi.model.buttons.form</field>
         <field name="model">openapi.model</field>
         <field name="arch" type="xml">
-            <tree string="OpenAPI Models">
-                <field name="name"/>
-                <button name="action_button_1" string="Button 1" type="object" class="oe_highlight"/>
-                <button name="action_button_2" string="Button 2" type="object"/>
-                <button name="action_button_3" string="Button 3" type="object"/>
-                <!-- <field name="description"/> -->
-            </tree>
-        </field>
-    </record>
-
-    <!-- Form view -->
-    <record id="view_openapi_model_form" model="ir.ui.view">
-        <field name="name">openapi.model.form</field>
-        <field name="model">openapi.model</field>
-        <field name="arch" type="xml">
-            <form string="OpenAPI Model">
-                <sheet>
-                    <group>
-                        <field name="name"/>
-                        <!-- <field name="description"/> -->
-                    </group>
-                    <footer>
-                        <button name="action_button_1" string="Button 1" type="object" class="btn-primary"/>
-                        <button name="action_button_2" string="Button 2" type="object" class="btn-secondary"/>
-                        <button name="action_button_3" string="Button 3" type="object" class="btn-success"/>
-                    </footer>
-                </sheet>
+            <form string="OpenAPI Model Actions">
+                <header>
+                    <button name="action_button_1" string="Button 1" type="object" class="oe_highlight"/>
+                    <button name="action_button_2" string="Button 2" type="object"/>
+                    <button name="action_button_3" string="Button 3" type="object"/>
+                </header>
             </form>
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_openapi_model" model="ir.actions.act_window">
-        <field name="name">OpenAPI Models</field>
+    <record id="action_openapi_model_buttons" model="ir.actions.act_window">
+        <field name="name">OpenAPI Model Actions</field>
         <field name="res_model">openapi.model</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_openapi_model_buttons_form"/>
+        <field name="target">inline</field>
     </record>
 
     <!-- Menuitem -->
