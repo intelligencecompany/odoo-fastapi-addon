@@ -18,6 +18,8 @@
         ],
     },
     'data': [
+        'security/ir.model.access.csv',
+        'security/openapi_record_rules.xml',
         'views/openapi_view.xml'
     ],
     'installable': True,
