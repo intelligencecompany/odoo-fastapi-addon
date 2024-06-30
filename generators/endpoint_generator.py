@@ -62,7 +62,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{{ODOO_URL}}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/{model}", response_model=List[Model.{model_name}Model], tags="{model.split('.')[0]}")
+@router.get("/api/{model}", response_model=List[Model.{model_name}Model], tags="[{model.split('.')[0]}]")
 async def get_{model_name_lower}(
         fields:str = '', 
         offset:int = 0, 
@@ -91,7 +91,7 @@ async def get_{model_name_lower}(
     return JSONResponse(content=results)
 
     
-@router.post("/api/{model}", response_model=Model.{model_name}Model, tags="{model.split('.')[0]}")
+@router.post("/api/{model}", response_model=Model.{model_name}Model, tags="[{model.split('.')[0]}]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -113,7 +113,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/{model}/{{post_id}}", response_model=Dict[str, str], tags="{model.split('.')[0]}")
+@router.put("/api/{model}/{{post_id}}", response_model=Dict[str, str], tags="[{model.split('.')[0]}]")
 async def put_{model_name_lower}(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

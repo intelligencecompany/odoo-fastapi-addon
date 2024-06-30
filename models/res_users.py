@@ -13,7 +13,7 @@ class OpenModel(models.Model):
     @api.model
     def action_button_1(self):
         # Define action for button 1
-        self.ensure_one()
+        # self.ensure_one()
         fastapi_server.start_fastapi_in_thread()
         self.status = True
         return True
@@ -21,7 +21,7 @@ class OpenModel(models.Model):
     @api.model
     def action_button_2(self):
         # Define action for button 2
-        self.ensure_one()
+        # self.ensure_one()
         fastapi_server.stop_fastapi()
         self.status = False
         return True

@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.demo_failure.wizard", response_model=List[Model.DemoFailurewizardModel], tags="ir")
+@router.get("/api/ir.demo_failure.wizard", response_model=List[Model.DemoFailurewizardModel], tags="[ir]")
 async def get_demofailurewizard(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_demofailurewizard(
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.demo_failure.wizard", response_model=Model.DemoFailurewizardModel, tags="ir")
+@router.post("/api/ir.demo_failure.wizard", response_model=Model.DemoFailurewizardModel, tags="[ir]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.demo_failure.wizard/{post_id}", response_model=Dict[str, str], tags="ir")
+@router.put("/api/ir.demo_failure.wizard/{post_id}", response_model=Dict[str, str], tags="[ir]")
 async def put_demofailurewizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

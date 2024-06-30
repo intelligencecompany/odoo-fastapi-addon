@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/privacy.lookup.wizard", response_model=List[Model.PrivacyLookupWizardModel], tags="privacy")
+@router.get("/api/privacy.lookup.wizard", response_model=List[Model.PrivacyLookupWizardModel], tags="[privacy]")
 async def get_privacylookupwizard(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_privacylookupwizard(
     return JSONResponse(content=results)
 
     
-@router.post("/api/privacy.lookup.wizard", response_model=Model.PrivacyLookupWizardModel, tags="privacy")
+@router.post("/api/privacy.lookup.wizard", response_model=Model.PrivacyLookupWizardModel, tags="[privacy]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/privacy.lookup.wizard/{post_id}", response_model=Dict[str, str], tags="privacy")
+@router.put("/api/privacy.lookup.wizard/{post_id}", response_model=Dict[str, str], tags="[privacy]")
 async def put_privacylookupwizard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

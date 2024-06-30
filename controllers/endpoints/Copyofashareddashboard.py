@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/spreadsheet.dashboard.share", response_model=List[Model.CopyofashareddashboardModel], tags="spreadsheet")
+@router.get("/api/spreadsheet.dashboard.share", response_model=List[Model.CopyofashareddashboardModel], tags="[spreadsheet]")
 async def get_copyofashareddashboard(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_copyofashareddashboard(
     return JSONResponse(content=results)
 
     
-@router.post("/api/spreadsheet.dashboard.share", response_model=Model.CopyofashareddashboardModel, tags="spreadsheet")
+@router.post("/api/spreadsheet.dashboard.share", response_model=Model.CopyofashareddashboardModel, tags="[spreadsheet]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/spreadsheet.dashboard.share/{post_id}", response_model=Dict[str, str], tags="spreadsheet")
+@router.put("/api/spreadsheet.dashboard.share/{post_id}", response_model=Dict[str, str], tags="[spreadsheet]")
 async def put_copyofashareddashboard(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

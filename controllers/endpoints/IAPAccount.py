@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/iap.account", response_model=List[Model.IAPAccountModel], tags="iap")
+@router.get("/api/iap.account", response_model=List[Model.IAPAccountModel], tags="[iap]")
 async def get_iapaccount(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_iapaccount(
     return JSONResponse(content=results)
 
     
-@router.post("/api/iap.account", response_model=Model.IAPAccountModel, tags="iap")
+@router.post("/api/iap.account", response_model=Model.IAPAccountModel, tags="[iap]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/iap.account/{post_id}", response_model=Dict[str, str], tags="iap")
+@router.put("/api/iap.account/{post_id}", response_model=Dict[str, str], tags="[iap]")
 async def put_iapaccount(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

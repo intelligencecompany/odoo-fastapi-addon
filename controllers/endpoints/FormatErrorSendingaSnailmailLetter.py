@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/snailmail.letter.format.error", response_model=List[Model.FormatErrorSendingaSnailmailLetterModel], tags="snailmail")
+@router.get("/api/snailmail.letter.format.error", response_model=List[Model.FormatErrorSendingaSnailmailLetterModel], tags="[snailmail]")
 async def get_formaterrorsendingasnailmailletter(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_formaterrorsendingasnailmailletter(
     return JSONResponse(content=results)
 
     
-@router.post("/api/snailmail.letter.format.error", response_model=Model.FormatErrorSendingaSnailmailLetterModel, tags="snailmail")
+@router.post("/api/snailmail.letter.format.error", response_model=Model.FormatErrorSendingaSnailmailLetterModel, tags="[snailmail]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/snailmail.letter.format.error/{post_id}", response_model=Dict[str, str], tags="snailmail")
+@router.put("/api/snailmail.letter.format.error/{post_id}", response_model=Dict[str, str], tags="[snailmail]")
 async def put_formaterrorsendingasnailmailletter(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

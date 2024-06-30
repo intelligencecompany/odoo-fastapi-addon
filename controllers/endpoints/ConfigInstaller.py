@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/res.config.installer", response_model=List[Model.ConfigInstallerModel], tags="res")
+@router.get("/api/res.config.installer", response_model=List[Model.ConfigInstallerModel], tags="[res]")
 async def get_configinstaller(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_configinstaller(
     return JSONResponse(content=results)
 
     
-@router.post("/api/res.config.installer", response_model=Model.ConfigInstallerModel, tags="res")
+@router.post("/api/res.config.installer", response_model=Model.ConfigInstallerModel, tags="[res]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/res.config.installer/{post_id}", response_model=Dict[str, str], tags="res")
+@router.put("/api/res.config.installer/{post_id}", response_model=Dict[str, str], tags="[res]")
 async def put_configinstaller(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

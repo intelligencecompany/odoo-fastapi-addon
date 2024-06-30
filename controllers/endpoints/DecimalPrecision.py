@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/decimal.precision", response_model=List[Model.DecimalPrecisionModel], tags="decimal")
+@router.get("/api/decimal.precision", response_model=List[Model.DecimalPrecisionModel], tags="[decimal]")
 async def get_decimalprecision(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_decimalprecision(
     return JSONResponse(content=results)
 
     
-@router.post("/api/decimal.precision", response_model=Model.DecimalPrecisionModel, tags="decimal")
+@router.post("/api/decimal.precision", response_model=Model.DecimalPrecisionModel, tags="[decimal]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/decimal.precision/{post_id}", response_model=Dict[str, str], tags="decimal")
+@router.put("/api/decimal.precision/{post_id}", response_model=Dict[str, str], tags="[decimal]")
 async def put_decimalprecision(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

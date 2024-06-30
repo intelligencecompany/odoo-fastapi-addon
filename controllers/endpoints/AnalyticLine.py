@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/account.analytic.line", response_model=List[Model.AnalyticLineModel], tags="account")
+@router.get("/api/account.analytic.line", response_model=List[Model.AnalyticLineModel], tags="[account]")
 async def get_analyticline(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_analyticline(
     return JSONResponse(content=results)
 
     
-@router.post("/api/account.analytic.line", response_model=Model.AnalyticLineModel, tags="account")
+@router.post("/api/account.analytic.line", response_model=Model.AnalyticLineModel, tags="[account]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/account.analytic.line/{post_id}", response_model=Dict[str, str], tags="account")
+@router.put("/api/account.analytic.line/{post_id}", response_model=Dict[str, str], tags="[account]")
 async def put_analyticline(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

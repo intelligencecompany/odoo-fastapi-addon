@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.model.fields", response_model=List[Model.FieldsModel], tags="ir")
+@router.get("/api/ir.model.fields", response_model=List[Model.FieldsModel], tags="[ir]")
 async def get_fields(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_fields(
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.model.fields", response_model=Model.FieldsModel, tags="ir")
+@router.post("/api/ir.model.fields", response_model=Model.FieldsModel, tags="[ir]")
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.model.fields/{post_id}", response_model=Dict[str, str], tags="ir")
+@router.put("/api/ir.model.fields/{post_id}", response_model=Dict[str, str], tags="[ir]")
 async def put_fields(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
