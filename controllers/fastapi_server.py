@@ -7,10 +7,39 @@ import json
 from odoo import http
 from odoo.http import request
 from .endpoints import *
+import threading
+import uvicorn
+import time
 
 ODOO_URL = 'http://127.0.0.1:8069'
 
 api_key_header = APIKeyHeader(name='x-key')
+
+shutdown_event = threading.Event()
+
+def __start_fastapi():
+    config = uvicorn.Config(app, host="127.0.0.1", port=8000)
+    server = uvicorn.Server(config)
+    
+    # Start the server in a new thread to allow for shutdown control
+    server_thread = threading.Thread(target=server.run)
+    server_thread.start()
+    
+    # Wait for the shutdown event
+    while not shutdown_event.is_set():
+        time.sleep(1)
+    
+    # When the shutdown event is set, stop the server
+    server.should_exit = True
+    server_thread.join()
+
+def start_fastapi_in_thread():
+    fastapi_thread = threading.Thread(target=__start_fastapi, daemon=True)
+    fastapi_thread.start()
+    return fastapi_thread
+
+def stop_fastapi():
+    shutdown_event.set()
 
 def get_user_id(api_key: str):
     if not api_key:
