@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/im_livechat.channel.rule", response_model=List[Model.LivechatChannelRulesModel], tags=['im_livechat'])
+@router.get("/api/im_livechat.channel.rule", response_model=List[Model.LivechatChannelRulesModel], tags=["im_livechat"])
 async def get_livechatchannelrules(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_livechatchannelrules(
     return JSONResponse(content=results)
 
     
-@router.post("/api/im_livechat.channel.rule", response_model=Model.LivechatChannelRulesModel, tags=['im_livechat'])
+@router.post("/api/im_livechat.channel.rule", response_model=Model.LivechatChannelRulesModel, tags=["im_livechat"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/im_livechat.channel.rule/{post_id}", response_model=Dict[str, str], tags=['im_livechat'])
+@router.put("/api/im_livechat.channel.rule/{post_id}", response_model=Dict[str, str], tags=["im_livechat"])
 async def put_livechatchannelrules(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

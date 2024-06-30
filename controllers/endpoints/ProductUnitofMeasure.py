@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/uom.uom", response_model=List[Model.ProductUnitofMeasureModel], tags=['uom'])
+@router.get("/api/uom.uom", response_model=List[Model.ProductUnitofMeasureModel], tags=["uom"])
 async def get_productunitofmeasure(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_productunitofmeasure(
     return JSONResponse(content=results)
 
     
-@router.post("/api/uom.uom", response_model=Model.ProductUnitofMeasureModel, tags=['uom'])
+@router.post("/api/uom.uom", response_model=Model.ProductUnitofMeasureModel, tags=["uom"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/uom.uom/{post_id}", response_model=Dict[str, str], tags=['uom'])
+@router.put("/api/uom.uom/{post_id}", response_model=Dict[str, str], tags=["uom"])
 async def put_productunitofmeasure(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

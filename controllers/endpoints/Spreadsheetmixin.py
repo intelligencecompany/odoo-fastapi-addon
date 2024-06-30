@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/spreadsheet.mixin", response_model=List[Model.SpreadsheetmixinModel], tags=['spreadsheet'])
+@router.get("/api/spreadsheet.mixin", response_model=List[Model.SpreadsheetmixinModel], tags=["spreadsheet"])
 async def get_spreadsheetmixin(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_spreadsheetmixin(
     return JSONResponse(content=results)
 
     
-@router.post("/api/spreadsheet.mixin", response_model=Model.SpreadsheetmixinModel, tags=['spreadsheet'])
+@router.post("/api/spreadsheet.mixin", response_model=Model.SpreadsheetmixinModel, tags=["spreadsheet"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/spreadsheet.mixin/{post_id}", response_model=Dict[str, str], tags=['spreadsheet'])
+@router.put("/api/spreadsheet.mixin/{post_id}", response_model=Dict[str, str], tags=["spreadsheet"])
 async def put_spreadsheetmixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

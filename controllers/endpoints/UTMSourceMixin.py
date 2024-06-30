@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/utm.source.mixin", response_model=List[Model.UTMSourceMixinModel], tags=['utm'])
+@router.get("/api/utm.source.mixin", response_model=List[Model.UTMSourceMixinModel], tags=["utm"])
 async def get_utmsourcemixin(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_utmsourcemixin(
     return JSONResponse(content=results)
 
     
-@router.post("/api/utm.source.mixin", response_model=Model.UTMSourceMixinModel, tags=['utm'])
+@router.post("/api/utm.source.mixin", response_model=Model.UTMSourceMixinModel, tags=["utm"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/utm.source.mixin/{post_id}", response_model=Dict[str, str], tags=['utm'])
+@router.put("/api/utm.source.mixin/{post_id}", response_model=Dict[str, str], tags=["utm"])
 async def put_utmsourcemixin(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

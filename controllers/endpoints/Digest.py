@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/digest.digest", response_model=List[Model.DigestModel], tags=['digest'])
+@router.get("/api/digest.digest", response_model=List[Model.DigestModel], tags=["digest"])
 async def get_digest(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_digest(
     return JSONResponse(content=results)
 
     
-@router.post("/api/digest.digest", response_model=Model.DigestModel, tags=['digest'])
+@router.post("/api/digest.digest", response_model=Model.DigestModel, tags=["digest"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/digest.digest/{post_id}", response_model=Dict[str, str], tags=['digest'])
+@router.put("/api/digest.digest/{post_id}", response_model=Dict[str, str], tags=["digest"])
 async def put_digest(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

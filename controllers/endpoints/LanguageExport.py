@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/base.language.export", response_model=List[Model.LanguageExportModel], tags=['base'])
+@router.get("/api/base.language.export", response_model=List[Model.LanguageExportModel], tags=["base"])
 async def get_languageexport(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_languageexport(
     return JSONResponse(content=results)
 
     
-@router.post("/api/base.language.export", response_model=Model.LanguageExportModel, tags=['base'])
+@router.post("/api/base.language.export", response_model=Model.LanguageExportModel, tags=["base"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/base.language.export/{post_id}", response_model=Dict[str, str], tags=['base'])
+@router.put("/api/base.language.export/{post_id}", response_model=Dict[str, str], tags=["base"])
 async def put_languageexport(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

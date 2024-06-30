@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/sms.template.reset", response_model=List[Model.SMSTemplateResetModel], tags=['sms'])
+@router.get("/api/sms.template.reset", response_model=List[Model.SMSTemplateResetModel], tags=["sms"])
 async def get_smstemplatereset(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_smstemplatereset(
     return JSONResponse(content=results)
 
     
-@router.post("/api/sms.template.reset", response_model=Model.SMSTemplateResetModel, tags=['sms'])
+@router.post("/api/sms.template.reset", response_model=Model.SMSTemplateResetModel, tags=["sms"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/sms.template.reset/{post_id}", response_model=Dict[str, str], tags=['sms'])
+@router.put("/api/sms.template.reset/{post_id}", response_model=Dict[str, str], tags=["sms"])
 async def put_smstemplatereset(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

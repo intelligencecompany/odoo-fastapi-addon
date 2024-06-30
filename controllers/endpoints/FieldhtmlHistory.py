@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/html.field.history.mixin", response_model=List[Model.FieldhtmlHistoryModel], tags=['html'])
+@router.get("/api/html.field.history.mixin", response_model=List[Model.FieldhtmlHistoryModel], tags=["html"])
 async def get_fieldhtmlhistory(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_fieldhtmlhistory(
     return JSONResponse(content=results)
 
     
-@router.post("/api/html.field.history.mixin", response_model=Model.FieldhtmlHistoryModel, tags=['html'])
+@router.post("/api/html.field.history.mixin", response_model=Model.FieldhtmlHistoryModel, tags=["html"])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/html.field.history.mixin/{post_id}", response_model=Dict[str, str], tags=['html'])
+@router.put("/api/html.field.history.mixin/{post_id}", response_model=Dict[str, str], tags=["html"])
 async def put_fieldhtmlhistory(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
