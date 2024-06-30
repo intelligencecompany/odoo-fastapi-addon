@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/ir.cron.trigger", response_model=List[Model.TriggeredactionsModel], tags="[ir]")
+@router.get("/api/ir.cron.trigger", response_model=List[Model.TriggeredactionsModel], tags=['ir'])
 async def get_triggeredactions(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_triggeredactions(
     return JSONResponse(content=results)
 
     
-@router.post("/api/ir.cron.trigger", response_model=Model.TriggeredactionsModel, tags="[ir]")
+@router.post("/api/ir.cron.trigger", response_model=Model.TriggeredactionsModel, tags=['ir'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/ir.cron.trigger/{post_id}", response_model=Dict[str, str], tags="[ir]")
+@router.put("/api/ir.cron.trigger/{post_id}", response_model=Dict[str, str], tags=['ir'])
 async def put_triggeredactions(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -11,7 +11,7 @@ class OpenModel(models.Model):
     status = fields.Boolean(True)
 
     @api.model
-    def action_button_1(self):
+    def action_button_1(self, args):
         # Define action for button 1
         # self.ensure_one()
         fastapi_server.start_fastapi_in_thread()
@@ -19,7 +19,7 @@ class OpenModel(models.Model):
         return True
 
     @api.model
-    def action_button_2(self):
+    def action_button_2(self, args):
         # Define action for button 2
         # self.ensure_one()
         fastapi_server.stop_fastapi()
@@ -27,7 +27,7 @@ class OpenModel(models.Model):
         return True
 
     @api.model
-    def action_button_3(self):
+    def action_button_3(self, args):
         # Define action for button 3
         self.ensure_one()
         self.name = 'Button 3 Clicked'

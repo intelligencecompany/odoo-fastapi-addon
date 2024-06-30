@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/barcode.nomenclature", response_model=List[Model.BarcodeNomenclatureModel], tags="[barcode]")
+@router.get("/api/barcode.nomenclature", response_model=List[Model.BarcodeNomenclatureModel], tags=['barcode'])
 async def get_barcodenomenclature(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_barcodenomenclature(
     return JSONResponse(content=results)
 
     
-@router.post("/api/barcode.nomenclature", response_model=Model.BarcodeNomenclatureModel, tags="[barcode]")
+@router.post("/api/barcode.nomenclature", response_model=Model.BarcodeNomenclatureModel, tags=['barcode'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/barcode.nomenclature/{post_id}", response_model=Dict[str, str], tags="[barcode]")
+@router.put("/api/barcode.nomenclature/{post_id}", response_model=Dict[str, str], tags=['barcode'])
 async def put_barcodenomenclature(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

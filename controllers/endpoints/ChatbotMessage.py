@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/chatbot.message", response_model=List[Model.ChatbotMessageModel], tags="[chatbot]")
+@router.get("/api/chatbot.message", response_model=List[Model.ChatbotMessageModel], tags=['chatbot'])
 async def get_chatbotmessage(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_chatbotmessage(
     return JSONResponse(content=results)
 
     
-@router.post("/api/chatbot.message", response_model=Model.ChatbotMessageModel, tags="[chatbot]")
+@router.post("/api/chatbot.message", response_model=Model.ChatbotMessageModel, tags=['chatbot'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/chatbot.message/{post_id}", response_model=Dict[str, str], tags="[chatbot]")
+@router.put("/api/chatbot.message/{post_id}", response_model=Dict[str, str], tags=['chatbot'])
 async def put_chatbotmessage(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

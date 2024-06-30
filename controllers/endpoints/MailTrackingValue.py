@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/mail.tracking.value", response_model=List[Model.MailTrackingValueModel], tags="[mail]")
+@router.get("/api/mail.tracking.value", response_model=List[Model.MailTrackingValueModel], tags=['mail'])
 async def get_mailtrackingvalue(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_mailtrackingvalue(
     return JSONResponse(content=results)
 
     
-@router.post("/api/mail.tracking.value", response_model=Model.MailTrackingValueModel, tags="[mail]")
+@router.post("/api/mail.tracking.value", response_model=Model.MailTrackingValueModel, tags=['mail'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/mail.tracking.value/{post_id}", response_model=Dict[str, str], tags="[mail]")
+@router.put("/api/mail.tracking.value/{post_id}", response_model=Dict[str, str], tags=['mail'])
 async def put_mailtrackingvalue(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

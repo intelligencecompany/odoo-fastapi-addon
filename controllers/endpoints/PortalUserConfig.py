@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/portal.wizard.user", response_model=List[Model.PortalUserConfigModel], tags="[portal]")
+@router.get("/api/portal.wizard.user", response_model=List[Model.PortalUserConfigModel], tags=['portal'])
 async def get_portaluserconfig(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_portaluserconfig(
     return JSONResponse(content=results)
 
     
-@router.post("/api/portal.wizard.user", response_model=Model.PortalUserConfigModel, tags="[portal]")
+@router.post("/api/portal.wizard.user", response_model=Model.PortalUserConfigModel, tags=['portal'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/portal.wizard.user/{post_id}", response_model=Dict[str, str], tags="[portal]")
+@router.put("/api/portal.wizard.user/{post_id}", response_model=Dict[str, str], tags=['portal'])
 async def put_portaluserconfig(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

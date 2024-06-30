@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/sms.tracker", response_model=List[Model.LinkSMStomailingsmstrackingmodelsModel], tags="[sms]")
+@router.get("/api/sms.tracker", response_model=List[Model.LinkSMStomailingsmstrackingmodelsModel], tags=['sms'])
 async def get_linksmstomailingsmstrackingmodels(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_linksmstomailingsmstrackingmodels(
     return JSONResponse(content=results)
 
     
-@router.post("/api/sms.tracker", response_model=Model.LinkSMStomailingsmstrackingmodelsModel, tags="[sms]")
+@router.post("/api/sms.tracker", response_model=Model.LinkSMStomailingsmstrackingmodelsModel, tags=['sms'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/sms.tracker/{post_id}", response_model=Dict[str, str], tags="[sms]")
+@router.put("/api/sms.tracker/{post_id}", response_model=Dict[str, str], tags=['sms'])
 async def put_linksmstomailingsmstrackingmodels(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

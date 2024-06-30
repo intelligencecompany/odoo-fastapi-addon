@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/product.tag", response_model=List[Model.ProductTagModel], tags="[product]")
+@router.get("/api/product.tag", response_model=List[Model.ProductTagModel], tags=['product'])
 async def get_producttag(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_producttag(
     return JSONResponse(content=results)
 
     
-@router.post("/api/product.tag", response_model=Model.ProductTagModel, tags="[product]")
+@router.post("/api/product.tag", response_model=Model.ProductTagModel, tags=['product'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/product.tag/{post_id}", response_model=Dict[str, str], tags="[product]")
+@router.put("/api/product.tag/{post_id}", response_model=Dict[str, str], tags=['product'])
 async def put_producttag(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

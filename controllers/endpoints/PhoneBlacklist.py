@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/phone.blacklist", response_model=List[Model.PhoneBlacklistModel], tags="[phone]")
+@router.get("/api/phone.blacklist", response_model=List[Model.PhoneBlacklistModel], tags=['phone'])
 async def get_phoneblacklist(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_phoneblacklist(
     return JSONResponse(content=results)
 
     
-@router.post("/api/phone.blacklist", response_model=Model.PhoneBlacklistModel, tags="[phone]")
+@router.post("/api/phone.blacklist", response_model=Model.PhoneBlacklistModel, tags=['phone'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/phone.blacklist/{post_id}", response_model=Dict[str, str], tags="[phone]")
+@router.put("/api/phone.blacklist/{post_id}", response_model=Dict[str, str], tags=['phone'])
 async def put_phoneblacklist(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

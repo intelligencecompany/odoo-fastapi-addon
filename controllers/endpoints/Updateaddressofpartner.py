@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/snailmail.letter.missing.required.fields", response_model=List[Model.UpdateaddressofpartnerModel], tags="[snailmail]")
+@router.get("/api/snailmail.letter.missing.required.fields", response_model=List[Model.UpdateaddressofpartnerModel], tags=['snailmail'])
 async def get_updateaddressofpartner(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_updateaddressofpartner(
     return JSONResponse(content=results)
 
     
-@router.post("/api/snailmail.letter.missing.required.fields", response_model=Model.UpdateaddressofpartnerModel, tags="[snailmail]")
+@router.post("/api/snailmail.letter.missing.required.fields", response_model=Model.UpdateaddressofpartnerModel, tags=['snailmail'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/snailmail.letter.missing.required.fields/{post_id}", response_model=Dict[str, str], tags="[snailmail]")
+@router.put("/api/snailmail.letter.missing.required.fields/{post_id}", response_model=Dict[str, str], tags=['snailmail'])
 async def put_updateaddressofpartner(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

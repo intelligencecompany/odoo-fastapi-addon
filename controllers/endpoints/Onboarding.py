@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/onboarding.onboarding", response_model=List[Model.OnboardingModel], tags="[onboarding]")
+@router.get("/api/onboarding.onboarding", response_model=List[Model.OnboardingModel], tags=['onboarding'])
 async def get_onboarding(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_onboarding(
     return JSONResponse(content=results)
 
     
-@router.post("/api/onboarding.onboarding", response_model=Model.OnboardingModel, tags="[onboarding]")
+@router.post("/api/onboarding.onboarding", response_model=Model.OnboardingModel, tags=['onboarding'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/onboarding.onboarding/{post_id}", response_model=Dict[str, str], tags="[onboarding]")
+@router.put("/api/onboarding.onboarding/{post_id}", response_model=Dict[str, str], tags=['onboarding'])
 async def put_onboarding(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/discuss.channel", response_model=List[Model.DiscussionChannelModel], tags="[discuss]")
+@router.get("/api/discuss.channel", response_model=List[Model.DiscussionChannelModel], tags=['discuss'])
 async def get_discussionchannel(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_discussionchannel(
     return JSONResponse(content=results)
 
     
-@router.post("/api/discuss.channel", response_model=Model.DiscussionChannelModel, tags="[discuss]")
+@router.post("/api/discuss.channel", response_model=Model.DiscussionChannelModel, tags=['discuss'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/discuss.channel/{post_id}", response_model=Dict[str, str], tags="[discuss]")
+@router.put("/api/discuss.channel/{post_id}", response_model=Dict[str, str], tags=['discuss'])
 async def put_discussionchannel(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 

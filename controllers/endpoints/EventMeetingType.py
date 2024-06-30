@@ -24,7 +24,7 @@ def get_connection(uid: int, api_key: str):
     models = xmlrpc.client.ServerProxy(f'{ODOO_URL}/xmlrpc/2/object')
     return uid, models
 
-@router.get("/api/calendar.event.type", response_model=List[Model.EventMeetingTypeModel], tags="[calendar]")
+@router.get("/api/calendar.event.type", response_model=List[Model.EventMeetingTypeModel], tags=['calendar'])
 async def get_eventmeetingtype(
         fields:str = '', 
         offset:int = 0, 
@@ -53,7 +53,7 @@ async def get_eventmeetingtype(
     return JSONResponse(content=results)
 
     
-@router.post("/api/calendar.event.type", response_model=Model.EventMeetingTypeModel, tags="[calendar]")
+@router.post("/api/calendar.event.type", response_model=Model.EventMeetingTypeModel, tags=['calendar'])
 async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
@@ -75,7 +75,7 @@ async def post_blog(data:dict, api_key:str = Depends(api_key_header)):
     return JSONResponse(content=results)
 
     
-@router.put("/api/calendar.event.type/{post_id}", response_model=Dict[str, str], tags="[calendar]")
+@router.put("/api/calendar.event.type/{post_id}", response_model=Dict[str, str], tags=['calendar'])
 async def put_eventmeetingtype(post_id:int, data:dict, api_key:str = Depends(api_key_header)):
     uid, models = get_connection(api_key)
 
