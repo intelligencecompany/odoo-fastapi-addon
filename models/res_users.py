@@ -10,7 +10,6 @@ class OpenModel(models.Model):
     description = fields.Text('Description')
     status = fields.Boolean(True)
 
-    @api.multi
     def action_button_1(self, args):
         # Define action for button 1
         self.ensure_one()
@@ -18,7 +17,6 @@ class OpenModel(models.Model):
     # self.status = True
         return True
 
-    @api.multi
     def action_button_2(self, args):
         # Define action for button 2
         self.ensure_one()
@@ -26,7 +24,6 @@ class OpenModel(models.Model):
         # self.status = False
         return True
 
-    @api.multi
     def action_button_3(self, args):
         # Define action for button 3
         self.ensure_one()
